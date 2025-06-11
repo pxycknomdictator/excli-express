@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { cwd } from "node:process";
 import { existsSync, mkdirSync, cpSync } from "node:fs";
-import { intro, text, select, isCancel } from "@clack/prompts";
+import { intro, text, select, multiselect, isCancel } from "@clack/prompts";
 import { terminate } from "./utils.js";
 import { directories } from "./options.js";
 
@@ -48,4 +48,14 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     const directory = join(sourceDir, dir);
     mkdirSync(directory, { recursive: true });
   }
+
+  const devTools = await multiselect({
+    message: "🛠️ Setting up core development tools...",
+    options: [
+      { label: "💅 Prettier", value: "prettier" },
+      { label: "🐳 Docker (deployment + database)", value: "docker" },
+    ],
+  });
+
+  if (isCancel(devTools)) terminate("Process cancelled ❌");
 })();
