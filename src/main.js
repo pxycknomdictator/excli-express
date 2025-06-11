@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { cwd } from "node:process";
 import { existsSync, mkdirSync } from "node:fs";
-import { intro, text, isCancel } from "@clack/prompts";
+import { intro, text, select, isCancel } from "@clack/prompts";
 import { terminate } from "./utils.js";
 
 console.clear();
@@ -20,4 +20,17 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
 
   const condition = directory !== undefined && !existsSync(targetDir);
   if (condition) mkdirSync(targetDir, { recursive: true });
+
+  const language = await select({
+    message: "Pick your coding poison:",
+    options: [
+      { label: "TypeScript", value: "ts", hint: "Recommended ✨" },
+      { label: "JavaScript", value: "js", hint: "Standard 📜" },
+    ],
+  });
+
+  if (isCancel(language)) terminate("Process cancelled ❌");
+
+  const sourceDir = join(targetDir, "src");
+  if (!existsSync(sourceDir)) mkdirSync(sourceDir, { recursive: true });
 })();
