@@ -1,6 +1,6 @@
 import { join } from "node:path";
 import { cwd } from "node:process";
-import { existsSync, mkdirSync } from "node:fs";
+import { existsSync, mkdirSync, cpSync } from "node:fs";
 import { intro, text, select, isCancel } from "@clack/prompts";
 import { terminate } from "./utils.js";
 
@@ -32,5 +32,9 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   if (isCancel(language)) terminate("Process cancelled ❌");
 
   const sourceDir = join(targetDir, "src");
-  if (!existsSync(sourceDir)) mkdirSync(sourceDir, { recursive: true });
+
+  if (!existsSync(sourceDir)) {
+    const template = join(rootDir, "templates", language);
+    cpSync(template, targetDir, { recursive: true });
+  }
 })();
