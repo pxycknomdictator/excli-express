@@ -3,6 +3,7 @@ import { cwd } from "node:process";
 import { existsSync, mkdirSync, cpSync } from "node:fs";
 import { intro, text, select, isCancel } from "@clack/prompts";
 import { terminate } from "./utils.js";
+import { directories } from "./options.js";
 
 console.clear();
 intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
@@ -34,7 +35,17 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   const sourceDir = join(targetDir, "src");
 
   if (!existsSync(sourceDir)) {
+    const publicDir = join(targetDir, "public");
     const template = join(rootDir, "templates", language);
+
+    mkdirSync(publicDir, { recursive: true });
     cpSync(template, targetDir, { recursive: true });
+  }
+
+  for (let dir of directories) {
+    if (language !== "ts" && dir === "types") continue;
+
+    const directory = join(sourceDir, dir);
+    mkdirSync(directory, { recursive: true });
   }
 })();
