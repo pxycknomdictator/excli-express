@@ -5,7 +5,12 @@ import { intro, text, select } from "@clack/prompts";
 import { multiselect, isCancel } from "@clack/prompts";
 import { hasPkManager } from "./scripts.js";
 import { git, docker, prettier, env } from "./options.js";
-import { terminate, directories, packageJsonInit } from "./utils.js";
+import {
+  terminate,
+  directories,
+  packageJsonInit,
+  installPackages,
+} from "./utils.js";
 
 console.clear();
 intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
@@ -121,4 +126,5 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   }
 
   await packageJsonInit(pkgManager, targetDir, language);
+  await installPackages(pkgManager, targetDir, language, devTools);
 })();

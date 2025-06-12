@@ -49,3 +49,26 @@ export async function packageJsonInit(pkgManager, targetDir, language) {
     console.error(`❌ ${pkgManager} command failed: ${err.message}`);
   }
 }
+
+export async function installPackages(
+  pkgManager,
+  targetDir,
+  language,
+  devTools,
+) {
+  let packages = ["express"];
+  let devPackages = [];
+
+  if (devTools.includes("prettier")) devPackages.push("prettier");
+
+  if (language === "ts") {
+    devPackages.push("@types/node", "@types/express", "typescript");
+  }
+
+  const installCmd = pkgManager === "npm" ? "install" : "add";
+  await fireShell(pkgManager, [installCmd, ...packages], targetDir);
+
+  if (devPackages.length > 0) {
+    await fireShell(pkgManager, [installCmd, ...devPackages, "-D"], targetDir);
+  }
+}
