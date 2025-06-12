@@ -57,5 +57,18 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     ],
   });
 
+  if (devTools.includes("docker")) {
+    const db = await select({
+      message: "Alright, pick your poison",
+      options: [
+        { label: "MySQL", value: "mysql", hint: "Old reliable 🛠️" },
+        { label: "PostgreSQL", value: "postgres", hint: "Feature beast 🦁" },
+        { label: "MongoDB", value: "mongodb", hint: "Flexible chaos ✨" },
+      ],
+    });
+
+    if (isCancel(db)) terminate("Process cancelled ❌");
+  }
+
   if (isCancel(devTools)) terminate("Process cancelled ❌");
 })();
