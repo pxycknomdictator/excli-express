@@ -9,12 +9,6 @@ export const directories = [
   "models",
 ];
 
-export const configurationFiles = [
-  ".prettierrc",
-  ".prettierignore",
-  ".gitignore",
-];
-
 export function dockerMongodb(name) {
   const dockerComposeConfig = `
 services:
