@@ -3,6 +3,7 @@ import { join, basename } from "node:path";
 import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
 import { intro, text, select } from "@clack/prompts";
 import { multiselect, isCancel } from "@clack/prompts";
+import { hasPkManager } from "./scripts.js";
 import { git, docker, prettier, env } from "./options.js";
 import { terminate, directories } from "./utils.js";
 
@@ -71,6 +72,12 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   });
 
   if (isCancel(pkgManager)) terminate("Process cancelled ❌");
+
+  if (!hasPkManager(pkgManager)) {
+    terminate(
+      `❌ ${pkgManager} is not installed on your system! Please install it first.`,
+    );
+  }
 
   if (!existsSync(targetDir)) mkdirSync(targetDir, { recursive: true });
 
