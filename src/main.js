@@ -3,7 +3,7 @@ import { join, basename } from "node:path";
 import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
 import { intro, text, select } from "@clack/prompts";
 import { multiselect, isCancel } from "@clack/prompts";
-import { git, docker, prettier } from "./options.js";
+import { git, docker, prettier, env } from "./options.js";
 import { terminate, directories } from "./utils.js";
 
 console.clear();
@@ -70,6 +70,11 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   mkdirSync(publicDir, { recursive: true });
   cpSync(template, targetDir, { recursive: true });
 
+  for (let { file, variables } of env()) {
+    const fullPath = join(targetDir, file);
+    writeFileSync(fullPath, variables);
+  }
+
   for (let dir of directories) {
     if (language !== "ts" && dir === "types") continue;
     const directoryPath = join(sourceDir, dir);
@@ -77,9 +82,7 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   }
 
   if (devTools.includes("docker") && db) {
-    const docks = docker(db, dirName);
-
-    for (let { content, filename } of docks) {
+    for (let { content, filename } of docker(db, dirName)) {
       const fullPath = join(targetDir, filename);
       writeFileSync(fullPath, content);
     }
@@ -92,9 +95,7 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   }
 
   if (devTools.includes("prettier")) {
-    const configurations = prettier();
-
-    for (let { content, filename } of configurations) {
+    for (let { content, filename } of prettier()) {
       const fullPath = join(targetDir, filename);
       writeFileSync(fullPath, content);
     }

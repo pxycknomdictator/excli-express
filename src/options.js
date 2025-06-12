@@ -117,3 +117,26 @@ compose.yaml
     },
   ];
 }
+
+export function env() {
+  const enVariables = `NODE_ENV=
+PORT=
+DATABASE_URL=
+ARGON2_ROUND=
+JWT_ACCESS_TOKEN_SECRET_KEY=
+JWT_REFRESH_TOKEN_SECRET_KEY=
+JWT_ACCESS_TOKEN_EXPIRY_TIME=
+JWT_REFRESH_TOKEN_EXPIRY_TIME=
+CLIENT_ORIGIN=
+`;
+  return [
+    {
+      variables: enVariables,
+      file: ".env",
+    },
+    {
+      variables: enVariables,
+      file: ".env.example",
+    },
+  ];
+}
