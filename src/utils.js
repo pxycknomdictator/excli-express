@@ -1,5 +1,16 @@
 import { cancel } from "@clack/prompts";
-import { dockerMongodb, dockerMysql, dockerPostgres } from "./options.js";
+import { dockerMongodb, dockerMysql, dockerPostgres } from "./docker.js";
+
+export const directories = [
+  "db",
+  "controllers",
+  "routes",
+  "middlewares",
+  "services",
+  "types",
+  "utils",
+  "models",
+];
 
 export function terminate(message) {
   cancel(message);

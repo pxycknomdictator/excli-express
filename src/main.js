@@ -3,13 +3,8 @@ import { join, basename } from "node:path";
 import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
 import { intro, text, select } from "@clack/prompts";
 import { multiselect, isCancel } from "@clack/prompts";
-import {
-  directories,
-  git_configs,
-  prettierConfigs,
-  dockerConfigs,
-} from "./options.js";
-import { database, terminate } from "./utils.js";
+import { git, docker, prettier } from "./options.js";
+import { database, terminate, directories } from "./utils.js";
 
 console.clear();
 intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
@@ -85,9 +80,9 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     const config = database(db, dirName);
     if (config?.trim()) {
       const docker_compose = join(targetDir, "compose.yaml");
-      const docker = dockerConfigs();
+      const docks = docker();
 
-      docker.forEach((file) => {
+      docks.forEach((file) => {
         const fullPath = join(targetDir, `${file.filename}`);
         writeFileSync(fullPath, file.content);
       });
@@ -98,12 +93,12 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
 
   if (devTools.includes("git")) {
     const gitPath = join(targetDir, ".gitignore");
-    const { gitignoreContent } = git_configs();
+    const { gitignoreContent } = git();
     writeFileSync(gitPath, gitignoreContent);
   }
 
   if (devTools.includes("prettier")) {
-    const configurations = prettierConfigs();
+    const configurations = prettier();
     for (let config of configurations) {
       const configs = join(targetDir, config.filename);
       writeFileSync(configs, config.content);
