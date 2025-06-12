@@ -2,7 +2,7 @@ import { cwd } from "node:process";
 import { join, basename } from "node:path";
 import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
 import { intro, text, select, multiselect, isCancel } from "@clack/prompts";
-import { directories } from "./options.js";
+import { directories, git_configs, prettierConfigs } from "./options.js";
 import { database, terminate } from "./utils.js";
 
 console.clear();
@@ -55,6 +55,7 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     options: [
       { label: "💅 Prettier", value: "prettier" },
       { label: "🐳 Docker (deployment + database)", value: "docker" },
+      { label: "🔨 Git", value: "git" },
     ],
   });
   if (isCancel(devTools)) terminate("Process cancelled ❌");
@@ -75,6 +76,22 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     if (config?.trim()) {
       const docker_compose = join(targetDir, "compose.yaml");
       writeFileSync(docker_compose, config);
+    }
+  }
+
+  if (devTools.includes("git")) {
+    const gitPath = join(targetDir, ".gitignore");
+    const { gitignoreContent } = git_configs();
+
+    writeFileSync(gitPath, gitignoreContent);
+  }
+
+  if (devTools.includes("prettier")) {
+    const configurations = prettierConfigs();
+
+    for (let config of configurations) {
+      const configs = join(targetDir, config.filename);
+      writeFileSync(configs, config.content);
     }
   }
 })();

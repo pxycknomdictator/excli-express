@@ -9,6 +9,12 @@ export const directories = [
   "models",
 ];
 
+export const configurationFiles = [
+  ".prettierrc",
+  ".prettierignore",
+  ".gitignore",
+];
+
 export function dockerMongodb(name) {
   const dockerComposeConfig = `
 services:
@@ -85,4 +91,68 @@ volumes:
   mysql_data:
 `;
   return dockerComposeConfig.trim();
+}
+
+export function prettierConfigs() {
+  const prettierrcContent = `
+{
+  "semi": true,
+  "singleQuote": false,
+  "tabWidth": 2
+}
+`;
+
+  const prettierignoreContent = `
+build/
+dist/
+out/
+output/
+
+node_modules/
+
+.env
+.env.*.local
+.env.development
+.env.test
+.env.production
+.env.local
+.env.example
+
+.vscode/
+.idea/
+
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+`;
+
+  return [
+    {
+      filename: ".prettierrc",
+      content: prettierrcContent.trim(),
+    },
+    {
+      filename: ".prettierignore",
+      content: prettierignoreContent.trim(),
+    },
+  ];
+}
+
+export function git_configs() {
+  const gitignoreContent = `node_modules
+.vscode
+dist
+output
+.env
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+`;
+  return {
+    gitignoreContent,
+  };
 }
