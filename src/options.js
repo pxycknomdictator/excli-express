@@ -34,6 +34,32 @@ volumes:
   return dockerComposeConfig.trim();
 }
 
+export function dockerPostgres(name) {
+  const dockerComposeConfig = `
+services:
+  postgres_db:
+    image: postgres:latest
+    container_name: ${name}
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${name}      
+      - POSTGRES_USER=noman         
+      - POSTGRES_PASSWORD=root      
+
+networks:
+  default:
+    driver: bridge 
+
+volumes:
+  postgres_data: 
+`;
+  return dockerComposeConfig.trim();
+}
+
 export function dockerMysql(name) {
   const dockerComposeConfig = `
 services:
