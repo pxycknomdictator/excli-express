@@ -2,8 +2,13 @@ import { cwd } from "node:process";
 import { join, basename } from "node:path";
 import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
 import { intro, text, select } from "@clack/prompts";
-import { multiselect, isCancel, cancel } from "@clack/prompts";
-import { directories, git_configs, prettierConfigs } from "./options.js";
+import { multiselect, isCancel } from "@clack/prompts";
+import {
+  directories,
+  git_configs,
+  prettierConfigs,
+  dockerConfigs,
+} from "./options.js";
 import { database, terminate } from "./utils.js";
 
 console.clear();
@@ -80,6 +85,13 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     const config = database(db, dirName);
     if (config?.trim()) {
       const docker_compose = join(targetDir, "compose.yaml");
+      const docker = dockerConfigs();
+
+      docker.forEach((file) => {
+        const fullPath = join(targetDir, `${file.filename}`);
+        writeFileSync(fullPath, file.content);
+      });
+
       writeFileSync(docker_compose, config);
     }
   }
