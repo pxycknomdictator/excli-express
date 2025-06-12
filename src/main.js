@@ -61,6 +61,17 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     if (isCancel(db)) terminate("Process cancelled ❌");
   }
 
+  const pkgManager = await select({
+    message: "Which package manager do you want to use?",
+    options: [
+      { label: "📦 npm", value: "npm", hint: "Slow & reliable 🐢" },
+      { label: "🐱 yarn", value: "yarn", hint: "Cute & capable 🧶" },
+      { label: "⚡ pnpm", value: "pnpm", hint: "Blazing fast 🚀" },
+    ],
+  });
+
+  if (isCancel(pkgManager)) terminate("Process cancelled ❌");
+
   if (!existsSync(targetDir)) mkdirSync(targetDir, { recursive: true });
 
   const sourceDir = join(targetDir, "src");
