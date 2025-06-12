@@ -1,3 +1,5 @@
+import { database } from "./utils.js";
+
 export function prettier() {
   const prettierrcContent = `
 {
@@ -62,7 +64,8 @@ yarn-error.log*
   };
 }
 
-export function docker() {
+export function docker(db, dirName) {
+  const composeFileContent = database(db, dirName);
   const dockerfileContent = "";
   const dockerignoreContent = `
 node_modules
@@ -107,6 +110,10 @@ compose.yaml
     {
       filename: ".dockerignore",
       content: dockerignoreContent.trim(),
+    },
+    {
+      filename: "compose.yaml",
+      content: composeFileContent.trim(),
     },
   ];
 }

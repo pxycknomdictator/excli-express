@@ -4,7 +4,7 @@ import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
 import { intro, text, select } from "@clack/prompts";
 import { multiselect, isCancel } from "@clack/prompts";
 import { git, docker, prettier } from "./options.js";
-import { database, terminate, directories } from "./utils.js";
+import { terminate, directories } from "./utils.js";
 
 console.clear();
 intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
@@ -77,17 +77,11 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   }
 
   if (devTools.includes("docker") && db) {
-    const config = database(db, dirName);
-    if (config?.trim()) {
-      const docker_compose = join(targetDir, "compose.yaml");
-      const docks = docker();
+    const docks = docker(db, dirName);
 
-      docks.forEach((file) => {
-        const fullPath = join(targetDir, `${file.filename}`);
-        writeFileSync(fullPath, file.content);
-      });
-
-      writeFileSync(docker_compose, config);
+    for (let { content, filename } of docks) {
+      const fullPath = join(targetDir, filename);
+      writeFileSync(fullPath, content);
     }
   }
 
@@ -99,9 +93,10 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
 
   if (devTools.includes("prettier")) {
     const configurations = prettier();
-    for (let config of configurations) {
-      const configs = join(targetDir, config.filename);
-      writeFileSync(configs, config.content);
+
+    for (let { content, filename } of configurations) {
+      const fullPath = join(targetDir, filename);
+      writeFileSync(fullPath, content);
     }
   }
 })();
