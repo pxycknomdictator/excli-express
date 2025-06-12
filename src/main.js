@@ -1,16 +1,12 @@
 import { cwd } from "node:process";
 import { join, basename } from "node:path";
 import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
+import { spinner, isCancel, multiselect } from "@clack/prompts";
 import { intro, text, select } from "@clack/prompts";
-import { multiselect, isCancel } from "@clack/prompts";
 import { hasPkManager } from "./scripts.js";
+import { installPackages, sleep } from "./utils.js";
 import { git, docker, prettier, env } from "./options.js";
-import {
-  terminate,
-  directories,
-  packageJsonInit,
-  installPackages,
-} from "./utils.js";
+import { terminate, directories, packageJsonInit } from "./utils.js";
 
 console.clear();
 intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
@@ -85,6 +81,8 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     );
   }
 
+  const s1 = spinner();
+  s1.start("📁 Setting up directory structure...");
   if (!existsSync(targetDir)) mkdirSync(targetDir, { recursive: true });
 
   const sourceDir = join(targetDir, "src");
@@ -105,26 +103,60 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     mkdirSync(directoryPath, { recursive: true });
   }
 
-  if (devTools.includes("docker") && db) {
-    for (let { content, filename } of docker(db, dirName)) {
-      const fullPath = join(targetDir, filename);
-      writeFileSync(fullPath, content);
-    }
-  }
-
-  if (devTools.includes("git")) {
-    const gitPath = join(targetDir, ".gitignore");
-    const { gitignoreContent } = git();
-    writeFileSync(gitPath, gitignoreContent);
-  }
+  await sleep(1000);
+  s1.stop("✅ Directory structure created.");
 
   if (devTools.includes("prettier")) {
+    const s2 = spinner();
+    s2.start("💅 Adding Prettier config...");
+
     for (let { content, filename } of prettier()) {
       const fullPath = join(targetDir, filename);
       writeFileSync(fullPath, content);
     }
+
+    await sleep(1000);
+    s2.stop("✅ Prettier configured.");
   }
 
+  if (devTools.includes("git")) {
+    const s3 = spinner();
+    s3.start("🔨 Creating .gitignore...");
+
+    const gitPath = join(targetDir, ".gitignore");
+    const { gitignoreContent } = git();
+    writeFileSync(gitPath, gitignoreContent);
+
+    await sleep(1000);
+    s3.stop("✅ .gitignore file created.");
+  }
+
+  if (devTools.includes("docker") && db) {
+    const s4 = spinner();
+    s4.start("🐳 Generating Docker files...");
+
+    for (let { content, filename } of docker(db, dirName)) {
+      const fullPath = join(targetDir, filename);
+      writeFileSync(fullPath, content);
+    }
+
+    await sleep(1000);
+    s4.stop("✅ Docker files created.");
+  }
+
+  const s5 = spinner();
+  s5.start("📦 Initializing package.json...");
+
   await packageJsonInit(pkgManager, targetDir, language);
+
+  await sleep(1000);
+  s5.stop("✅ package.json initialized.");
+
+  const s6 = spinner({ indicator: "timer" });
+  s6.start("📥 Installing dependencies...");
+
   await installPackages(pkgManager, targetDir, language, devTools);
+
+  await sleep(1000);
+  s6.stop("✅ Dependencies installed successfully! in:");
 })();

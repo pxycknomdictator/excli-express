@@ -15,7 +15,7 @@ export function fireShell(command, args, targetDir = process.cwd()) {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, {
       cwd: targetDir,
-      stdio: "inherit",
+      stdio: "ignore",
       shell: true,
     });
 
