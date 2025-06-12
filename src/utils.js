@@ -1,4 +1,5 @@
 import { cancel } from "@clack/prompts";
+import { fireShell, modifyPackageJson } from "./scripts.js";
 import { dockerMongodb, dockerMysql, dockerPostgres } from "./docker.js";
 
 export const directories = [
@@ -31,5 +32,20 @@ export function database(db, name) {
       return dockerMysql(name);
     default:
       return null;
+  }
+}
+
+export async function packageJsonInit(pkgManager, targetDir, language) {
+  try {
+    let args = [];
+
+    if (pkgManager === "npm") args = ["init", "-y"];
+    else if (pkgManager === "pnpm" || pkgManager === "yarn") args = ["init"];
+    else throw new Error("Unsupported package manager");
+
+    await fireShell(pkgManager, args, targetDir);
+    modifyPackageJson(targetDir, language);
+  } catch (err) {
+    console.error(`❌ ${pkgManager} command failed: ${err.message}`);
   }
 }

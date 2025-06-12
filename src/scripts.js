@@ -38,5 +38,4 @@ export function modifyPackageJson(targetDir, language) {
   pkg.main = `src/main.${language}`;
 
   writeFileSync(fullPath, JSON.stringify(pkg, null, 2));
-  console.log("✅ package.json modified successfully");
 }

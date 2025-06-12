@@ -3,9 +3,9 @@ import { join, basename } from "node:path";
 import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
 import { intro, text, select } from "@clack/prompts";
 import { multiselect, isCancel } from "@clack/prompts";
-import { fireShell, hasPkManager, modifyPackageJson } from "./scripts.js";
+import { hasPkManager } from "./scripts.js";
 import { git, docker, prettier, env } from "./options.js";
-import { terminate, directories } from "./utils.js";
+import { terminate, directories, packageJsonInit } from "./utils.js";
 
 console.clear();
 intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
@@ -15,6 +15,7 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     message: "What should we name your server directory? 🎯",
     placeholder: "server (Hit Enter for current directory)",
   });
+
   if (isCancel(directory)) terminate("Process cancelled ❌");
 
   const rootDir = cwd();
@@ -119,18 +120,5 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     }
   }
 
-  (async () => {
-    try {
-      let args = [];
-
-      if (pkgManager === "npm") args = ["init", "-y"];
-      else if (pkgManager === "pnpm" || pkgManager === "yarn") args = ["init"];
-      else throw new Error("Unsupported package manager");
-
-      await fireShell(pkgManager, args, targetDir);
-      modifyPackageJson(targetDir, language);
-    } catch (err) {
-      console.error(`❌ ${pkgManager} command failed: ${err.message}`);
-    }
-  })();
+  await packageJsonInit(pkgManager, targetDir, language);
 })();
