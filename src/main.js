@@ -3,7 +3,7 @@ import { join, basename } from "node:path";
 import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
 import { intro, text, select } from "@clack/prompts";
 import { multiselect, isCancel } from "@clack/prompts";
-import { hasPkManager } from "./scripts.js";
+import { fireShell, hasPkManager } from "./scripts.js";
 import { git, docker, prettier, env } from "./options.js";
 import { terminate, directories } from "./utils.js";
 
@@ -117,5 +117,16 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
       const fullPath = join(targetDir, filename);
       writeFileSync(fullPath, content);
     }
+  }
+  try {
+    let args = [];
+
+    if (pkgManager === "npm") args = ["init", "-y"];
+    else if (pkgManager === "pnpm" || pkgManager === "yarn") args = ["init"];
+    else throw new Error("Unsupported package manager");
+
+    fireShell(pkgManager, args, targetDir);
+  } catch (err) {
+    console.error(`❌ ${pkgManager} command failed: ${err.message}`);
   }
 })();
