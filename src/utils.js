@@ -1,5 +1,5 @@
 import { cancel } from "@clack/prompts";
-import { dockerMongodb } from "./options.js";
+import { dockerMongodb, dockerMysql } from "./options.js";
 
 export function terminate(message) {
   cancel(message);
@@ -17,7 +17,7 @@ export function database(db, name) {
     case "postgres":
       return null;
     case "mysql":
-      return null;
+      return dockerMysql(name);
     default:
       return null;
   }

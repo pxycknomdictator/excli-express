@@ -33,3 +33,30 @@ volumes:
 `;
   return dockerComposeConfig.trim();
 }
+
+export function dockerMysql(name) {
+  const dockerComposeConfig = `
+services:
+  mysql:
+    image: mysql:latest
+    container_name: ${name}
+    ports:
+      - "3306:3306"
+    restart: always
+    volumes:
+      - mysql_data:/data/db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root 
+      - MYSQL_USER=noman          
+      - MYSQL_DATABASE=${name}   
+      - MYSQL_PASSWORD=root123       
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  mysql_data:
+`;
+  return dockerComposeConfig.trim();
+}
