@@ -1,9 +1,9 @@
-import { join } from "node:path";
 import { cwd } from "node:process";
-import { existsSync, mkdirSync, cpSync } from "node:fs";
+import { join, basename } from "node:path";
+import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
 import { intro, text, select, multiselect, isCancel } from "@clack/prompts";
-import { terminate } from "./utils.js";
 import { directories } from "./options.js";
+import { database, terminate } from "./utils.js";
 
 console.clear();
 intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
@@ -18,6 +18,7 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
 
   const rootDir = cwd();
   const targetDir = !directory?.trim() ? rootDir : join(rootDir, directory);
+  const dirName = basename(targetDir) || "container_app";
 
   const condition = directory !== undefined && !existsSync(targetDir);
   if (condition) mkdirSync(targetDir, { recursive: true });
@@ -56,19 +57,24 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
       { label: "🐳 Docker (deployment + database)", value: "docker" },
     ],
   });
+  if (isCancel(devTools)) terminate("Process cancelled ❌");
 
   if (devTools.includes("docker")) {
     const db = await select({
       message: "Alright, pick your poison",
       options: [
-        { label: "MySQL", value: "mysql", hint: "Old reliable 🛠️" },
-        { label: "PostgreSQL", value: "postgres", hint: "Feature beast 🦁" },
-        { label: "MongoDB", value: "mongodb", hint: "Flexible chaos ✨" },
+        { label: "🐬 MySQL", value: "mysql", hint: "Old reliable 🛠️" },
+        { label: "🐘 PostgreSQL", value: "postgres", hint: "Feature beast 🦁" },
+        { label: "🍃 MongoDB", value: "mongodb", hint: "Flexible chaos ✨" },
       ],
     });
 
     if (isCancel(db)) terminate("Process cancelled ❌");
-  }
+    const config = database(db, dirName);
 
-  if (isCancel(devTools)) terminate("Process cancelled ❌");
+    if (config?.trim()) {
+      const docker_compose = join(targetDir, "compose.yaml");
+      writeFileSync(docker_compose, config);
+    }
+  }
 })();

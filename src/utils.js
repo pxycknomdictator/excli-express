@@ -1,4 +1,5 @@
 import { cancel } from "@clack/prompts";
+import { dockerMongodb } from "./options.js";
 
 export function terminate(message) {
   cancel(message);
@@ -7,4 +8,17 @@ export function terminate(message) {
 
 export function sleep(timer = 1500) {
   return new Promise((r) => setTimeout(r, timer));
+}
+
+export function database(db, name) {
+  switch (db) {
+    case "mongodb":
+      return dockerMongodb(name);
+    case "postgres":
+      return null;
+    case "mysql":
+      return null;
+    default:
+      return null;
+  }
 }
