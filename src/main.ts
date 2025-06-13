@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 import { cwd } from "node:process";
-import { join, basename } from "node:path";
+import { fileURLToPath } from "node:url";
+import { join, basename, dirname } from "node:path";
 import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
 import { spinner, isCancel, multiselect } from "@clack/prompts";
 import { intro, text, select, outro, note } from "@clack/prompts";
@@ -9,6 +10,9 @@ import { hasPkManager } from "./scripts.js";
 import { installPackages, sleep } from "./utils.js";
 import { git, docker, prettier, env } from "./options.js";
 import { terminate, directories, packageJsonInit } from "./utils.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 console.clear();
 intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
@@ -90,7 +94,9 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
 
   const sourceDir = join(targetDir, "src");
   const publicDir = join(targetDir, "public");
-  const template = join(rootDir, "templates", language);
+
+  const template = join(__dirname, "../templates", language);
+  if (!existsSync(template)) terminate(`❌ Template not found at: ${template}`);
 
   mkdirSync(publicDir, { recursive: true });
   cpSync(template, targetDir, { recursive: true });
