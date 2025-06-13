@@ -79,7 +79,7 @@ yarn-error.log*
   };
 }
 
-export function docker(db, dirName) {
+export function docker(db: string, dirName: string) {
   const composeFileContent = database(db, dirName);
   const dockerfileContent = "";
   const dockerignoreContent = `
@@ -128,7 +128,7 @@ compose.yaml
     },
     {
       filename: "compose.yaml",
-      content: composeFileContent.trim(),
+      content: composeFileContent?.trim(),
     },
   ];
 }

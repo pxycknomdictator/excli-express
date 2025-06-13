@@ -2,7 +2,7 @@ import { cancel } from "@clack/prompts";
 import { fireShell, modifyPackageJson } from "./scripts.js";
 import { dockerMongodb, dockerMysql, dockerPostgres } from "./docker.js";
 
-export const directories = [
+export const directories: string[] = [
   "db",
   "controllers",
   "routes",
@@ -13,16 +13,16 @@ export const directories = [
   "models",
 ];
 
-export function terminate(message) {
+export function terminate(message: string) {
   cancel(message);
   process.exit(0);
 }
 
-export function sleep(timer = 1500) {
+export function sleep(timer: number = 1500) {
   return new Promise((r) => setTimeout(r, timer));
 }
 
-export function database(db, name) {
+export function database(db: string, name: string) {
   switch (db) {
     case "mongodb":
       return dockerMongodb(name);
@@ -35,9 +35,13 @@ export function database(db, name) {
   }
 }
 
-export async function packageJsonInit(pkgManager, targetDir, language) {
+export async function packageJsonInit(
+  pkgManager: string,
+  targetDir: string,
+  language: string,
+) {
   try {
-    let args = [];
+    let args: string[] = [];
 
     if (pkgManager === "npm") args = ["init", "-y"];
     else if (pkgManager === "pnpm" || pkgManager === "yarn") args = ["init"];
@@ -45,19 +49,19 @@ export async function packageJsonInit(pkgManager, targetDir, language) {
 
     await fireShell(pkgManager, args, targetDir);
     modifyPackageJson(targetDir, language);
-  } catch (err) {
-    console.error(`❌ ${pkgManager} command failed: ${err.message}`);
+  } catch (err: any) {
+    console.error(`❌ ${pkgManager} command failed: ${err?.message}`);
   }
 }
 
 export async function installPackages(
-  pkgManager,
-  targetDir,
-  language,
-  devTools,
+  pkgManager: string,
+  targetDir: string,
+  language: string,
+  devTools: string[],
 ) {
-  let packages = ["express"];
-  let devPackages = [];
+  let packages: string[] = ["express"];
+  let devPackages: string[] = [];
 
   if (devTools.includes("prettier")) devPackages.push("prettier");
 

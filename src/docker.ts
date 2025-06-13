@@ -1,4 +1,4 @@
-export function dockerMongodb(name) {
+export function dockerMongodb(name: string) {
   const dockerComposeConfig = `
 services:
   mongodb:
@@ -23,7 +23,7 @@ volumes:
   return dockerComposeConfig.trim();
 }
 
-export function dockerPostgres(name) {
+export function dockerPostgres(name: string) {
   const dockerComposeConfig = `
 services:
   postgres_db:
@@ -49,7 +49,7 @@ volumes:
   return dockerComposeConfig.trim();
 }
 
-export function dockerMysql(name) {
+export function dockerMysql(name: string) {
   const dockerComposeConfig = `
 services:
   mysql:

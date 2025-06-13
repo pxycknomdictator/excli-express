@@ -12,10 +12,10 @@ console.clear();
 intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
 
 (async () => {
-  const directory = await text({
+  const directory = (await text({
     message: "What should we name your server directory? 🎯",
     placeholder: "server (Hit Enter for current directory)",
-  });
+  })) as string;
 
   if (isCancel(directory)) terminate("Process cancelled ❌");
 
@@ -29,49 +29,50 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     );
   }
 
-  const language = await select({
+  const language = (await select({
     message: "Pick your coding poison:",
     options: [
       { label: "TypeScript", value: "ts", hint: "Recommended ✨" },
       { label: "JavaScript", value: "js", hint: "Standard 📜" },
     ],
-  });
+  })) as string;
 
   if (isCancel(language)) terminate("Process cancelled ❌");
 
-  const devTools = await multiselect({
+  const devTools = (await multiselect({
     message: "🛠️ Setting up core development tools...",
     options: [
       { label: "💅 Prettier", value: "prettier" },
       { label: "🐳 Docker (deployment + database)", value: "docker" },
       { label: "🔨 Git", value: "git" },
     ],
-  });
+  })) as string[];
 
   if (isCancel(devTools)) terminate("Process cancelled ❌");
 
-  let db = null;
+  let db;
 
   if (devTools.includes("docker")) {
-    db = await select({
+    db = (await select({
       message: "Alright, pick your poison",
       options: [
         { label: "🐬 MySQL", value: "mysql", hint: "Old reliable 🛠️" },
         { label: "🐘 PostgreSQL", value: "postgres", hint: "Feature beast 🦁" },
         { label: "🍃 MongoDB", value: "mongodb", hint: "Flexible chaos ✨" },
       ],
-    });
+    })) as string;
+
     if (isCancel(db)) terminate("Process cancelled ❌");
   }
 
-  const pkgManager = await select({
+  const pkgManager = (await select({
     message: "Which package manager do you want to use?",
     options: [
       { label: "📦 npm", value: "npm", hint: "Slow & reliable 🐢" },
       { label: "🐱 yarn", value: "yarn", hint: "Cute & capable 🧶" },
       { label: "⚡ pnpm", value: "pnpm", hint: "Blazing fast 🚀" },
     ],
-  });
+  })) as string;
 
   if (isCancel(pkgManager)) terminate("Process cancelled ❌");
 
@@ -137,7 +138,7 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
 
     for (let { content, filename } of docker(db, dirName)) {
       const fullPath = join(targetDir, filename);
-      writeFileSync(fullPath, content);
+      writeFileSync(fullPath, content as string);
     }
 
     await sleep(1000);
