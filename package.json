@@ -1,6 +1,6 @@
 {
-  "name": "express-cli-wizard",
-  "version": "1.0.6",
+  "name": "@excli/express",
+  "version": "1.0.0",
   "main": "dist/main.js",
   "type": "module",
   "description": "A cli tool for creating Express.js applications, supporting both JavaScript and TypeScript.",
@@ -22,7 +22,7 @@
     "express-setup"
   ],
   "bin": {
-    "express-cli-wizard": "./dist/main.js"
+    "excli": "./dist/main.js"
   },
   "author": "Noman <pxycknomdictator@gmail.com>",
   "license": "ISC",
@@ -37,10 +37,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pxycknomdictator/express-cli-wizard.git"
+    "url": "git+https://github.com/pxycknomdictator/excli-express.git"
   },
   "bugs": {
-    "url": "https://github.com/pxycknomdictator/express-cli-wizard/issues"
+    "url": "https://github.com/pxycknomdictator/excli-express/issues"
   },
   "packageManager": "pnpm@10.12.1",
   "dependencies": {
