@@ -11,13 +11,15 @@
     "prepublishOnly": "npm run build"
   },
   "keywords": [
-    "expressjs",
+    "express",
     "cli",
-    "cli-tool",
+    "wizard",
     "express-generator",
-    "boilerplate",
+    "nodejs",
     "typescript",
-    "javascript"
+    "docker",
+    "scaffolding",
+    "express-setup"
   ],
   "bin": {
     "express-cli-wizard": "./dist/main.js"
