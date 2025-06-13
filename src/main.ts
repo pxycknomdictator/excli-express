@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { cwd } from "node:process";
 import { join, basename } from "node:path";
 import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
