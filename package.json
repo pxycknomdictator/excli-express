@@ -33,7 +33,10 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "homepage": "https://github.com/pxycknomdictator/express-cli-wizard",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pxycknomdictator/express-cli-wizard.git"
+  },
   "bugs": {
     "url": "https://github.com/pxycknomdictator/express-cli-wizard/issues"
   },
