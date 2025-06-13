@@ -1,23 +1,26 @@
 {
   "name": "expressjs-wizard",
   "version": "1.0.0",
-  "main": "src/main.js",
+  "main": "dist/main.js",
   "type": "module",
   "description": "A cli tool for creating Express.js applications, supporting both JavaScript and TypeScript.",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch & node --watch dist/main.js",
-    "start": "node dist/main.js"
+    "start": "node dist/main.js",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
-    "@expressjs/cli",
+    "expressjs",
     "cli",
     "cli-tool",
     "express-generator",
-    "boilerplate"
+    "boilerplate",
+    "typescript",
+    "javascript"
   ],
   "bin": {
-    "expressjs-wizard": "dist/main.js"
+    "expressjs-wizard": "./dist/main.js"
   },
   "author": "Noman <pxycknomdictator@gmail.com>",
   "license": "ISC",
@@ -27,12 +30,16 @@
     "README.md",
     "LICENSE"
   ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "packageManager": "pnpm@10.12.1",
   "dependencies": {
     "@clack/prompts": "^0.11.0"
   },
   "devDependencies": {
     "@types/node": "^24.0.1",
-    "prettier": "^3.5.3"
+    "prettier": "^3.5.3",
+    "typescript": "^5.0.0"
   }
 }

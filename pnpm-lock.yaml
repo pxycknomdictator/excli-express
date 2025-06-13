@@ -18,6 +18,9 @@ importers:
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
+      typescript:
+        specifier: ^5.0.0
+        version: 5.8.3
 
 packages:
 
@@ -40,6 +43,11 @@ packages:
 
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
+
+  typescript@5.8.3:
+    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
 
   undici-types@7.8.0:
     resolution: {integrity: sha512-9UJ2xGDvQ43tYyVMpuHlsgApydB8ZKfVYTsLDhXkFL/6gfkp+U8xTGdh8pMJv1SpZna0zxG1DwsKZsreLbXBxw==}
@@ -66,5 +74,7 @@ snapshots:
   prettier@3.5.3: {}
 
   sisteransi@1.0.5: {}
+
+  typescript@5.8.3: {}
 
   undici-types@7.8.0: {}
