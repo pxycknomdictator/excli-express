@@ -2,6 +2,10 @@ import http from "node:http";
 import app from "./app.js";
 import constants from "./constant.js";
 
+app.get("/", (_, res) => {
+  res.status(200).send("<h1>Hello World</h1>");
+});
+
 (async () => {
   const PORT = constants.configs.PORT || 5000;
   const server = http.createServer(app);
