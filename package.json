@@ -1,6 +1,6 @@
 {
   "name": "@excli/express",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/main.js",
   "type": "module",
   "description": "A cli tool for creating Express.js applications, supporting both JavaScript and TypeScript.",
