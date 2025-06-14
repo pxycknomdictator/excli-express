@@ -36,21 +36,21 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   }
 
   const language = (await select({
-    message: "Pick your coding poison:",
+    message: "Pick your coding Language:",
     options: [
-      { label: "TypeScript", value: "ts", hint: "Recommended ✨" },
-      { label: "JavaScript", value: "js", hint: "Standard 📜" },
+      { label: "TypeScript", value: "ts", hint: "Recommended 🚀" },
+      { label: "JavaScript", value: "js", hint: "Classic 💼" },
     ],
   })) as string;
 
   if (isCancel(language)) terminate("Process cancelled ❌");
 
   const devTools = (await multiselect({
-    message: "🛠️ Setting up core development tools...",
+    message: "🔧 Setting up core development tools...",
     options: [
-      { label: "💅 Prettier", value: "prettier" },
+      { label: "✨ Prettier", value: "prettier" },
       { label: "🐳 Docker (deployment + database)", value: "docker" },
-      { label: "🔨 Git", value: "git" },
+      { label: "📝 Git", value: "git" },
     ],
   })) as string[];
 
@@ -60,11 +60,15 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
 
   if (devTools.includes("docker")) {
     db = (await select({
-      message: "Alright, pick your poison",
+      message: "Alright, pick your database:",
       options: [
-        { label: "🐬 MySQL", value: "mysql", hint: "Old reliable 🛠️" },
-        { label: "🐘 PostgreSQL", value: "postgres", hint: "Feature beast 🦁" },
-        { label: "🍃 MongoDB", value: "mongodb", hint: "Flexible chaos ✨" },
+        { label: "🐬 MySQL", value: "mysql", hint: "Widely used 🌍" },
+        {
+          label: "🐘 PostgreSQL",
+          value: "postgres",
+          hint: "SQL powerhouse ⚡",
+        },
+        { label: "🍃 MongoDB", value: "mongodb", hint: "NoSQL flexible 🔄" },
       ],
     })) as string;
 
@@ -74,9 +78,9 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   const pkgManager = (await select({
     message: "Which package manager do you want to use?",
     options: [
-      { label: "📦 npm", value: "npm", hint: "Slow & reliable 🐢" },
-      { label: "🐱 yarn", value: "yarn", hint: "Cute & capable 🧶" },
-      { label: "⚡ pnpm", value: "pnpm", hint: "Blazing fast 🚀" },
+      { label: "📋 npm", value: "npm", hint: "Standard choice 🔧" },
+      { label: "🧶 yarn", value: "yarn", hint: "Smooth workflow 💫" },
+      { label: "⚡ pnpm", value: "pnpm", hint: "Lightning fast 🚀" },
     ],
   })) as string;
 
@@ -125,12 +129,12 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     }
 
     await sleep(1000);
-    s2.stop("✅ Prettier configured.");
+    s2.stop("✨ Prettier configured.");
   }
 
   if (devTools.includes("git")) {
     const s3 = spinner();
-    s3.start("🔨 Creating .gitignore...");
+    s3.start("📝 Creating .gitignore...");
 
     const gitPath = join(targetDir, ".gitignore");
     const { gitignoreContent } = git();

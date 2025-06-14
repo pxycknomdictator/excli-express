@@ -7,7 +7,7 @@ app.get("/", (_, res) => {
 });
 
 (async () => {
-  const PORT = constants.configs.PORT || 5000;
+  const PORT = constants.configs.PORT || 3000;
   const server = http.createServer(app);
 
   server.listen(PORT, () => console.log(`Express: http://localhost:${PORT}`));

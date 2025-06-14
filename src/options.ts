@@ -2,17 +2,18 @@ import { database } from "./utils.js";
 
 export const tsScripts = {
   build: "tsc",
+  "win:dev": "node --watch --env-file=.env dist/main.js",
   dev: "tsc --watch & node --watch --env-file=.env dist/main.js",
   start: "node --env-file=.env dist/main.js",
-  "db:start": "sudo docker compose up -d",
-  "db:stop": "sudo docker compose down",
+  "db:start": "docker compose up -d",
+  "db:stop": "docker compose down",
 };
 
 export const jsScripts = {
   dev: "node --watch --env-file=.env dist/main.js",
   start: "node --env-file=.env dist/main.js",
-  "db:start": "sudo docker compose up -d",
-  "db:stop": "sudo docker compose down",
+  "db:start": "docker compose up -d",
+  "db:stop": "docker compose down",
 };
 
 export function prettier() {
