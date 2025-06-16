@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { join, basename, dirname } from "node:path";
 import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
 import { spinner, isCancel, multiselect } from "@clack/prompts";
-import { intro, text, select, outro } from "@clack/prompts";
+import { intro, text, select, outro, log } from "@clack/prompts";
 import { hasPkManager } from "./scripts.js";
 import { installPackages, sleep } from "./utils.js";
 import { git, docker, prettier, env } from "./options.js";
@@ -119,51 +119,33 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   await sleep(1000);
   s1.stop("✅ Directory structure created.");
 
-  if (devTools.includes("prettier")) {
-    const s2 = spinner();
-    s2.start("💅 Adding Prettier config...");
+  const s2 = spinner();
+  s2.start("Adding Development Tools");
 
+  if (devTools.includes("prettier")) {
     for (let { content, filename } of prettier()) {
       const fullPath = join(targetDir, filename);
       writeFileSync(fullPath, content);
     }
-
-    await sleep(1000);
-    s2.stop("✨ Prettier configured.");
   }
 
   if (devTools.includes("git")) {
-    const s3 = spinner();
-    s3.start("📝 Creating .gitignore...");
-
     const gitPath = join(targetDir, ".gitignore");
     const { gitignoreContent } = git();
     writeFileSync(gitPath, gitignoreContent);
-
-    await sleep(1000);
-    s3.stop("✅ .gitignore file created.");
   }
 
   if (devTools.includes("docker") && db) {
-    const s4 = spinner();
-    s4.start("🐳 Generating Docker files...");
-
     for (let { content, filename } of docker(db, dirName)) {
       const fullPath = join(targetDir, filename);
       writeFileSync(fullPath, content as string);
     }
-
-    await sleep(1000);
-    s4.stop("✅ Docker files created.");
   }
 
-  const s5 = spinner();
-  s5.start("📦 Initializing package.json...");
+  await sleep(1000);
+  s2.stop("✅ Development Tools Added");
 
   await packageJsonInit(pkgManager, targetDir, language);
-
-  await sleep(1000);
-  s5.stop("✅ package.json initialized.");
 
   const s6 = spinner({ indicator: "timer" });
   s6.start("📥 Installing dependencies...");
@@ -173,13 +155,10 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   await sleep(1000);
   s6.stop("✅ Dependencies installed successfully! in:");
 
-  outro(`
-🚀 You're all set!
+  log.success(`Scaffolding project in ${targetDir}...`);
+
+  outro(`🚀 You're all set!
 Thanks for using Express App Generator 🙌
-
-💻 Want to know more about me?
 GitHub → https://github.com/pxycknomdictator
-
-Happy coding! ⚡
 `);
 })();
