@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { join, basename, dirname } from "node:path";
 import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
 import { spinner, isCancel, multiselect } from "@clack/prompts";
-import { intro, text, select, outro, note } from "@clack/prompts";
+import { intro, text, select, outro } from "@clack/prompts";
 import { hasPkManager } from "./scripts.js";
 import { installPackages, sleep } from "./utils.js";
 import { git, docker, prettier, env } from "./options.js";
@@ -172,20 +172,6 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
 
   await sleep(1000);
   s6.stop("✅ Dependencies installed successfully! in:");
-
-  const devCmd =
-    pkgManager === "npm"
-      ? "npm run dev"
-      : pkgManager === "yarn"
-        ? "yarn dev"
-        : "pnpm dev";
-
-  note(
-    [directory?.trim() ? `  cd ${directory}` : null, `  ${devCmd}`]
-      .filter(Boolean)
-      .join("\n"),
-    "Project Ready",
-  );
 
   outro(`
 🚀 You're all set!
