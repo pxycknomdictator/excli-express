@@ -15,6 +15,11 @@ const cookiesOptions = {
   secure: true,
 };
 
+const corsOptions = {
+  origin: configs.CLIENT_ORIGIN,
+  credentials: true,
+};
+
 const jsonLimit = "20mb";
 const accessToken = "accessToken";
 const refreshToken = "refreshToken";
@@ -29,4 +34,5 @@ export default {
   accessTokenMaxAge,
   refreshTokenMaxAge,
   cookiesOptions,
+  corsOptions,
 };

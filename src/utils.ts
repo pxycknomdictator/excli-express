@@ -60,13 +60,28 @@ export async function installPackages(
   language: string,
   devTools: string[],
 ) {
-  let packages: string[] = ["express"];
+  let packages: string[] = [
+    "express",
+    "cors",
+    "helmet",
+    "morgan",
+    "compression",
+    "cookie-parser",
+  ];
   let devPackages: string[] = [];
 
   if (devTools.includes("prettier")) devPackages.push("prettier");
 
   if (language === "ts") {
-    devPackages.push("@types/node", "@types/express", "typescript");
+    devPackages.push(
+      "@types/node",
+      "@types/express",
+      "typescript",
+      "@types/cors",
+      "@types/morgan",
+      "@types/compression",
+      "@types/cookie-parser",
+    );
   }
 
   const installCmd = pkgManager === "npm" ? "install" : "add";
