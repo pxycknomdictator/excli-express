@@ -9,7 +9,7 @@
     "build": "vite build",
     "dev": "node --watch dist/express.js",
     "lint": "eslint src/**/*.ts",
-    "start": "node dist/main.js",
+    "start": "node dist/express.js",
     "lint:fix": "eslint src/**/*.ts --fix",
     "format": "prettier --write \"**/*.{ts,js,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,js,json}\"",
