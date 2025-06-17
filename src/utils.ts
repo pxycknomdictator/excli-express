@@ -49,8 +49,8 @@ export async function packageJsonInit(
 
     await fireShell(pkgManager, args, targetDir);
     modifyPackageJson(targetDir, language);
-  } catch (err: any) {
-    console.error(`❌ ${pkgManager} command failed: ${err?.message}`);
+  } catch (err) {
+    console.error(`❌ ${pkgManager} command failed: ${err}`);
   }
 }
 
@@ -60,7 +60,7 @@ export async function installPackages(
   language: string,
   devTools: string[],
 ) {
-  let packages: string[] = [
+  const packages: string[] = [
     "express",
     "cors",
     "helmet",
@@ -68,7 +68,7 @@ export async function installPackages(
     "compression",
     "cookie-parser",
   ];
-  let devPackages: string[] = [];
+  const devPackages: string[] = [];
 
   if (devTools.includes("prettier")) devPackages.push("prettier");
 

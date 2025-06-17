@@ -105,12 +105,12 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   mkdirSync(publicDir, { recursive: true });
   cpSync(template, targetDir, { recursive: true });
 
-  for (let { file, variables } of env()) {
+  for (const { file, variables } of env()) {
     const fullPath = join(targetDir, file);
     writeFileSync(fullPath, variables);
   }
 
-  for (let dir of directories) {
+  for (const dir of directories) {
     if (language !== "ts" && dir === "types") continue;
     const directoryPath = join(sourceDir, dir);
     mkdirSync(directoryPath, { recursive: true });
@@ -123,7 +123,7 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   s2.start("Adding Development Tools");
 
   if (devTools.includes("prettier")) {
-    for (let { content, filename } of prettier()) {
+    for (const { content, filename } of prettier()) {
       const fullPath = join(targetDir, filename);
       writeFileSync(fullPath, content);
     }
@@ -136,7 +136,7 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   }
 
   if (devTools.includes("docker") && db) {
-    for (let { content, filename } of docker(db, dirName)) {
+    for (const { content, filename } of docker(db, dirName)) {
       const fullPath = join(targetDir, filename);
       writeFileSync(fullPath, content as string);
     }
