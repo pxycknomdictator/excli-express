@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "emitDeclarationOnly": true,
+    "declarationMap": false,
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
