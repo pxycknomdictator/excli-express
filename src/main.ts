@@ -7,8 +7,8 @@ import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
 import { spinner, isCancel, multiselect } from "@clack/prompts";
 import { intro, text, select, outro, log } from "@clack/prompts";
 import { fireShell, hasPkManager } from "./scripts.js";
-import { installPackages, sleep } from "./utils.js";
-import { docker, prettier, env } from "./options.js";
+import { prettier, env } from "./options.js";
+import { database, installPackages, sleep } from "./utils.js";
 import { terminate, directories, packageJsonInit } from "./utils.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -56,7 +56,7 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
 
   if (isCancel(devTools)) terminate("Process cancelled ❌");
 
-  let db;
+  let db: string;
 
   if (devTools.includes("docker")) {
     db = (await select({
@@ -99,7 +99,7 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   const sourceDir = join(targetDir, "src");
   const publicDir = join(targetDir, "public");
 
-  const template = join(__dirname, "../templates", language);
+  const template = join(__dirname, "..", "templates", language);
   if (!existsSync(template)) terminate(`❌ Template not found at: ${template}`);
 
   mkdirSync(publicDir, { recursive: true });
@@ -133,11 +133,13 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     await fireShell("npx", ["gitignore", "node"], targetDir);
   }
 
-  if (devTools.includes("docker") && db) {
-    for (const { content, filename } of docker(db, dirName)) {
-      const fullPath = join(targetDir, filename);
-      writeFileSync(fullPath, content as string);
-    }
+  if (devTools.includes("docker") && db!) {
+    const compose = database(db!, dirName) as string;
+    const composeFile = join(targetDir, "compose.yaml");
+    const dockerignore = join(__dirname, "..", "templates", ".dockerignore");
+
+    writeFileSync(composeFile, compose, { encoding: "utf-8" });
+    cpSync(dockerignore, join(targetDir, ".dockerignore"));
   }
 
   await sleep(1000);
