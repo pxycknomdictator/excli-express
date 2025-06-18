@@ -11,7 +11,7 @@ services:
       - mongo:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_ROOT_PASSWORD=admin123
 
 networks:
   default:
@@ -36,8 +36,8 @@ services:
       - postgres_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=${name}      
-      - POSTGRES_USER=noman         
-      - POSTGRES_PASSWORD=root      
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=admin123      
 
 networks:
   default:
@@ -61,10 +61,10 @@ services:
     volumes:
       - mysql_data:/data/db
     environment:
-      - MYSQL_ROOT_PASSWORD=root 
-      - MYSQL_USER=noman          
+      - MYSQL_ROOT_PASSWORD=root123 
+      - MYSQL_USER=root
       - MYSQL_DATABASE=${name}   
-      - MYSQL_PASSWORD=root123       
+      - MYSQL_PASSWORD=admin123       
 
 networks:
   default:

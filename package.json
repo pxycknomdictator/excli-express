@@ -19,12 +19,11 @@
   "keywords": [
     "express",
     "cli",
-    "wizard",
     "express-generator",
     "nodejs",
     "typescript",
     "docker",
-    "scaffolding",
+    "vite",
     "express-setup"
   ],
   "bin": {
