@@ -15,7 +15,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 console.clear();
-intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
+intro(
+  "🔥 Express.js App Generator | ✨ We will scaffold your app in a few seconds..",
+);
 
 (async () => {
   const directory = (await text({
@@ -76,7 +78,7 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   }
 
   const pkgManager = (await select({
-    message: "Which package manager do you want to use?",
+    message: "Which package manager would you ❤️  to use?",
     options: [
       { label: "📋 npm", value: "npm", hint: "Standard choice 🔧" },
       { label: "🧶 yarn", value: "yarn", hint: "Smooth workflow 💫" },
@@ -92,8 +94,9 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     );
   }
 
-  const s1 = spinner();
-  s1.start("📁 Setting up directory structure...");
+  const s1 = spinner({ indicator: "dots" });
+
+  s1.start("Installation in progress ☕");
   if (!existsSync(targetDir)) mkdirSync(targetDir, { recursive: true });
 
   const sourceDir = join(targetDir, "src");
@@ -116,12 +119,6 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     mkdirSync(directoryPath, { recursive: true });
   }
 
-  await sleep(1000);
-  s1.stop("✅ Directory structure created.");
-
-  const s2 = spinner();
-  s2.start("Adding Development Tools");
-
   if (devTools.includes("prettier")) {
     for (const { content, filename } of prettier()) {
       const fullPath = join(targetDir, filename);
@@ -142,18 +139,11 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
     cpSync(dockerignore, join(targetDir, ".dockerignore"));
   }
 
-  await sleep(1000);
-  s2.stop("✅ Development Tools Added");
-
   await packageJsonInit(pkgManager, targetDir, language);
-
-  const s6 = spinner({ indicator: "timer" });
-  s6.start("📥 Installing dependencies...");
-
   await installPackages(pkgManager, targetDir, language, devTools);
 
   await sleep(1000);
-  s6.stop("✅ Dependencies installed successfully! in:");
+  s1.stop(`Successfully created project \x1b[32m${dirName}\x1b[0m`);
 
   log.success(`Scaffolding project in ${targetDir}...`);
 
