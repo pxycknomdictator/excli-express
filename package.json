@@ -27,7 +27,7 @@
     "express-setup"
   ],
   "bin": {
-    "excli": "./dist/main.js"
+    "excli": "./dist/express.js"
   },
   "author": "Noman <pxycknomdictator@gmail.com>",
   "license": "ISC",
