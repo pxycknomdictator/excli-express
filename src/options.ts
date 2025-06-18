@@ -62,24 +62,6 @@ yarn-error.log*
   ];
 }
 
-export function git() {
-  const gitignoreContent = `node_modules
-.vscode
-dist
-output
-.env
-.DS_Store
-Thumbs.db
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-`;
-  return {
-    gitignoreContent,
-  };
-}
-
 export function docker(db: string, dirName: string) {
   const composeFileContent = database(db, dirName);
   const dockerfileContent = "";

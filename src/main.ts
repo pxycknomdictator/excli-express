@@ -6,9 +6,9 @@ import { join, basename, dirname } from "node:path";
 import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
 import { spinner, isCancel, multiselect } from "@clack/prompts";
 import { intro, text, select, outro, log } from "@clack/prompts";
-import { hasPkManager } from "./scripts.js";
+import { fireShell, hasPkManager } from "./scripts.js";
 import { installPackages, sleep } from "./utils.js";
-import { git, docker, prettier, env } from "./options.js";
+import { docker, prettier, env } from "./options.js";
 import { terminate, directories, packageJsonInit } from "./utils.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -130,9 +130,7 @@ intro("🔥 Express.js App Generator | Build your dreams, faster! ⚡");
   }
 
   if (devTools.includes("git")) {
-    const gitPath = join(targetDir, ".gitignore");
-    const { gitignoreContent } = git();
-    writeFileSync(gitPath, gitignoreContent);
+    await fireShell("npx", ["gitignore", "node"], targetDir);
   }
 
   if (devTools.includes("docker") && db) {
