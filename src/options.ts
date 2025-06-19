@@ -1,5 +1,6 @@
 export const tsScripts = {
   build: "tsc",
+  esbuild: "node esbuild.config.js",
   "win:dev": "node --watch --env-file=.env dist/main.js",
   dev: "tsc --watch & node --watch --env-file=.env dist/main.js",
   start: "node --env-file=.env dist/main.js",
@@ -8,8 +9,8 @@ export const tsScripts = {
 };
 
 export const jsScripts = {
-  dev: "node --watch --env-file=.env dist/main.js",
-  start: "node --env-file=.env dist/main.js",
+  dev: "node --watch --env-file=.env src/main.js",
+  start: "node --env-file=.env src/main.js",
   "db:start": "docker compose up -d",
   "db:stop": "docker compose down",
 };

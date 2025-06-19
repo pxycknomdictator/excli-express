@@ -1,4 +1,5 @@
 import esbuild from "esbuild";
+import { nodeExternalsPlugin } from "esbuild-node-externals";
 
 const ctx = await esbuild.context({
   entryPoints: ["src/main.ts"],
@@ -8,7 +9,7 @@ const ctx = await esbuild.context({
   target: "node20",
   format: "esm",
   sourcemap: true,
-  external: ["express", "node:*"],
+  plugins: [nodeExternalsPlugin()],
 });
 
 await ctx.watch();
