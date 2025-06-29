@@ -8,9 +8,9 @@
   "scripts": {
     "ts": "tsc",
     "build": "node esbuild.config.js && npm run ts",
-    "dev": "node --watch dist/express.js",
+    "dev": "node --watch dist/main.js",
     "lint": "eslint src/**/*.ts",
-    "start": "node dist/express.js",
+    "start": "node dist/main.js",
     "lint:fix": "eslint src/**/*.ts --fix",
     "format": "prettier --write \"**/*.{ts,js,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,js,json}\"",
