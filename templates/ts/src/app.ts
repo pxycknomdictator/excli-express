@@ -1,5 +1,5 @@
-import path from "node:path";
-import process from "node:process";
+import { join } from "node:path";
+import { cwd } from "node:process";
 
 import cors from "cors";
 import helmet from "helmet";
@@ -8,19 +8,19 @@ import express, { type Express } from "express";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 
-import constants from "./constant.js";
+import { jsonLimit, corsOptions } from "./constant.js";
 
 const app: Express = express();
-const rootDir = process.cwd();
-const staticRoute = path.join(rootDir, "public");
+const rootDir = cwd();
+const staticRoute = join(rootDir, "public");
 
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(compression());
 app.use(cookieParser());
-app.use(cors(constants.corsOptions));
+app.use(cors(corsOptions));
 app.use(express.static(staticRoute));
-app.use(express.json({ limit: constants.jsonLimit }));
-app.use(express.urlencoded({ extended: true, limit: constants.jsonLimit }));
+app.use(express.json({ limit: jsonLimit }));
+app.use(express.urlencoded({ extended: true, limit: jsonLimit }));
 
 export default app;

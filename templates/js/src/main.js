@@ -1,14 +1,14 @@
-import http from "node:http";
+import { createServer } from "node:http";
 import app from "./app.js";
-import constants from "./constant.js";
+import { configs } from "./constant.js";
 
 app.get("/", (_, res) => {
   res.status(200).send("<h1>Hello World</h1>");
 });
 
 (async () => {
-  const PORT = constants.configs.PORT || 3000;
-  const server = http.createServer(app);
+  const PORT = configs.PORT || 3000;
+  const server = createServer(app);
 
   server.listen(PORT, () => console.log(`Express: http://localhost:${PORT}`));
 })();

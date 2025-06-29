@@ -1,4 +1,4 @@
-const configs = Object.freeze({
+export const configs = Object.freeze({
   NODE_ENV: process.env.NODE_ENV,
   PORT: process.env.PORT,
   DATABASE_URL: process.env.DATABASE_URL,
@@ -10,29 +10,18 @@ const configs = Object.freeze({
   CLIENT_ORIGIN: process.env.CLIENT_ORIGIN,
 });
 
-const cookiesOptions = {
+export const cookiesOptions = {
   httpOnly: true,
   secure: true,
 };
 
-const corsOptions = {
+export const corsOptions = {
   origin: configs.CLIENT_ORIGIN,
   credentials: true,
 };
 
-const jsonLimit = "20mb";
-const accessToken = "accessToken";
-const refreshToken = "refreshToken";
-const accessTokenMaxAge = 1000 * 60 * 60 * 24;
-const refreshTokenMaxAge = 1000 * 60 * 60 * 24 * 7;
-
-export default {
-  configs,
-  jsonLimit,
-  accessToken,
-  refreshToken,
-  accessTokenMaxAge,
-  refreshTokenMaxAge,
-  cookiesOptions,
-  corsOptions,
-};
+export const jsonLimit = "20mb";
+export const accessToken = "accessToken";
+export const refreshToken = "refreshToken";
+export const accessTokenMaxAge = 1000 * 60 * 60 * 24;
+export const refreshTokenMaxAge = 1000 * 60 * 60 * 24 * 7;
