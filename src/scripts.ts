@@ -39,7 +39,7 @@ export function modifyPackageJson(targetDir: string, language: string) {
   pkg.scripts = language === "ts" ? { ...tsScripts } : { ...jsScripts };
   pkg.license = "MIT";
   pkg.type = "module";
-  pkg.main = `src/main.${language}`;
+  pkg.main = `src/main.js`;
 
   writeFileSync(fullPath, JSON.stringify(pkg, null, 2));
 }

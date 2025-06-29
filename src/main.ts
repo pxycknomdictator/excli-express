@@ -145,8 +145,10 @@ intro(
   if (devTools.includes("docker") && db!) {
     const compose = database(db!, dirName) as string;
     const composeFile = join(targetDir, "compose.yaml");
+    const DockerFile = join(targetDir, "Dockerfile");
     const dockerignore = join(__dirname, "..", "templates", ".dockerignore");
 
+    writeFileSync(DockerFile, "", { encoding: "utf-8" });
     writeFileSync(composeFile, compose, { encoding: "utf-8" });
     cpSync(dockerignore, join(targetDir, ".dockerignore"));
   }

@@ -7,7 +7,7 @@
   "description": "A cli tool for creating Express.js applications, supporting both JavaScript and TypeScript.",
   "scripts": {
     "ts": "tsc",
-    "build": "vite build && npm run ts",
+    "build": "node esbuild.config.js && npm run ts",
     "dev": "node --watch dist/express.js",
     "lint": "eslint src/**/*.ts",
     "start": "node dist/express.js",
@@ -23,12 +23,24 @@
     "express-generator",
     "nodejs",
     "typescript",
-    "docker",
-    "vite",
-    "express-setup"
+    "express-starter-kit",
+    "express cli",
+    "create express app",
+    "express app generator",
+    "express boilerplate",
+    "express scaffolding",
+    "node cli",
+    "typescript cli",
+    "nodejs generator",
+    "typescript starter",
+    "backend generator",
+    "project generator",
+    "api generator",
+    "node project setup",
+    "express typescript"
   ],
   "bin": {
-    "excli": "./dist/express.js"
+    "excli": "./dist/main.js"
   },
   "author": "Noman <pxycknomdictator@gmail.com>",
   "license": "ISC",
@@ -50,17 +62,18 @@
   },
   "packageManager": "pnpm@10.12.1",
   "dependencies": {
-    "@clack/prompts": "^0.11.0"
+    "@clack/prompts": "^0.11.0",
+    "esbuild": "^0.25.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
     "@types/node": "^24.0.1",
+    "esbuild-node-externals": "^1.18.0",
     "eslint": "^9.29.0",
     "globals": "^16.2.0",
     "husky": "^9.1.7",
     "prettier": "^3.5.3",
     "typescript": "^5.0.0",
-    "typescript-eslint": "^8.34.1",
-    "vite": "^6.3.5"
+    "typescript-eslint": "^8.34.1"
   }
 }
