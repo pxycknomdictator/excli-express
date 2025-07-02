@@ -15,163 +15,83 @@
 
 ## ✨ Features
 
-- 🚀 **Quick Setup** - Get your Express app running in seconds
+- 💎 TypeScript and JavaScript support
 
-- 💎 **TypeScript/JavaScript** - Choose your preferred language
+- 🐳 Docker setup (optional)
 
-- 🐳 **Docker Ready** - Optional containerization setup
+- 📁 Clean project structure
 
-- 🛠️ **Dev Tools** - Prettier, git, and more pre-configured
+- 🛠️ Development tools pre-configured
 
-- 📁 **Clean Structure** - Well-organized project architecture
-
-## 🚀 Quick Start
-
-### Using npx (Recommended)
+## 🚀 Installation
 
 ```bash
 npx @excli/express
 ```
 
-### Global Installation
+Or install globally:
 
 ```bash
 npm install -g @excli/express
 excli
 ```
 
-## 📋 Prerequisites
+## 📋 Requirements
 
-| Tool              | Version   | Required    |
-| ----------------- | --------- | ----------- |
-| **Node.js**       | >= 20.0.0 | ✅          |
-| **npm/yarn/pnpm** | Latest    | ✅          |
-| **Git**           | Latest    | ⚪ Optional |
-| **Docker**        | Latest    | ⚪ Optional |
+- Node.js >= 20.0.0
 
-## 🎯 Getting Started
+- npm/yarn/pnpm
 
-### Step 1: Create Project
+## 🎯 Usage
 
-```bash
-npx @excli/express
-```
+1. Create a new project:
 
-### Step 2: Navigate to Project
+   ```bash
+   npx @excli/express
+   ```
 
-```bash
-cd my-awesome-app
-```
+2. Navigate to your project:
 
-### Step 3: Start Development
+   ```bash
+   cd my-project
+   ```
 
-<details>
-<summary><strong>🐧 Linux/macOS</strong></summary>
+3. Start development:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+   ```bash
+   npm run dev
+   ```
 
-</details>
+4. Open http://localhost:3000 🎉
 
-<details>
-<summary><strong>🪟 Windows (TypeScript)</strong></summary>
+## 📜 Scripts
 
-**Terminal 1:**
+### TypeScript Projects
 
-```bash
-npm run build -- --watch
-```
+- `npm run build` - Compile TypeScript
 
-**Terminal 2:**
+- `npm run dev` - Start development server with hot reload
 
-```bash
-npm run win:dev
-```
+- `npm run start` - Start production server
 
-</details>
+### JavaScript Projects
 
-<details>
-<summary><strong>🪟 Windows (JavaScript)</strong></summary>
+- `npm run dev` - Start development server with hot reload
 
-```bash
-npm run dev
-```
+- `npm run start` - Start production server
 
-</details>
+### Docker
 
-### Step 4: Open Browser
+- `npm run db:start` - Start Docker services
 
-Navigate to **http://localhost:3000** 🎉
+- `npm run db:stop` - Stop Docker services
 
-> 💡 **Tip:** Change the port by setting `PORT=6969` in your `.env` file
+## 👤 Author
 
-## 🐳 Docker Commands
-
-If you selected Docker during setup:
-
-```bash
-# 🚀 Start services
-npm run db:start
-
-# 🛑 Stop services
-npm run db:stop
-```
-
-## 📁 Project Structure
-
-```
-my-awesome-app/
-├── 📁 public/                 # Static files
-├── 📁 src/
-│   ├── 📁 controllers/        # Route controllers
-│   ├── 📁 db/                 # Database config
-│   ├── 📁 middlewares/        # Custom middlewares
-│   ├── 📁 models/             # Data models
-│   ├── 📁 routes/             # API routes
-│   ├── 📁 services/           # Business logic
-│   ├── 📁 types/              # TypeScript types
-│   ├── 📁 utils/              # Helper functions
-│   ├── 📄 app.ts              # Express app setup
-│   ├── 📄 constant.ts         # App constants
-│   └── 📄 main.ts             # Entry point
-├── 🐳 compose.yaml            # Docker compose
-├── 🐳 Dockerfile              # Docker config
-├── ⚙️ .env                    # Environment variables
-├── 📦 package.json            # Dependencies
-└── 📝 tsconfig.json           # TypeScript config
-```
-
-## 🛠️ Available Scripts
-
-| Command            | Description                   | Platform       |
-| ------------------ | ----------------------------- | -------------- |
-| `npm run dev`      | Start development server      | 🐧 Linux/macOS |
-| `npm run build`    | Build for production          | 🌐 All         |
-| `npm run start`    | Start production server       | 🌐 All         |
-| `npm run win:dev`  | Start dev server (TypeScript) | 🪟 Windows     |
-| `npm run db:start` | Start Docker services         | 🐳 Docker      |
-| `npm run db:stop`  | Stop Docker services          | 🐳 Docker      |
-
-## 📝 License
-
-This project is licensed under the **ISC License**.
-
----
+**Noman** - [pxycknomdictator@gmail.com](mailto:pxycknomdictator@gmail.com)
+**GitHub** - [@pxycknomdictator](https://github.com/pxycknomdictator)
 
 <div align="center">
-
-### 👤 Author
-
-**Noman**
-
-📧 [pxycknomdictator@gmail.com](mailto:pxycknomdictator@gmail.com) • 🐙 [@pxycknomdictator](https://github.com/pxycknomdictator)
-
----
 
 **🚀 Happy Coding! Build something amazing! ⚡**
 
