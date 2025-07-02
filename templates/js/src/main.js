@@ -1,5 +1,5 @@
 import { createServer } from "node:http";
-import app from "./app.js";
+import { app } from "./app.js";
 import { configs } from "./constant.js";
 
 app.get("/", (_, res) => {

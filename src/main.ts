@@ -4,10 +4,10 @@ import { cwd } from "node:process";
 import { fileURLToPath } from "node:url";
 import { join, basename, dirname } from "node:path";
 import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
-import { spinner, isCancel, multiselect, confirm } from "@clack/prompts";
+import { spinner, isCancel, multiselect } from "@clack/prompts";
 import { intro, text, select, outro, log } from "@clack/prompts";
-import { fireShell, hasPkManager } from "./scripts.js";
 import { prettier, env } from "./options.js";
+import { fireShell, hasPkManager } from "./scripts.js";
 import { database, installPackages, sleep } from "./utils.js";
 import { terminate, directories, packageJsonInit } from "./utils.js";
 
@@ -94,18 +94,6 @@ intro(
     );
   }
 
-  let builder: boolean = false;
-
-  if (language === "ts") {
-    builder = (await confirm({
-      message: "Do you want esbuild for fast compiling? ⚡",
-      active: "yes",
-      inactive: "no",
-    })) as boolean;
-
-    if (isCancel(builder)) terminate("Process cancelled ❌");
-  }
-
   const s1 = spinner({ indicator: "dots" });
 
   s1.start("Installation in progress ☕");
@@ -155,18 +143,6 @@ intro(
 
   await packageJsonInit(pkgManager, targetDir, language);
   await installPackages(pkgManager, targetDir, language, devTools);
-
-  if (builder) {
-    const esbuild = join(__dirname, "..", "templates", "esbuild.config.js");
-    cpSync(esbuild, join(targetDir, "esbuild.config.js"));
-
-    await fireShell(pkgManager, ["install", "-D", "esbuild"], targetDir);
-    await fireShell(
-      pkgManager,
-      ["install", "-D", "esbuild-node-externals"],
-      targetDir,
-    );
-  }
 
   await sleep(1000);
   s1.stop(`Successfully created project \x1b[32m${dirName}\x1b[0m`);

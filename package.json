@@ -18,26 +18,14 @@
     "prepare": "husky"
   },
   "keywords": [
+    "excli",
     "express",
     "cli",
-    "express-generator",
-    "nodejs",
-    "typescript",
-    "express-starter-kit",
     "express cli",
-    "create express app",
+    "cli tool",
+    "express generator",
     "express app generator",
-    "express boilerplate",
-    "express scaffolding",
-    "node cli",
-    "typescript cli",
-    "nodejs generator",
-    "typescript starter",
-    "backend generator",
-    "project generator",
-    "api generator",
-    "node project setup",
-    "express typescript"
+    "create express app"
   ],
   "bin": {
     "excli": "./dist/main.js"
@@ -60,7 +48,7 @@
   "bugs": {
     "url": "https://github.com/pxycknomdictator/excli-express/issues"
   },
-  "packageManager": "pnpm@10.12.1",
+  "packageManager": "pnpm@10.12.4",
   "dependencies": {
     "@clack/prompts": "^0.11.0",
     "esbuild": "^0.25.5"

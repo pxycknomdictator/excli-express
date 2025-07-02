@@ -1,16 +1,14 @@
 export const tsScripts = {
   build: "tsc",
-  esbuild: "node esbuild.config.js",
-  "win:dev": "node --watch --env-file=.env dist/main.js",
-  dev: "tsc --watch & node --watch --env-file=.env dist/main.js",
-  start: "node --env-file=.env dist/main.js",
+  dev: "tsx watch --env-file=.env src/main.ts",
+  start: "node dist/main.js",
   "db:start": "docker compose up -d",
   "db:stop": "docker compose down",
 };
 
 export const jsScripts = {
   dev: "node --watch --env-file=.env src/main.js",
-  start: "node --env-file=.env src/main.js",
+  start: "node src/main.js",
   "db:start": "docker compose up -d",
   "db:stop": "docker compose down",
 };
@@ -65,11 +63,6 @@ export function env() {
   const enVariables = `NODE_ENV=
 PORT=
 DATABASE_URL=
-ARGON2_ROUND=
-JWT_ACCESS_TOKEN_SECRET_KEY=
-JWT_REFRESH_TOKEN_SECRET_KEY=
-JWT_ACCESS_TOKEN_EXPIRY_TIME=
-JWT_REFRESH_TOKEN_EXPIRY_TIME=
 CLIENT_ORIGIN=
 `;
   return [

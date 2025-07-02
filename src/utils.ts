@@ -60,27 +60,18 @@ export async function installPackages(
   language: string,
   devTools: string[],
 ) {
-  const packages: string[] = [
-    "express",
-    "cors",
-    "helmet",
-    "morgan",
-    "compression",
-    "cookie-parser",
-  ];
+  const packages: string[] = ["express", "cors", "helmet"];
   const devPackages: string[] = [];
 
   if (devTools.includes("prettier")) devPackages.push("prettier");
 
   if (language === "ts") {
     devPackages.push(
+      "tsx",
       "@types/node",
       "@types/express",
       "typescript",
       "@types/cors",
-      "@types/morgan",
-      "@types/compression",
-      "@types/cookie-parser",
     );
   }
 

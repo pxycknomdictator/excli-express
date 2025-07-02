@@ -1,6 +1,6 @@
 import { createServer } from "node:http";
 import type { Request, Response } from "express";
-import app from "./app.js";
+import { app } from "./app.js";
 import { configs } from "./constant.js";
 
 app.get("/", (_: Request, res: Response) => {
