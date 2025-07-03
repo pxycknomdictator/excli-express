@@ -4,8 +4,9 @@ import { cwd } from "node:process";
 import { fileURLToPath } from "node:url";
 import { join, basename, dirname } from "node:path";
 import { existsSync, mkdirSync, cpSync, writeFileSync } from "node:fs";
+import figlet from "figlet";
 import { spinner, isCancel, multiselect } from "@clack/prompts";
-import { intro, text, select, outro, log } from "@clack/prompts";
+import { text, select, outro, log } from "@clack/prompts";
 import { prettier, env } from "./options.js";
 import { fireShell, hasPkManager } from "./scripts.js";
 import { database, installPackages, sleep } from "./utils.js";
@@ -15,14 +16,19 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 console.clear();
-intro(
-  "🔥 Express.js App Generator | ✨ We will scaffold your app in a few seconds..",
-);
+
+const banner = figlet.textSync("Excli", {
+  font: "Standard",
+  horizontalLayout: "full",
+  verticalLayout: "full",
+});
+
+console.log(`\x1b[96m ${banner} \x1b[0m`);
 
 (async () => {
   const directory = (await text({
     message: "What should we name your server directory? 🎯",
-    placeholder: "server (Hit Enter for current directory)",
+    placeholder: "server (Hit Enter for ./)",
   })) as string;
 
   if (isCancel(directory)) terminate("Process cancelled ❌");

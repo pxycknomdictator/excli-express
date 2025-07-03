@@ -1,7 +1,7 @@
 {
   "name": "@excli/express",
   "version": "1.1.1",
-  "main": "dist/express.js",
+  "main": "dist/main.js",
   "type": "module",
   "types": "dist/express.d.ts",
   "description": "A cli tool for creating Express.js applications, supporting both JavaScript and TypeScript.",
@@ -51,10 +51,12 @@
   "packageManager": "pnpm@10.12.4",
   "dependencies": {
     "@clack/prompts": "^0.11.0",
-    "esbuild": "^0.25.5"
+    "esbuild": "^0.25.5",
+    "figlet": "^1.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
+    "@types/figlet": "^1.7.0",
     "@types/node": "^24.0.1",
     "esbuild-node-externals": "^1.18.0",
     "eslint": "^9.29.0",
