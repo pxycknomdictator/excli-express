@@ -1,14 +1,16 @@
 export const tsScripts = {
   build: "tsc",
   dev: "tsx watch --env-file=.env src/main.ts",
-  start: "node dist/main.js",
-  "db:start": "docker compose up -d",
-  "db:stop": "docker compose down",
+  start: "node --env-file=.env dist/main.js",
+  format: 'prettier --write "**/*.{ts,js,json,md}"',
+  "docker:up": "docker compose up -d",
+  "docker:down": "docker compose down",
 };
 
 export const jsScripts = {
   dev: "node --watch --env-file=.env src/main.js",
-  start: "node src/main.js",
+  start: "node --env-file=.env src/main.js",
+  format: 'prettier --write "**/*.{ts,js,json,md}"',
   "db:start": "docker compose up -d",
   "db:stop": "docker compose down",
 };
@@ -18,7 +20,7 @@ export function prettier() {
 {
   "semi": true,
   "singleQuote": false,
-  "tabWidth": 2
+  "tabWidth": 4
 }
 `;
 

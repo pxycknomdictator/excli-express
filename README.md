@@ -74,11 +74,15 @@ excli
 
 - `npm run start` - Start production server
 
+- `npm run format` - Formate with prettier
+
 ### JavaScript Projects
 
 - `npm run dev` - Start development server with hot reload
 
 - `npm run start` - Start production server
+
+- `npm run format` - Formate with prettier
 
 ### Docker
 
