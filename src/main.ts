@@ -109,6 +109,7 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
   const publicDir = join(targetDir, "public");
 
   const template = join(__dirname, "..", "templates", language);
+  const html = join(__dirname, "..", "templates", "index.html");
   if (!existsSync(template)) terminate(`❌ Template not found at: ${template}`);
 
   mkdirSync(publicDir, { recursive: true });
@@ -149,6 +150,7 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
 
   await packageJsonInit(pkgManager, targetDir, language);
   await installPackages(pkgManager, targetDir, language, devTools);
+  cpSync(html, join(targetDir, "public", "index.html"), { recursive: true });
 
   await sleep(1000);
   s1.stop(`Successfully created project \x1b[32m${dirName}\x1b[0m`);

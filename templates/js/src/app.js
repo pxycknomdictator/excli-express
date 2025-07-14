@@ -4,12 +4,15 @@ import { cwd } from "node:process";
 import cors from "cors";
 import helmet from "helmet";
 import express from "express";
-
 import { corsOptions } from "./constant.js";
 
 const app = express();
 const rootDir = cwd();
 const staticRoute = join(rootDir, "public");
+
+app.get("/", (_, res) => {
+  return res.sendFile(join(staticRoute, "index.html"));
+});
 
 app.use(helmet());
 app.use(cors(corsOptions));
