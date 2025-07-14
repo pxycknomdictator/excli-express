@@ -9,6 +9,5 @@ app.get("/", (_, res) => {
 (async () => {
   const PORT = configs.PORT || 3000;
   const server = createServer(app);
-
   server.listen(PORT, () => console.log(`Express: http://localhost:${PORT}`));
 })();

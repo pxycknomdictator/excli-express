@@ -14,5 +14,3 @@ export const corsOptions = {
   origin: configs.CLIENT_ORIGIN,
   credentials: true,
 };
-
-export const jsonLimit = "20mb";

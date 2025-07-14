@@ -86,9 +86,9 @@ excli
 
 ### Docker
 
-- `npm run db:start` - Start Docker services
+- `npm run docker:start` - Start Docker services
 
-- `npm run db:stop` - Stop Docker services
+- `npm run docker:stop` - Stop Docker services
 
 ## 👤 Author
 
