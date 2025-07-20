@@ -118,8 +118,10 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
         terminate(`❌ Template not found at: ${template}`);
     }
 
-    await mkdir(publicDir, { recursive: true });
-    await cp(template, targetDir, { recursive: true });
+    await Promise.all([
+        mkdir(publicDir, { recursive: true }),
+        cp(template, targetDir, { recursive: true }),
+    ]);
 
     for (const { file, variables } of env()) {
         const fullPath = join(targetDir, file);
@@ -154,9 +156,11 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
             ".dockerignore",
         );
 
-        await writeFile(DockerFile, "", { encoding: "utf-8" });
-        await writeFile(composeFile, compose, { encoding: "utf-8" });
-        await cp(dockerignore, join(targetDir, ".dockerignore"));
+        await Promise.all([
+            writeFile(DockerFile, "", { encoding: "utf-8" }),
+            writeFile(composeFile, compose, { encoding: "utf-8" }),
+            cp(dockerignore, join(targetDir, ".dockerignore")),
+        ]);
     }
 
     await installPackages(pkgManager, targetDir, language, devTools, dirName);
@@ -165,8 +169,7 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
 
     log.success(`Scaffolding project in ${targetDir}...`);
 
-    outro(`🚀 You're all set!
-Thanks for using Express App Generator 🙌
-GitHub → https://github.com/pxycknomdictator
+    outro(`cd ${dirName}
+   ${pkgManager} run dev
 `);
 })();

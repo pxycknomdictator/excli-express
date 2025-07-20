@@ -6,7 +6,7 @@ import { __dirname } from "./main.js";
 import { cp } from "node:fs/promises";
 
 export const directories: string[] = [
-    "db",
+    "configurations",
     "controllers",
     "routes",
     "middlewares",
@@ -14,6 +14,10 @@ export const directories: string[] = [
     "types",
     "utils",
     "models",
+    "validations",
+    "logs",
+    "errors",
+    "emails",
 ];
 
 export function terminate(message: string) {

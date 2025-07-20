@@ -42,6 +42,7 @@ export async function modifyPackageJson(
     const pkg = JSON.parse(await readFile(fullPath, { encoding: "utf-8" }));
 
     pkg.name = dirName;
+    pkg.main = `src/main.${language}`;
     pkg.scripts = language === "ts" ? { ...tsScripts } : { ...jsScripts };
     await writeFile(fullPath, JSON.stringify(pkg, null, 2));
 }

@@ -11,7 +11,7 @@ const rootDir = cwd();
 const staticRoute = join(rootDir, "public");
 
 app.get("/", (_, res) => {
-    return res.sendFile(join(staticRoute, "index.html"));
+    return res.status(200).send("<h1>Thanks for using Excli</h1>");
 });
 
 app.use(helmet());
