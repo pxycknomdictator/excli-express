@@ -1,22 +1,22 @@
 export const tsScripts = {
-  build: "tsc",
-  dev: "tsx watch --env-file=.env src/main.ts",
-  start: "node --env-file=.env dist/main.js",
-  format: 'prettier --write "**/*.{js,ts,json,md,yml,yaml}"',
-  "docker:up": "docker compose up -d",
-  "docker:down": "docker compose down",
+    build: "tsc",
+    dev: "tsx watch --env-file=.env src/main.ts",
+    start: "node --env-file=.env dist/main.js",
+    format: 'prettier --write "**/*.{js,ts,json,md,yml,yaml}"',
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
 };
 
 export const jsScripts = {
-  dev: "node --watch --env-file=.env src/main.js",
-  start: "node --env-file=.env src/main.js",
-  format: 'prettier --write "**/*.{js,ts,json,md,yml,yaml}"',
-  "docker:up": "docker compose up -d",
-  "docker:down": "docker compose down",
+    dev: "node --watch --env-file=.env src/main.js",
+    start: "node --env-file=.env src/main.js",
+    format: 'prettier --write "**/*.{js,ts,json,md,yml,yaml}"',
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
 };
 
 export function prettier() {
-  const prettierrcContent = `
+    const prettierrcContent = `
 {
   "semi": true,
   "singleQuote": false,
@@ -24,7 +24,7 @@ export function prettier() {
 }
 `;
 
-  const prettierignoreContent = `
+    const prettierignoreContent = `
 build/
 dist/
 out/
@@ -49,32 +49,32 @@ yarn-debug.log*
 yarn-error.log*
 `;
 
-  return [
-    {
-      filename: ".prettierrc",
-      content: prettierrcContent.trim(),
-    },
-    {
-      filename: ".prettierignore",
-      content: prettierignoreContent.trim(),
-    },
-  ];
+    return [
+        {
+            filename: ".prettierrc",
+            content: prettierrcContent.trim(),
+        },
+        {
+            filename: ".prettierignore",
+            content: prettierignoreContent.trim(),
+        },
+    ];
 }
 
 export function env() {
-  const enVariables = `NODE_ENV=
+    const enVariables = `NODE_ENV=
 PORT=
 DATABASE_URL=
 CLIENT_ORIGIN=
 `;
-  return [
-    {
-      variables: enVariables,
-      file: ".env",
-    },
-    {
-      variables: enVariables,
-      file: ".env.example",
-    },
-  ];
+    return [
+        {
+            variables: enVariables,
+            file: ".env",
+        },
+        {
+            variables: enVariables,
+            file: ".env.example",
+        },
+    ];
 }

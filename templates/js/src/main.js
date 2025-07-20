@@ -4,7 +4,7 @@ import { configs } from "./constant.js";
 
 // FIRE IN THE HOLE
 (async () => {
-  const PORT = configs.PORT || 3000;
-  const server = createServer(app);
-  server.listen(PORT, () => console.log(`Express: http://localhost:${PORT}`));
+    const PORT = configs.PORT || 3000;
+    const server = createServer(app);
+    server.listen(PORT, () => console.log(`Express: http://localhost:${PORT}`));
 })();

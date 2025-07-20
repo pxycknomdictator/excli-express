@@ -46,21 +46,21 @@ excli
 
 1. Create a new project:
 
-   ```bash
-   npx @excli/express
-   ```
+    ```bash
+    npx @excli/express
+    ```
 
 2. Navigate to your project:
 
-   ```bash
-   cd my-project
-   ```
+    ```bash
+    cd my-project
+    ```
 
 3. Start development:
 
-   ```bash
-   npm run dev
-   ```
+    ```bash
+    npm run dev
+    ```
 
 4. Open http://localhost:3000 🎉
 
@@ -86,9 +86,9 @@ excli
 
 ### Docker
 
-- `npm run docker:start` - Start Docker services
+- `npm run docker:up` - Start Docker services
 
-- `npm run docker:stop` - Stop Docker services
+- `npm run docker:down` - Stop Docker services
 
 ## 👤 Author
 

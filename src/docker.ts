@@ -1,5 +1,5 @@
 export function dockerMongodb(name: string) {
-  const dockerComposeConfig = `
+    const dockerComposeConfig = `
 services:
   mongodb:
     image: mongo:latest
@@ -20,11 +20,11 @@ networks:
 volumes:
   mongo:
 `;
-  return dockerComposeConfig.trim();
+    return dockerComposeConfig.trim();
 }
 
 export function dockerPostgres(name: string) {
-  const dockerComposeConfig = `
+    const dockerComposeConfig = `
 services:
   postgres_db:
     image: postgres:latest
@@ -46,11 +46,11 @@ networks:
 volumes:
   postgres_data: 
 `;
-  return dockerComposeConfig.trim();
+    return dockerComposeConfig.trim();
 }
 
 export function dockerMysql(name: string) {
-  const dockerComposeConfig = `
+    const dockerComposeConfig = `
 services:
   mysql:
     image: mysql:latest
@@ -73,5 +73,5 @@ networks:
 volumes:
   mysql_data:
 `;
-  return dockerComposeConfig.trim();
+    return dockerComposeConfig.trim();
 }

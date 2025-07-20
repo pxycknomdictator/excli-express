@@ -11,7 +11,7 @@ const rootDir = cwd();
 const staticRoute = join(rootDir, "public");
 
 app.get("/", (_, res) => {
-  return res.sendFile(join(staticRoute, "index.html"));
+    return res.sendFile(join(staticRoute, "index.html"));
 });
 
 app.use(helmet());

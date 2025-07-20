@@ -12,7 +12,7 @@ const app: Application = express();
 const staticRoute = join(rootDir, "public");
 
 app.get("/", (_: Request, res: Response) => {
-  return res.sendFile(join(staticRoute, "index.html"));
+    return res.sendFile(join(staticRoute, "index.html"));
 });
 
 app.use(helmet());
