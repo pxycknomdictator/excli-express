@@ -4,14 +4,19 @@ import { cwd } from "node:process";
 import { fileURLToPath } from "node:url";
 import { join, basename, dirname } from "node:path";
 import { existsSync } from "node:fs";
-import { mkdir, cp, writeFile } from "node:fs/promises";
+import { mkdir, cp } from "node:fs/promises";
 import figlet from "figlet";
 import { spinner, isCancel, multiselect } from "@clack/prompts";
 import { text, select, outro, log } from "@clack/prompts";
-import { prettier, env } from "./options.js";
 import { fireShell, hasPkManager } from "./scripts.js";
-import { database, installPackages } from "./utils.js";
-import { terminate, directories } from "./utils.js";
+import {
+    installPackages,
+    setupDirectories,
+    setupDocker,
+    setupEnvironmentSecret,
+    setupPrettier,
+} from "./utils.js";
+import { terminate } from "./utils.js";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
@@ -106,14 +111,14 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
     }
 
     const s1 = spinner({ indicator: "dots" });
-
     s1.start("Installation in progress ☕");
+
     if (!existsSync(targetDir)) await mkdir(targetDir, { recursive: true });
 
     const sourceDir = join(targetDir, "src");
     const publicDir = join(targetDir, "public");
-
     const template = join(__dirname, "..", "templates", language);
+
     if (!existsSync(template)) {
         terminate(`❌ Template not found at: ${template}`);
     }
@@ -121,49 +126,26 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
     await Promise.all([
         mkdir(publicDir, { recursive: true }),
         cp(template, targetDir, { recursive: true }),
+        setupEnvironmentSecret(targetDir),
+        setupDirectories(language, sourceDir),
     ]);
 
-    for (const { file, variables } of env()) {
-        const fullPath = join(targetDir, file);
-        await writeFile(fullPath, variables);
-    }
-
-    for (const dir of directories) {
-        if (language !== "ts" && dir === "types") continue;
-        const directoryPath = join(sourceDir, dir);
-        await mkdir(directoryPath, { recursive: true });
-    }
-
-    if (devTools.includes("prettier")) {
-        for (const { content, filename } of prettier()) {
-            const fullPath = join(targetDir, filename);
-            await writeFile(fullPath, content);
-        }
-    }
+    if (devTools.includes("prettier")) await setupPrettier(targetDir);
 
     if (devTools.includes("git")) {
         await fireShell("npx", ["gitignore", "node"], targetDir);
     }
 
-    if (devTools.includes("docker") && db!) {
-        const compose = database(db!, dirName) as string;
-        const composeFile = join(targetDir, "compose.yaml");
-        const DockerFile = join(targetDir, "Dockerfile");
-        const dockerignore = join(
-            __dirname,
-            "..",
-            "templates",
-            ".dockerignore",
-        );
-
-        await Promise.all([
-            writeFile(DockerFile, "", { encoding: "utf-8" }),
-            writeFile(composeFile, compose, { encoding: "utf-8" }),
-            cp(dockerignore, join(targetDir, ".dockerignore")),
-        ]);
-    }
-
-    await installPackages(pkgManager, targetDir, language, devTools, dirName);
+    await Promise.all([
+        await setupDocker(devTools, db!, dirName, targetDir),
+        await installPackages(
+            pkgManager,
+            targetDir,
+            language,
+            devTools,
+            dirName,
+        ),
+    ]);
 
     s1.stop(`Successfully created project \x1b[32m${dirName}\x1b[0m`);
 

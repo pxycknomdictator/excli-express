@@ -1,8 +1,8 @@
 import { join } from "node:path";
 import { platform } from "node:process";
+import { jsScripts, tsScripts } from "./options.js";
 import { readFile, writeFile } from "node:fs/promises";
 import { spawnSync, spawn } from "node:child_process";
-import { jsScripts, tsScripts } from "./options.js";
 
 export function hasPkManager(pkgM: string) {
     const command = platform !== "win32" ? "which" : "where";

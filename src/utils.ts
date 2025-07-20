@@ -1,9 +1,10 @@
-import { cancel } from "@clack/prompts";
-import { fireShell, modifyPackageJson } from "./scripts.js";
-import { dockerMongodb, dockerMysql, dockerPostgres } from "./docker.js";
 import { join } from "node:path";
 import { __dirname } from "./main.js";
-import { cp } from "node:fs/promises";
+import { cancel } from "@clack/prompts";
+import { env, prettier } from "./options.js";
+import { cp, mkdir, writeFile } from "node:fs/promises";
+import { fireShell, modifyPackageJson } from "./scripts.js";
+import { dockerMongodb, dockerMysql, dockerPostgres } from "./docker.js";
 
 export const directories: string[] = [
     "configurations",
@@ -73,5 +74,52 @@ export async function installPackages(
             [installCmd, ...devPackages, "-D"],
             targetDir,
         );
+    }
+}
+
+export async function setupEnvironmentSecret(targetDir: string) {
+    for (const { file, variables } of env()) {
+        const fullPath = join(targetDir, file);
+        await writeFile(fullPath, variables);
+    }
+}
+
+export async function setupDirectories(language: string, sourceDir: string) {
+    for (const dir of directories) {
+        if (language !== "ts" && dir === "types") continue;
+        const directoryPath = join(sourceDir, dir);
+        await mkdir(directoryPath, { recursive: true });
+    }
+}
+
+export async function setupPrettier(targetDir: string) {
+    for (const { content, filename } of prettier()) {
+        const fullPath = join(targetDir, filename);
+        await writeFile(fullPath, content);
+    }
+}
+
+export async function setupDocker(
+    devTools: string[],
+    db: string,
+    dirName: string,
+    targetDir: string,
+) {
+    if (devTools.includes("docker") && db!) {
+        const compose = database(db!, dirName) as string;
+        const composeFile = join(targetDir, "compose.yaml");
+        const DockerFile = join(targetDir, "Dockerfile");
+        const dockerignore = join(
+            __dirname,
+            "..",
+            "templates",
+            ".dockerignore",
+        );
+
+        await Promise.all([
+            writeFile(DockerFile, "", { encoding: "utf-8" }),
+            writeFile(composeFile, compose, { encoding: "utf-8" }),
+            cp(dockerignore, join(targetDir, ".dockerignore")),
+        ]);
     }
 }
