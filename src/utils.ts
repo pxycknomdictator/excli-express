@@ -7,7 +7,7 @@ import { fireShell, modifyPackageJson } from "./scripts.js";
 import { dockerMongodb, dockerMysql, dockerPostgres } from "./docker.js";
 
 export const directories: string[] = [
-    "configurations",
+    "config",
     "controllers",
     "routes",
     "middlewares",
@@ -15,10 +15,6 @@ export const directories: string[] = [
     "types",
     "utils",
     "models",
-    "validations",
-    "logs",
-    "errors",
-    "emails",
 ];
 
 export function terminate(message: string) {
