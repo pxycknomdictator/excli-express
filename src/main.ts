@@ -60,7 +60,7 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
     if (isCancel(language)) terminate("Process cancelled ❌");
 
     const mode = (await select({
-        message: "⚙️ Select Project Mode:",
+        message: "Select Project Mode:",
         options: [
             {
                 label: "🧪 Standard Kit",
