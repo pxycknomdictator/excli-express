@@ -42,7 +42,13 @@ export async function installPackages(
     devTools: string[],
     dirName: string,
 ) {
-    const packages: string[] = ["express", "cors", "helmet"];
+    const packages: string[] = [
+        "express",
+        "cors",
+        "helmet",
+        "express-rate-limit",
+    ];
+
     const devPackages: string[] = [];
     const packageJson = join(__dirname, "..", "templates", "package.json");
 

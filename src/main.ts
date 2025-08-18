@@ -15,8 +15,8 @@ import {
     setupDocker,
     setupEnvironmentSecret,
     setupPrettier,
+    terminate,
 } from "./utils.js";
-import { terminate } from "./utils.js";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
@@ -59,38 +59,63 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
 
     if (isCancel(language)) terminate("Process cancelled ❌");
 
-    const devTools = (await multiselect({
-        message: "🔧 Setting up core development tools...",
+    const mode = (await select({
+        message: "⚙️ Select Project Mode:",
         options: [
-            { label: "✨ Prettier", value: "prettier" },
-            { label: "🐳 Docker (deployment + database)", value: "docker" },
-            { label: "📝 Git", value: "git" },
+            {
+                label: "🧪 Standard Kit",
+                value: "normal",
+                hint: "For local dev and testing",
+            },
+            {
+                label: "🚀 Production Kit",
+                value: "production",
+                hint: "Deployment-ready setup",
+            },
         ],
-    })) as string[];
+    })) as string;
 
-    if (isCancel(devTools)) terminate("Process cancelled ❌");
+    if (isCancel(mode)) terminate("Process cancelled ❌");
 
-    let db: string;
+    let devTools: string[] = [];
+    let db: string | undefined;
 
-    if (devTools.includes("docker")) {
-        db = (await select({
-            message: "Alright, pick your database:",
+    if (mode === "production") {
+        devTools = (await multiselect({
+            message: "🔧 Setting up core development tools...",
             options: [
-                { label: "🐬 MySQL", value: "mysql", hint: "Widely used 🌍" },
-                {
-                    label: "🐘 PostgreSQL",
-                    value: "postgres",
-                    hint: "SQL powerhouse ⚡",
-                },
-                {
-                    label: "🍃 MongoDB",
-                    value: "mongodb",
-                    hint: "NoSQL flexible 🔄",
-                },
+                { label: "✨ Prettier", value: "prettier" },
+                { label: "🐳 Docker (deployment + database)", value: "docker" },
+                { label: "📝 Git", value: "git" },
             ],
-        })) as string;
+        })) as string[];
 
-        if (isCancel(db)) terminate("Process cancelled ❌");
+        if (isCancel(devTools)) terminate("Process cancelled ❌");
+
+        if (devTools.includes("docker")) {
+            db = (await select({
+                message: "Alright, pick your database:",
+                options: [
+                    {
+                        label: "🐬 MySQL",
+                        value: "mysql",
+                        hint: "Widely used 🌍",
+                    },
+                    {
+                        label: "🐘 PostgreSQL",
+                        value: "postgres",
+                        hint: "SQL powerhouse ⚡",
+                    },
+                    {
+                        label: "🍃 MongoDB",
+                        value: "mongodb",
+                        hint: "NoSQL flexible 🔄",
+                    },
+                ],
+            })) as string;
+
+            if (isCancel(db)) terminate("Process cancelled ❌");
+        }
     }
 
     const pkgManager = (await select({
@@ -127,31 +152,27 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
         mkdir(publicDir, { recursive: true }),
         cp(template, targetDir, { recursive: true }),
         setupEnvironmentSecret(targetDir),
-        setupDirectories(language, sourceDir),
     ]);
 
-    if (devTools.includes("prettier")) await setupPrettier(targetDir);
-
-    if (devTools.includes("git")) {
-        await fireShell("npx", ["gitignore", "node"], targetDir);
+    if (mode === "production") {
+        await setupDirectories(language, sourceDir);
+        if (devTools.includes("prettier")) await setupPrettier(targetDir);
+        if (devTools.includes("git")) {
+            await fireShell("npx", ["gitignore", "node"], targetDir);
+        }
+        await Promise.all([
+            setupDocker(devTools, db!, dirName, targetDir),
+            installPackages(pkgManager, targetDir, language, devTools, dirName),
+        ]);
+    } else {
+        await installPackages(pkgManager, targetDir, language, [], dirName);
     }
-
-    await Promise.all([
-        await setupDocker(devTools, db!, dirName, targetDir),
-        await installPackages(
-            pkgManager,
-            targetDir,
-            language,
-            devTools,
-            dirName,
-        ),
-    ]);
 
     s1.stop(`Successfully created project \x1b[32m${dirName}\x1b[0m`);
 
     log.success(`Scaffolding project in ${targetDir}...`);
 
     outro(`cd ${dirName}
-   ${pkgManager} run dev
-`);
+       ${pkgManager} run dev
+    `);
 })();
