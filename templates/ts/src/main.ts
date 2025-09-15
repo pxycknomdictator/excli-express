@@ -1,5 +1,5 @@
 import http from "node:http";
-import { app } from "./app.js";
+import { app } from "@/app";
 import { env } from "@/constant";
 
 const PORT = env.PORT || 3000;
