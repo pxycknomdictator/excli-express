@@ -7,7 +7,7 @@ import express from "express";
 import { rateLimit } from "express-rate-limit";
 import type { Express, Request, Response } from "express";
 
-import { env, globalLimiter } from "./constant.js";
+import { env, globalLimiter } from "@/constant";
 
 const app: Express = express();
 const client = env.CLIENT_ORIGIN || "*";
@@ -25,4 +25,4 @@ app.get("/", (_: Request, res: Response) => {
     return res.status(200).send("<h1>Thanks for using Express Cli</h1>");
 });
 
-export default app;
+export { app };

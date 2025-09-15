@@ -18,14 +18,14 @@
         "prepare": "husky"
     },
     "keywords": [
-        "excli",
-        "express",
-        "cli",
         "express cli",
-        "cli tool",
         "express generator",
+        "create express app",
+        "express cli tool",
         "express app generator",
-        "create express app"
+        "node express cli",
+        "express project generator",
+        "express boilerplate"
     ],
     "bin": {
         "excli": "./dist/main.js"

@@ -24,4 +24,4 @@ app.get("/", (_, res) => {
     return res.status(200).send("<h1>Thanks for using Express Cli</h1>");
 });
 
-export default app;
+export { app };

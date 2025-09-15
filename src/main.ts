@@ -8,15 +8,9 @@ import { mkdir, cp } from "node:fs/promises";
 import figlet from "figlet";
 import { spinner, isCancel, multiselect } from "@clack/prompts";
 import { text, select, outro, log } from "@clack/prompts";
-import { fireShell, hasPkManager } from "./scripts.js";
-import {
-    installPackages,
-    setupDirectories,
-    setupDocker,
-    setupEnvironmentSecret,
-    setupPrettier,
-    terminate,
-} from "./utils.js";
+import { fireShell, hasPkManager } from "@/scripts";
+import { installPackages, setupDirectories, setupDocker } from "@/utils";
+import { terminate, setupPrettier, setupEnvironmentSecret } from "@/utils";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
@@ -173,6 +167,6 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
     log.success(`Scaffolding project in ${targetDir}...`);
 
     outro(`cd ${dirName}
-       ${pkgManager} run dev
+    ${pkgManager} run dev
     `);
 })();
