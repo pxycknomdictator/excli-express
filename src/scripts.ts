@@ -1,6 +1,7 @@
 import { join } from "node:path";
 import { platform } from "node:process";
 import { jsScripts, tsScripts } from "./options.js";
+import { prettierScripts, dockerScripts } from "./options.js";
 import { readFile, writeFile } from "node:fs/promises";
 import { spawnSync, spawn } from "node:child_process";
 
@@ -37,12 +38,28 @@ export async function modifyPackageJson(
     targetDir: string,
     language: string,
     dirName: string,
+    isPrettier: boolean,
+    isDocker: boolean,
 ) {
     const fullPath = join(targetDir, "package.json");
     const pkg = JSON.parse(await readFile(fullPath, { encoding: "utf-8" }));
 
     pkg.name = dirName;
     pkg.main = `src/main.${language}`;
-    pkg.scripts = language === "ts" ? { ...tsScripts } : { ...jsScripts };
+
+    if (isPrettier) {
+        pkg.scripts =
+            language === "ts"
+                ? { ...tsScripts, ...prettierScripts }
+                : { ...jsScripts, ...prettierScripts };
+    }
+
+    if (isDocker) {
+        pkg.scripts =
+            language === "ts"
+                ? { ...tsScripts, ...dockerScripts }
+                : { ...jsScripts, ...dockerScripts };
+    }
+
     await writeFile(fullPath, JSON.stringify(pkg, null, 2));
 }

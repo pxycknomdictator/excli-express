@@ -52,10 +52,13 @@ export async function installPackages(
     const devPackages: string[] = [];
     const packageJson = join(__dirname, "..", "templates", "package.json");
 
-    await cp(packageJson, join(targetDir, "package.json"));
-    await modifyPackageJson(targetDir, language, dirName);
+    const isPrettier = devTools.includes("prettier");
+    if (isPrettier) devPackages.push("prettier");
 
-    if (devTools.includes("prettier")) devPackages.push("prettier");
+    const isDocker = devTools.includes("docker");
+
+    await cp(packageJson, join(targetDir, "package.json"));
+    await modifyPackageJson(targetDir, language, dirName, isPrettier, isDocker);
 
     if (language === "ts") {
         devPackages.push(

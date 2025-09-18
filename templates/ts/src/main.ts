@@ -1,6 +1,6 @@
 import http from "node:http";
-import { app } from "@/app";
-import { env } from "@/constant";
+import { app } from "./app.js";
+import { env } from "./constant.js";
 
 const PORT = env.PORT || 3000;
 const server = http.createServer(app);
