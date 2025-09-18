@@ -47,19 +47,13 @@ export async function modifyPackageJson(
     pkg.name = dirName;
     pkg.main = `src/main.${language}`;
 
-    if (isPrettier) {
-        pkg.scripts =
-            language === "ts"
-                ? { ...tsScripts, ...prettierScripts }
-                : { ...jsScripts, ...prettierScripts };
-    }
+    const baseScripts = language === "ts" ? tsScripts : jsScripts;
 
-    if (isDocker) {
-        pkg.scripts =
-            language === "ts"
-                ? { ...tsScripts, ...dockerScripts }
-                : { ...jsScripts, ...dockerScripts };
-    }
+    pkg.scripts = {
+        ...baseScripts,
+        ...(isPrettier ? prettierScripts : {}),
+        ...(isDocker ? dockerScripts : {}),
+    };
 
     await writeFile(fullPath, JSON.stringify(pkg, null, 2));
 }
