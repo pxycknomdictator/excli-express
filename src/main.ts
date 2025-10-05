@@ -155,7 +155,7 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
             await fireShell("npx", ["gitignore", "node"], targetDir);
         }
         await Promise.all([
-            setupDocker(devTools, db!, dirName, targetDir),
+            setupDocker(devTools, db!, dirName),
             installPackages(pkgManager, targetDir, language, devTools, dirName),
         ]);
     } else {

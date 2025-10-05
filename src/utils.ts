@@ -22,14 +22,14 @@ export function terminate(message: string) {
     process.exit(0);
 }
 
-export function database(db: string, name: string) {
+export function database(db: string) {
     switch (db) {
         case "mongodb":
-            return dockerMongodb(name);
+            return dockerMongodb();
         case "postgres":
-            return dockerPostgres(name);
+            return dockerPostgres();
         case "mysql":
-            return dockerMysql(name);
+            return dockerMysql();
         default:
             return null;
     }
@@ -107,11 +107,10 @@ export async function setupPrettier(targetDir: string) {
 export async function setupDocker(
     devTools: string[],
     db: string,
-    dirName: string,
     targetDir: string,
 ) {
     if (devTools.includes("docker") && db!) {
-        const compose = database(db!, dirName) as string;
+        const compose = database(db!) as string;
         const composeFile = join(targetDir, "compose.yaml");
         const DockerFile = join(targetDir, "Dockerfile");
         const dockerignore = join(
