@@ -53,7 +53,7 @@ services:
         environment:
             POSTGRES_DB: superhero
             POSTGRES_USER: batman
-            POSTGRES_PASSWORD: justiceForGotham
+            POSTGRES_PASSWORD: justiceForHumans
         networks:
             - pg_network
         volumes:
@@ -66,7 +66,7 @@ services:
             - "6969:80"
         environment:
             PGADMIN_DEFAULT_EMAIL: batman@justice.com
-            PGADMIN_DEFAULT_PASSWORD: justiceForHumans
+            PGADMIN_DEFAULT_PASSWORD: justiceForGotham
         networks:
             - pg_network
         depends_on:

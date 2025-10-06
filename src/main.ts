@@ -27,8 +27,8 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
 
 (async () => {
     const directory = (await text({
-        message: "What should we name your server directory? 🎯",
-        placeholder: "server (Hit Enter for ./)",
+        message: "What should we name your server directory?",
+        placeholder: "server (press Enter for current directory)",
     })) as string;
 
     if (isCancel(directory)) terminate("Process cancelled ❌");
@@ -39,33 +39,25 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
 
     if (existsSync(targetDir) && directory?.trim()) {
         return terminate(
-            `${directory} already exists. Please choose a different name 🤷`,
+            `${directory} already exists. Please choose a different name.`,
         );
     }
 
     const language = (await select({
-        message: "Pick your coding Language:",
+        message: "Select your programming language:",
         options: [
-            { label: "TypeScript", value: "ts", hint: "Recommended 🚀" },
-            { label: "JavaScript", value: "js", hint: "Classic 💼" },
+            { label: "TypeScript", value: "ts" },
+            { label: "JavaScript", value: "js" },
         ],
     })) as string;
 
     if (isCancel(language)) terminate("Process cancelled ❌");
 
     const mode = (await select({
-        message: "Select Project Mode:",
+        message: "Select project mode:",
         options: [
-            {
-                label: "🧪 Standard Kit",
-                value: "normal",
-                hint: "For local dev and testing",
-            },
-            {
-                label: "🚀 Production Kit",
-                value: "production",
-                hint: "Deployment-ready setup",
-            },
+            { label: "Standard", value: "normal" },
+            { label: "Production", value: "production" },
         ],
     })) as string;
 
@@ -76,11 +68,11 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
 
     if (mode === "production") {
         devTools = (await multiselect({
-            message: "🔧 Setting up core development tools...",
+            message: "Select development tools:",
             options: [
-                { label: "✨ Prettier", value: "prettier" },
-                { label: "🐳 Docker (deployment + database)", value: "docker" },
-                { label: "📝 Git", value: "git" },
+                { label: "Prettier", value: "prettier" },
+                { label: "Docker (deployment + database)", value: "docker" },
+                { label: "Git", value: "git" },
             ],
         })) as string[];
 
@@ -88,23 +80,11 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
 
         if (devTools.includes("docker")) {
             db = (await select({
-                message: "Alright, pick your database:",
+                message: "Select your database:",
                 options: [
-                    {
-                        label: "🐬 MySQL",
-                        value: "mysql",
-                        hint: "Widely used 🌍",
-                    },
-                    {
-                        label: "🐘 PostgreSQL",
-                        value: "postgres",
-                        hint: "SQL powerhouse ⚡",
-                    },
-                    {
-                        label: "🍃 MongoDB",
-                        value: "mongodb",
-                        hint: "NoSQL flexible 🔄",
-                    },
+                    { label: "MySQL", value: "mysql" },
+                    { label: "PostgreSQL", value: "postgres" },
+                    { label: "MongoDB", value: "mongodb" },
                 ],
             })) as string;
 
@@ -113,11 +93,11 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
     }
 
     const pkgManager = (await select({
-        message: "Which package manager would you ❤️  to use?",
+        message: "Select your package manager:",
         options: [
-            { label: "📋 npm", value: "npm", hint: "Standard choice 🔧" },
-            { label: "🧶 yarn", value: "yarn", hint: "Smooth workflow 💫" },
-            { label: "⚡ pnpm", value: "pnpm", hint: "Lightning fast 🚀" },
+            { label: "npm", value: "npm" },
+            { label: "yarn", value: "yarn" },
+            { label: "pnpm", value: "pnpm" },
         ],
     })) as string;
 
@@ -130,7 +110,7 @@ console.log(`\x1b[96m ${banner} \x1b[0m`);
     }
 
     const s1 = spinner({ indicator: "dots" });
-    s1.start("Installation in progress ☕");
+    s1.start("Installing dependencies...");
 
     if (!existsSync(targetDir)) await mkdir(targetDir, { recursive: true });
 
