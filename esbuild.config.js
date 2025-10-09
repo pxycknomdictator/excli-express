@@ -2,8 +2,8 @@ import esbuild from "esbuild";
 import { nodeExternalsPlugin } from "esbuild-node-externals";
 
 await esbuild.build({
-    entryPoints: ["src/main.ts"],
-    outfile: "dist/main.js",
+    entryPoints: ["src/index.ts"],
+    outfile: "dist/index.js",
     bundle: true,
     platform: "node",
     target: "node20",
@@ -11,5 +11,3 @@ await esbuild.build({
     sourcemap: true,
     plugins: [nodeExternalsPlugin()],
 });
-
-console.log("✅ Build completed.");

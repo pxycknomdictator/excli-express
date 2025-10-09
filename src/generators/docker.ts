@@ -1,4 +1,6 @@
-export function dockerMongodb() {
+import type { Database } from "@/types";
+
+function dockerMongodb(): string {
     const dockerComposeConfig = `
 services:
     mongodb_database:
@@ -42,7 +44,7 @@ volumes:
     return dockerComposeConfig.trim();
 }
 
-export function dockerPostgres() {
+function dockerPostgres(): string {
     const dockerComposeConfig = `
 services:
     postgres_database:
@@ -81,7 +83,7 @@ volumes:
     return dockerComposeConfig.trim();
 }
 
-export function dockerMysql() {
+function dockerMysql(): string {
     const dockerComposeConfig = `
 services:
     mysql_database:
@@ -118,4 +120,17 @@ volumes:
     mysql_data:
 `;
     return dockerComposeConfig.trim();
+}
+
+export function generateDockerCompose(database: Database): string {
+    switch (database) {
+        case "mongodb":
+            return dockerMongodb();
+        case "postgres":
+            return dockerPostgres();
+        case "mysql":
+            return dockerMysql();
+        default:
+            return "";
+    }
 }

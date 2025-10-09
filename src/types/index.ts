@@ -1,6 +1,6 @@
 export type Language = "ts" | "js";
 export type Mode = "normal" | "production";
-export type DevTool = "prettier" | "docker" | "git";
+export type DevTools = "prettier" | "docker" | "git";
 export type PackageManager = "npm" | "yarn" | "pnpm";
 export type Database = "mysql" | "postgres" | "mongodb";
 
@@ -8,9 +8,9 @@ export type ProjectConfig = {
     directory: string;
     language: Language;
     mode: Mode;
-    devTools: DevTool[];
+    devTools: DevTools[];
     database?: Database;
-    packageManager: PackageManager;
+    pkgManager: PackageManager;
     targetDir: string;
     dirName: string;
 };
