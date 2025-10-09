@@ -37,7 +37,7 @@ export async function promptMode(): Promise<Mode> {
     const mode = (await select({
         message: "Select project mode:",
         options: [
-            { label: "Standard", value: "normal" },
+            { label: "Normal", value: "normal" },
             { label: "Production", value: "production" },
         ],
     })) as Mode;

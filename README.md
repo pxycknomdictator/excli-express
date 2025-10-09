@@ -1,29 +1,37 @@
-<div align="center">
+## Express.js CLI Tool
 
-# 🔥 Express.js CLI Tool
-
-**A powerful, interactive CLI tool for creating Express.js applications with TypeScript/JavaScript support**
+**A powerful, interactive CLI tool for creating production-ready Express.js applications with TypeScript/JavaScript support**
 
 [![npm version](https://badge.fury.io/js/%40excli%2Fexpress.svg)](https://badge.fury.io/js/%40excli%2Fexpress)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 [![Node.js](https://img.shields.io/badge/Node.js-20+-green.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 
-</div>
-
 ---
 
-## ✨ Features
+## Features
 
-- 💎 TypeScript and JavaScript support
+### Core Functionality
 
-- 🐳 Docker setup (optional)
+- Full TypeScript and JavaScript support with optimized configurations
+- Docker containerization with docker-compose setup
+- Clean, scalable project architecture following industry best practices
+- Pre-configured development tools
+- Hot reload development environment
 
-- 📁 Clean project structure
+### Database Support
 
-- 🛠️ Development tools pre-configured
+- **MySQL** - Docker configuration with phpMyAdmin
+- **PostgreSQL** - Docker configuration with pgAdmin
+- **MongoDB** - Docker configuration with Mongo Express
 
-## 🚀 Installation
+### Admin Panels
+
+- **PostgreSQL** - pgAdmin web interface (Docker)
+- **MySQL** - phpMyAdmin web interface (Docker)
+- **MongoDB** - Mongo Express web interface (Docker)
+
+## Installation
 
 ```bash
 npx @excli/express
@@ -36,13 +44,13 @@ npm install -g @excli/express
 excli
 ```
 
-## 📋 Requirements
+## Requirements
 
 - Node.js >= 20.0.0
+- npm, yarn, or pnpm
+- Docker (optional, for containerization)
 
-- npm/yarn/pnpm
-
-## 🎯 Usage
+## Quick Start
 
 1. Create a new project:
 
@@ -50,55 +58,72 @@ excli
     npx @excli/express
     ```
 
-2. Navigate to your project:
+2. Follow the interactive prompts to configure:
+
+    - Project name
+    - Language (TypeScript/JavaScript)
+    - Project Mode (normal, production)
+    - Development Tools
+    - Docker setup if Project Mode is production
+    - Database selection if Project Mode is production (MySQL/PostgreSQL/MongoDB)
+
+3. Navigate to your project:
 
     ```bash
     cd my-project
     ```
 
-3. Start development:
+4. Start development server:
 
     ```bash
     npm run dev
     ```
 
-4. Open http://localhost:3000 🎉
+5. Access your application at http://localhost:3000
 
-## 📜 Scripts
+## Available Scripts
 
 ### TypeScript Projects
 
-- `npm run build` - Compile TypeScript
-
+- `npm run build` - Compile TypeScript to JavaScript
 - `npm run dev` - Start development server with hot reload
-
 - `npm run start` - Start production server
-
-- `npm run format` - Formate with prettier
+- `npm run format` - Format code with Prettier
 
 ### JavaScript Projects
 
 - `npm run dev` - Start development server with hot reload
-
 - `npm run start` - Start production server
+- `npm run format` - Format code with Prettier
 
-- `npm run format` - Formate with prettier
+### Database Scripts
 
-### Docker
+- `npm run docker:up` - Start database and admin panel
+- `npm run docker:down` - Stop all services
 
-- `npm run docker:up` - Start Docker services
+## Admin Panel Access
 
-- `npm run docker:down` - Stop Docker services
+Admin panels run in Docker containers and are automatically configured all admin panels share same port number **6969**:
 
-## 👤 Author
+- **pgAdmin** (PostgreSQL): http://localhost:6969
+- **phpMyAdmin** (MySQL): http://localhost:6969
+- **Mongo Express** (MongoDB): http://localhost:6969
 
-**Noman** - [pxycknomdictator@gmail.com](mailto:pxycknomdictator@gmail.com)
-**GitHub** - [@pxycknomdictator](https://github.com/pxycknomdictator)
+## License
 
-<div align="center">
+This project is licensed under the ISC License.
 
-**🚀 Happy Coding! Build something amazing! ⚡**
+## Author
 
-_Made with ❤️ by developers, for developers_
+**Noman**
 
-</div>
+- Email: [pxycknomdictator@gmail.com](mailto:pxycknomdictator@gmail.com)
+- GitHub: [@pxycknomdictator](https://github.com/pxycknomdictator)
+
+## Support
+
+For issues, questions, or suggestions, please open an issue on the GitHub repository.
+
+---
+
+**Built for developers who value productivity and best practices**

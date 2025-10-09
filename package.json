@@ -18,14 +18,12 @@
         "prepare": "husky"
     },
     "keywords": [
-        "express cli",
-        "express generator",
-        "create express app",
+        "express",
+        "nodejs",
+        "express js generator",
+        "express-app-generator",
         "express cli tool",
-        "express app generator",
-        "node express cli",
-        "express project generator",
-        "express boilerplate"
+        "express-project-generator"
     ],
     "bin": {
         "excli": "./dist/index.js"
