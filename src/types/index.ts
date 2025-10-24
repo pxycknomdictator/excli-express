@@ -1,7 +1,7 @@
 export type Language = "ts" | "js";
 export type Mode = "normal" | "production";
 export type DevTools = "prettier" | "docker" | "git";
-export type PackageManager = "npm" | "yarn" | "pnpm";
+export type PackageManager = "npm" | "yarn" | "pnpm" | "bun";
 export type Database = "mysql" | "postgres" | "mongodb";
 
 export type ProjectConfig = {

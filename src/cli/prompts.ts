@@ -84,6 +84,7 @@ export async function promptPackageManager(): Promise<PackageManager> {
             { label: "npm", value: "npm" },
             { label: "yarn", value: "yarn" },
             { label: "pnpm", value: "pnpm" },
+            { label: "bun", value: "bun" },
         ],
     })) as PackageManager;
 

@@ -17,6 +17,7 @@ export async function setupGit(
         npm: "npx",
         pnpm: "pnpm dlx",
         yarn: "yarn dlx",
+        bun: "bunx",
     };
 
     const manager = managerMap[pkgManager] ?? null;

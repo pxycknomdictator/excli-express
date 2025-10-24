@@ -32,6 +32,7 @@ export async function installPackages(
         npm: "install",
         pnpm: "add",
         yarn: "add",
+        bun: "add",
     };
 
     const installCmd = installCmdMap[pkgManager] ?? null;
