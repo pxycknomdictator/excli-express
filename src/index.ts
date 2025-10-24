@@ -86,7 +86,7 @@ displayBanner();
     if (mode === "production") {
         await setupProjectDirectories(language, sourceDir);
 
-        if (devTools.includes("git")) await setupGit(targetDir);
+        if (devTools.includes("git")) await setupGit(targetDir, pkgManager);
         if (devTools.includes("prettier")) await setupPrettier(targetDir);
 
         await Promise.all([

@@ -2,15 +2,25 @@ import { join } from "node:path";
 import { __dirname } from "@/index";
 import { fireShell } from "@/utils/shell";
 import { DIRECTORIES } from "@/config/constants";
-import { Language, ProjectConfig } from "@/types";
+import { Language, PackageManager, ProjectConfig } from "@/types";
 import { generateEnvFiles } from "@/generators/env";
 import { cp, mkdir, writeFile } from "node:fs/promises";
 import { generateDockerCompose } from "@/generators/docker";
 import { generatePrettierConfig } from "@/generators/prettier";
 import { writeConfigFiles, writeEnvFiles } from "@/utils/file";
 
-export async function setupGit(targetDir: string): Promise<void> {
-    await fireShell("npx", ["gitignore", "node"], targetDir);
+export async function setupGit(
+    targetDir: string,
+    pkgManager: PackageManager,
+): Promise<void> {
+    const managerMap: Record<string, string> = {
+        npm: "npx",
+        pnpm: "pnpm dlx",
+        yarn: "yarn dlx",
+    };
+
+    const manager = managerMap[pkgManager] ?? null;
+    await fireShell(manager, ["gitignore", "node"], targetDir);
 }
 
 export async function setupProjectDirectories(

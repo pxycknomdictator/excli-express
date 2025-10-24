@@ -28,7 +28,13 @@ export async function installPackages(
     const scripts = generateScripts(language, devTools);
     await modifyPackageJson(targetDir, language, dirName, scripts);
 
-    const installCmd = pkgManager === "npm" ? "install" : "add";
+    const installCmdMap: Record<string, string> = {
+        npm: "install",
+        pnpm: "add",
+        yarn: "add",
+    };
+
+    const installCmd = installCmdMap[pkgManager] ?? null;
     await fireShell(pkgManager, [installCmd, ...packages], targetDir);
 
     if (devPackages.length > 0) {
