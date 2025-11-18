@@ -7,6 +7,12 @@ export function hasPkManager(pkgM: string) {
     return result.status === 0;
 }
 
+export function hasGit() {
+    const command = platform !== "win32" ? "which" : "where";
+    const result = spawnSync(command, ["git"], { encoding: "utf-8" });
+    return result.status === 0;
+}
+
 export function fireShell(
     command: string,
     args: string[],
