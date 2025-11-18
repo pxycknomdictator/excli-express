@@ -54,6 +54,7 @@ export async function promptDevTools(): Promise<DevTools[]> {
             { label: "Prettier", value: "prettier" },
             { label: "Docker (deployment + database)", value: "docker" },
             { label: "Git", value: "git" },
+            { label: "Husky", value: "husky" },
         ],
     })) as DevTools[];
 
