@@ -90,11 +90,11 @@ That's it! Your Express server is running with hot reload enabled.
 
 Choose the database that fits your needs:
 
-| Database                    | Admin Panel                     | Admin Panel Port               |
-| --------------------------- | ------------------------------- | ------------------------------ |
-| **MySQL**                   | phpMyAdmin                      | 6969                           |
-| **PostgreSQL**              | pgAdmin                         | 6969                           |
-| **MongoDB**                 | Mongo Express                   | 6969                           |
+| Database       | Admin Panel   | Admin Panel Port |
+| -------------- | ------------- | ---------------- |
+| **MySQL**      | phpMyAdmin    | 6969             |
+| **PostgreSQL** | pgAdmin       | 6969             |
+| **MongoDB**    | Mongo Express | 6969             |
 
 All admin panels are accessible at `http://localhost:6969` after running `npm run docker:up`.
 

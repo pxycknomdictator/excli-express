@@ -12,7 +12,7 @@
         "lint": "eslint src/**/*.ts",
         "start": "node dist/index.js",
         "lint:fix": "eslint src/**/*.ts --fix",
-        "format": "prettier --write \"**/*.{ts,js,json,md}\"",
+        "format": "prettier --write .",
         "format:check": "prettier --check \"src/**/*.{ts,js,json}\"",
         "prepublishOnly": "npm run build",
         "prepare": "husky"
