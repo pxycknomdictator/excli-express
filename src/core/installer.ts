@@ -20,6 +20,9 @@ export async function installPackages(
     const isPrettier = devTools.includes("prettier");
     if (isPrettier) devPackages.push("prettier");
 
+    const isHusky = devTools.includes("husky");
+    if (isHusky) devPackages.push("husky");
+
     if (language === "ts") devPackages.push(...TS_DEV_PACKAGES);
 
     const packageJson = join(__dirname, "..", "templates", "package.json");

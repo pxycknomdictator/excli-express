@@ -26,6 +26,7 @@ import {
     createDirectoryStructure,
     setupDocker,
     setupGit,
+    setupHusky,
     setupPrettier,
     setupProjectDirectories,
 } from "@/core/scaffolder";
@@ -94,12 +95,13 @@ displayBanner();
             ]);
         }
 
-        if (devTools.includes("prettier")) await setupPrettier(targetDir);
-
         await Promise.all([
             setupDocker(targetDir, config),
             installPackages(pkgManager, targetDir, language, devTools, dirName),
         ]);
+
+        if (devTools.includes("prettier")) await setupPrettier(targetDir);
+        if (devTools.includes("husky")) await setupHusky(targetDir);
     } else {
         await installPackages(
             pkgManager,

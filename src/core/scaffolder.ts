@@ -66,6 +66,10 @@ export async function setupPrettier(targetDir: string): Promise<void> {
     await writeConfigFiles(targetDir, prettierConfigs);
 }
 
+export async function setupHusky(targetDir: string): Promise<void> {
+    await fireShell("npx husky init", targetDir);
+}
+
 export async function setupEnvironment(targetDir: string): Promise<void> {
     const envFiles = generateEnvFiles();
     await writeEnvFiles(targetDir, envFiles);
