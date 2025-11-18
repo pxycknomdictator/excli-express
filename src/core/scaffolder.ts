@@ -21,7 +21,7 @@ export async function setupGit(
     };
 
     const manager = managerMap[pkgManager] ?? null;
-    await fireShell(manager, ["gitignore", "node"], targetDir);
+    await fireShell(`${manager} gitignore node`, targetDir);
 }
 
 export async function setupProjectDirectories(

@@ -36,12 +36,14 @@ export async function installPackages(
     };
 
     const installCmd = installCmdMap[pkgManager] ?? null;
-    await fireShell(pkgManager, [installCmd, ...packages], targetDir);
+    await fireShell(
+        `${pkgManager} ${installCmd} ${packages.join(" ")}`,
+        targetDir,
+    );
 
     if (devPackages.length > 0) {
         await fireShell(
-            pkgManager,
-            [installCmd, ...devPackages, "-D"],
+            `${pkgManager} ${installCmd} ${devPackages.join(" ")} -D`,
             targetDir,
         );
     }

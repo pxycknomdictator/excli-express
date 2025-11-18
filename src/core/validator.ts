@@ -5,7 +5,7 @@ import type { PackageManager } from "@/types";
 
 export function validateDirectory(targetDir: string, directory: string): void {
     if (existsSync(targetDir) && directory?.trim()) {
-        return terminate(
+        terminate(
             `${directory} already exists. Please choose a different name.`,
         );
     }

@@ -30,6 +30,7 @@ import {
     setupProjectDirectories,
 } from "@/core/scaffolder";
 import { installPackages } from "./core/installer";
+import { fireShell, hasGit } from "./utils/shell";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
@@ -86,7 +87,13 @@ displayBanner();
     if (mode === "production") {
         await setupProjectDirectories(language, sourceDir);
 
-        if (devTools.includes("git")) await setupGit(targetDir, pkgManager);
+        if (devTools.includes("git") && hasGit()) {
+            await Promise.all([
+                fireShell("git init", targetDir),
+                setupGit(targetDir, pkgManager),
+            ]);
+        }
+
         if (devTools.includes("prettier")) await setupPrettier(targetDir);
 
         await Promise.all([

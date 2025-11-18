@@ -13,13 +13,9 @@ export function hasGit() {
     return result.status === 0;
 }
 
-export function fireShell(
-    command: string,
-    args: string[],
-    targetDir: string = process.cwd(),
-) {
+export function fireShell(command: string, targetDir: string = process.cwd()) {
     return new Promise((resolve, reject) => {
-        const child = spawn(command, args, {
+        const child = spawn(command, {
             cwd: targetDir,
             stdio: "ignore",
             shell: true,
