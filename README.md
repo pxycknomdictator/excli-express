@@ -21,6 +21,8 @@ Start building features immediately with a complete, production-ready Express.js
 - 🔥 Hot reload for rapid development
 - 📦 Clean, scalable architecture
 - 🛠️ Admin panels included for database management
+- 🐶 Husky integration for Git hooks
+- ⚡ Modern Node.js APIs (no deprecated methods)
 
 ---
 
@@ -62,7 +64,7 @@ npx @excli/express
 1. **Project Name** - What to call your new application
 2. **Language** - TypeScript or JavaScript
 3. **Project Mode** - Normal (basic setup) or Production (includes Docker & databases)
-4. **Development Tools** - Git, Prettier, Docker
+4. **Development Tools** - Git, Prettier, Docker, Husky
 5. **Database** - Choose MySQL, PostgreSQL, or MongoDB (production mode only)
 
 #### Starting Your Application
@@ -86,6 +88,20 @@ That's it! Your Express server is running with hot reload enabled.
 
 ### What's Included
 
+#### Husky Integration
+
+When enabled, Husky automatically sets up Git hooks to maintain code quality:
+
+- **Pre-commit hook** - Runs linting and formatting checks before commits
+- **Pre-push hook** - Ensures tests pass before pushing to remote
+- **Commit message validation** - Enforces conventional commit standards
+
+**Husky commands:**
+
+```bash
+npm run prepare      # Initialize Husky (runs automatically after install)
+```
+
 #### Database Options
 
 Choose the database that fits your needs:
@@ -108,6 +124,7 @@ All admin panels are accessible at `http://localhost:6969` after running `npm ru
 npm run dev          # Start development server with hot reload
 npm run start        # Start production server
 npm run format       # Format code with Prettier
+npm run lint         # Run ESLint checks
 ```
 
 #### TypeScript Projects
@@ -139,6 +156,19 @@ After running `npm run docker:up`, access your database admin panel:
 
 ---
 
+### Technical Updates
+
+#### Modern Node.js APIs
+
+This CLI tool uses modern Node.js APIs to ensure compatibility with current and future versions:
+
+- **No deprecated `child_process.spawn` usage** - Migrated to `node:child_process` with proper options
+- Uses `spawn` with `shell: true` option for cross-platform compatibility
+- Properly handles stdio streams and error handling
+- Compatible with Node.js 20+ long-term support
+
+---
+
 ### Troubleshooting
 
 **Port already in use?**
@@ -146,6 +176,9 @@ Check if another service is running on port 3000 or 6969, or modify the ports in
 
 **Docker issues?**
 Make sure Docker Desktop is running before executing `npm run docker:up`.
+
+**Husky hooks not running?**
+Ensure Git is initialized and run `npm run prepare` to set up hooks.
 
 **Need help?**
 Open an issue on GitHub with details about your problem.
