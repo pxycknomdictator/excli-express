@@ -68,6 +68,7 @@ export async function promptDatabase(): Promise<Database> {
         message: "Select your database:",
         options: [
             { label: "MySQL", value: "mysql" },
+            { label: "MariaDB", value: "mariadb" },
             { label: "PostgreSQL", value: "postgres" },
             { label: "MongoDB", value: "mongodb" },
         ],

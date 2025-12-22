@@ -122,6 +122,45 @@ volumes:
     return dockerComposeConfig.trim();
 }
 
+function dockerMariadb(): string {
+    const dockerComposeConfig = `
+services:
+    mariadb_database:
+        container_name: mariadb
+        image: mariadb:latest
+        ports:
+            - "3306:3306"
+        environment:
+            MARIADB_DATABASE: superhero
+            MARIADB_USER: batman
+            MARIADB_PASSWORD: justiceForHumans
+            MARIADB_ROOT_PASSWORD: justiceForGotham
+        networks:
+            - mariadb_network
+        volumes:
+            - mariadb_data:/var/lib/mysql
+
+    phpmyadmin:
+        container_name: phpmyadmin
+        image: phpmyadmin:latest
+        ports:
+            - "6969:80"
+        environment:
+            PMA_HOST: mariadb_database
+        networks:
+            - mariadb_network
+        depends_on:
+            - mariadb_database
+
+networks:
+    mariadb_network:
+
+volumes:
+    mariadb_data:
+`;
+    return dockerComposeConfig.trim();
+}
+
 export function generateDockerCompose(database: Database): string {
     switch (database) {
         case "mongodb":
@@ -130,6 +169,8 @@ export function generateDockerCompose(database: Database): string {
             return dockerPostgres();
         case "mysql":
             return dockerMysql();
+        case "mariadb":
+            return dockerMariadb();
         default:
             return "";
     }
