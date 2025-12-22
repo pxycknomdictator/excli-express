@@ -65,7 +65,7 @@ npx @excli/express
 2. **Language** - TypeScript or JavaScript
 3. **Project Mode** - Normal (basic setup) or Production (includes Docker & databases)
 4. **Development Tools** - Git, Prettier, Docker, Husky
-5. **Database** - Choose MySQL, PostgreSQL, or MongoDB (production mode only)
+5. **Database** - Choose MySQL, MariaDB, PostgreSQL, or MongoDB (production mode only)
 
 #### Starting Your Application
 
@@ -109,6 +109,7 @@ Choose the database that fits your needs:
 | Database       | Admin Panel   | Admin Panel Port |
 | -------------- | ------------- | ---------------- |
 | **MySQL**      | phpMyAdmin    | 6969             |
+| **MariaDB**    | phpMyAdmin    | 6969             |
 | **PostgreSQL** | pgAdmin       | 6969             |
 | **MongoDB**    | Mongo Express | 6969             |
 
@@ -151,7 +152,7 @@ After running `npm run docker:up`, access your database admin panel:
 **NOTE:** Some admin panels might not run immediately, so be patient.
 
 - **pgAdmin** - Full-featured PostgreSQL management
-- **phpMyAdmin** - Intuitive MySQL interface
+- **phpMyAdmin** - Intuitive MySQL && MariaDB interface
 - **Mongo Express** - Simple MongoDB administration
 
 ---
@@ -178,6 +179,7 @@ Check if another service is running on port 3000 or 6969, or modify the ports in
 Make sure Docker Desktop is running before executing `npm run docker:up`.
 
 **Husky hooks not running?**
+Ensure to add a valid script in .husky/pre-commit file!
 Ensure Git is initialized and run `npm run prepare` to set up hooks.
 
 **Need help?**
