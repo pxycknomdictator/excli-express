@@ -3,8 +3,8 @@ import type { Database } from "@/types";
 function dockerMongodb(): string {
     const dockerComposeConfig = `
 services:
-    mongodb_database:
-        container_name: mongodb
+    database:
+        container_name: db
         image: mongo:latest
         ports:
             - "27017:27017"
@@ -13,33 +13,33 @@ services:
             MONGO_INITDB_ROOT_USERNAME: batman
             MONGO_INITDB_ROOT_PASSWORD: justiceForHumans
         networks:
-            - mongo_network
+            - db_network
         volumes:
-            - mongodb_data:/data/db
+            - db_volumes:/data/db
 
-    mongo_admin:
-        container_name: mongoAdmin
+    admin:
+        container_name: admin
         image: mongo-express:latest
         ports:
             - "6969:8081"
         environment:
             ME_CONFIG_MONGODB_ADMINUSERNAME: batman
             ME_CONFIG_MONGODB_ADMINPASSWORD: justiceForHumans
-            ME_CONFIG_MONGODB_SERVER: mongodb_database
+            ME_CONFIG_MONGODB_SERVER: db
 
             # mongo-express ui credentials
             ME_CONFIG_BASICAUTH_USERNAME: batman
             ME_CONFIG_BASICAUTH_PASSWORD: justiceForGotham
         depends_on:
-            - mongodb_database
+            - database
         networks:
-            - mongo_network
+            - db_network
 
 networks:
-    mongo_network:
+    db_network:
 
 volumes:
-    mongodb_data:
+    db_volumes:
 `;
     return dockerComposeConfig.trim();
 }
@@ -47,8 +47,8 @@ volumes:
 function dockerPostgres(): string {
     const dockerComposeConfig = `
 services:
-    postgres_database:
-        container_name: postgres
+    database:
+        container_name: db
         image: postgres:latest
         ports:
             - "5432:5432"
@@ -57,12 +57,12 @@ services:
             POSTGRES_USER: batman
             POSTGRES_PASSWORD: justiceForHumans
         networks:
-            - pg_network
+            - db_network
         volumes:
-            - postgres_data:/var/lib/postgresql
+            - db_volumes:/var/lib/postgresql
 
-    pg_admin:
-        container_name: pgAdmin
+    admin:
+        container_name: admin
         image: dpage/pgadmin4:latest
         ports:
             - "6969:80"
@@ -70,15 +70,15 @@ services:
             PGADMIN_DEFAULT_EMAIL: batman@justice.com
             PGADMIN_DEFAULT_PASSWORD: justiceForGotham
         networks:
-            - pg_network
+            - db_network
         depends_on:
-            - postgres_database
+            - database
 
 networks:
-    pg_network:
+    db_network:
 
 volumes:
-    postgres_data:
+    db_volumes:
 `;
     return dockerComposeConfig.trim();
 }
@@ -86,8 +86,8 @@ volumes:
 function dockerMysql(): string {
     const dockerComposeConfig = `
 services:
-    mysql_database:
-        container_name: mysql
+    database:
+        container_name: db
         image: mysql:latest
         ports:
             - "3306:3306"
@@ -97,27 +97,27 @@ services:
             MYSQL_PASSWORD: justiceForHumans
             MYSQL_ROOT_PASSWORD: justiceForGotham
         networks:
-            - mysql_network
+            - db_network
         volumes:
-            - mysql_data:/var/lib/mysql
+            - db_volumes:/var/lib/mysql
 
-    phpmyadmin:
-        container_name: phpmyadmin
+    admin:
+        container_name: admin
         image: phpmyadmin:latest
         ports:
             - "6969:80"
         environment:
-            PMA_HOST: mysql_database
+            PMA_HOST: database
         networks:
-            - mysql_network
+            - db_network
         depends_on:
-            - mysql_database
+            - database
 
 networks:
-    mysql_network:
+    db_network:
 
 volumes:
-    mysql_data:
+    db_volumes:
 `;
     return dockerComposeConfig.trim();
 }
@@ -125,8 +125,8 @@ volumes:
 function dockerMariadb(): string {
     const dockerComposeConfig = `
 services:
-    mariadb_database:
-        container_name: mariadb
+    database:
+        container_name: db
         image: mariadb:latest
         ports:
             - "3306:3306"
@@ -136,27 +136,27 @@ services:
             MARIADB_PASSWORD: justiceForHumans
             MARIADB_ROOT_PASSWORD: justiceForGotham
         networks:
-            - mariadb_network
+            - db_network
         volumes:
-            - mariadb_data:/var/lib/mysql
+            - db_volumes:/var/lib/mysql
 
-    phpmyadmin:
-        container_name: phpmyadmin
+    admin:
+        container_name: admin
         image: phpmyadmin:latest
         ports:
             - "6969:80"
         environment:
-            PMA_HOST: mariadb_database
+            PMA_HOST: database
         networks:
-            - mariadb_network
+            - db_network
         depends_on:
-            - mariadb_database
+            - database
 
 networks:
-    mariadb_network:
+    db_network:
 
 volumes:
-    mariadb_data:
+    db_volumes:
 `;
     return dockerComposeConfig.trim();
 }
