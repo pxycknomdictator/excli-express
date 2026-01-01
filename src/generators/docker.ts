@@ -59,7 +59,7 @@ services:
         networks:
             - pg_network
         volumes:
-            - postgres_data:/var/lib/postgresql/data
+            - postgres_data:/var/lib/postgresql
 
     pg_admin:
         container_name: pgAdmin
