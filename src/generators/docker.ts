@@ -9,9 +9,9 @@ services:
         ports:
             - "27017:27017"
         environment:
-            MONGO_INITDB_DATABASE: superhero
-            MONGO_INITDB_ROOT_USERNAME: batman
-            MONGO_INITDB_ROOT_PASSWORD: justiceForHumans
+            MONGO_INITDB_DATABASE: app_db
+            MONGO_INITDB_ROOT_USERNAME: admin
+            MONGO_INITDB_ROOT_PASSWORD: password123
         networks:
             - db_network
         volumes:
@@ -23,13 +23,13 @@ services:
         ports:
             - "6969:8081"
         environment:
-            ME_CONFIG_MONGODB_ADMINUSERNAME: batman
-            ME_CONFIG_MONGODB_ADMINPASSWORD: justiceForHumans
+            ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+            ME_CONFIG_MONGODB_ADMINPASSWORD: password123
             ME_CONFIG_MONGODB_SERVER: db
 
             # mongo-express ui credentials
-            ME_CONFIG_BASICAUTH_USERNAME: batman
-            ME_CONFIG_BASICAUTH_PASSWORD: justiceForGotham
+            ME_CONFIG_BASICAUTH_USERNAME: admin
+            ME_CONFIG_BASICAUTH_PASSWORD: adminpassword
         depends_on:
             - database
         networks:
@@ -53,9 +53,9 @@ services:
         ports:
             - "5432:5432"
         environment:
-            POSTGRES_DB: superhero
-            POSTGRES_USER: batman
-            POSTGRES_PASSWORD: justiceForHumans
+            POSTGRES_DB: app_db
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: password123
         networks:
             - db_network
         volumes:
@@ -67,8 +67,8 @@ services:
         ports:
             - "6969:80"
         environment:
-            PGADMIN_DEFAULT_EMAIL: batman@justice.com
-            PGADMIN_DEFAULT_PASSWORD: justiceForGotham
+            PGADMIN_DEFAULT_EMAIL: admin@example.com
+            PGADMIN_DEFAULT_PASSWORD: adminpassword
         networks:
             - db_network
         depends_on:
@@ -92,10 +92,10 @@ services:
         ports:
             - "3306:3306"
         environment:
-            MYSQL_DATABASE: superhero
-            MYSQL_USER: batman
-            MYSQL_PASSWORD: justiceForHumans
-            MYSQL_ROOT_PASSWORD: justiceForGotham
+            MYSQL_DATABASE: app_db
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password123
+            MYSQL_ROOT_PASSWORD: rootpassword
         networks:
             - db_network
         volumes:
@@ -131,10 +131,10 @@ services:
         ports:
             - "3306:3306"
         environment:
-            MARIADB_DATABASE: superhero
-            MARIADB_USER: batman
-            MARIADB_PASSWORD: justiceForHumans
-            MARIADB_ROOT_PASSWORD: justiceForGotham
+            MARIADB_DATABASE: app_db
+            MARIADB_USER: user
+            MARIADB_PASSWORD: password123
+            MARIADB_ROOT_PASSWORD: rootpassword
         networks:
             - db_network
         volumes:
