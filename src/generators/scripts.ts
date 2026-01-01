@@ -18,6 +18,7 @@ const prettierScripts: ScriptConfig = {
 const dockerScripts: ScriptConfig = {
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
+    "docker:run": "node dist/main.js",
 };
 
 export function generateScripts(
