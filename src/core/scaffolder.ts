@@ -43,7 +43,6 @@ export async function setupDocker(
 
     const compose = generateDockerCompose(config.database);
     const composeFile = join(targetDir, "compose.yaml");
-    const DockerFile = join(targetDir, "Dockerfile");
 
     const dockerignoreSource = join(
         __dirname,
@@ -51,13 +50,15 @@ export async function setupDocker(
         "templates",
         ".dockerignore",
     );
+    const dockerfileSource = join(__dirname, "..", "templates", "Dockerfile");
 
     const dockerignoreDest = join(targetDir, ".dockerignore");
+    const dockerFileDest = join(targetDir, "Dockerfile");
 
     await Promise.all([
-        writeFile(DockerFile, "", { encoding: "utf-8" }),
         writeFile(composeFile, compose, { encoding: "utf-8" }),
         cp(dockerignoreSource, dockerignoreDest),
+        cp(dockerfileSource, dockerFileDest),
     ]);
 }
 
