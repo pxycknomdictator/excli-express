@@ -24,7 +24,7 @@ export type ConfigFile = {
     content: string;
 };
 
-export type EnvFile = {
-    file: string;
-    variables: string;
+export type EnvConfig = {
+    database: Record<string, string>;
+    admin: Record<string, string>;
 };

@@ -3,11 +3,10 @@ import { __dirname } from "@/index";
 import { fireShell } from "@/utils/shell";
 import { DIRECTORIES } from "@/config/constants";
 import { Language, PackageManager, ProjectConfig } from "@/types";
-import { generateEnvFiles } from "@/generators/env";
 import { cp, mkdir, writeFile } from "node:fs/promises";
 import { generateDockerCompose } from "@/generators/docker";
 import { generatePrettierConfig } from "@/generators/prettier";
-import { writeConfigFiles, writeEnvFiles } from "@/utils/file";
+import { writeConfigFiles } from "@/utils/file";
 
 export async function setupGit(
     targetDir: string,
@@ -71,11 +70,6 @@ export async function setupHusky(targetDir: string): Promise<void> {
     await fireShell("npx husky init", targetDir);
 }
 
-export async function setupEnvironment(targetDir: string): Promise<void> {
-    const envFiles = generateEnvFiles();
-    await writeEnvFiles(targetDir, envFiles);
-}
-
 export async function createDirectoryStructure(
     targetDir: string,
     publicDir: string,
@@ -84,6 +78,5 @@ export async function createDirectoryStructure(
     await Promise.all([
         mkdir(publicDir, { recursive: true }),
         cp(templatePath, targetDir, { recursive: true }),
-        setupEnvironment(targetDir),
     ]);
 }

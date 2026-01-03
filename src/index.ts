@@ -32,6 +32,7 @@ import {
 } from "@/core/scaffolder";
 import { installPackages } from "./core/installer";
 import { fireShell, hasGit } from "./utils/shell";
+import { setupEnv } from "./generators/env";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
@@ -84,6 +85,12 @@ displayBanner();
     validateTemplate(templatePath);
 
     await createDirectoryStructure(targetDir, publicDir, templatePath);
+
+    if (mode === "production" && database) {
+        await setupEnv(targetDir, mode, database);
+    } else {
+        await setupEnv(targetDir, mode);
+    }
 
     if (mode === "production") {
         await setupProjectDirectories(language, sourceDir);
