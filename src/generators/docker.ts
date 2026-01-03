@@ -15,7 +15,7 @@ services:
         networks:
             - db_network
         volumes:
-            - db_volumes:/data/db
+            - db_volume:/data/db
 
     admin:
         container_name: admin
@@ -37,7 +37,7 @@ networks:
     db_network:
 
 volumes:
-    db_volumes:
+    db_volume:
 `;
     return dockerComposeConfig.trim();
 }
@@ -57,7 +57,7 @@ services:
         networks:
             - db_network
         volumes:
-            - db_volumes:/var/lib/postgresql
+            - db_volume:/var/lib/postgresql
 
     admin:
         container_name: admin
@@ -76,7 +76,7 @@ networks:
     db_network:
 
 volumes:
-    db_volumes:
+    db_volume:
 `;
     return dockerComposeConfig.trim();
 }
@@ -97,7 +97,7 @@ services:
         networks:
             - db_network
         volumes:
-            - db_volumes:/var/lib/mysql
+            - db_volume:/var/lib/mysql
 
     admin:
         container_name: admin
@@ -115,7 +115,7 @@ networks:
     db_network:
 
 volumes:
-    db_volumes:
+    db_volume:
 `;
     return dockerComposeConfig.trim();
 }
@@ -136,7 +136,7 @@ services:
         networks:
             - db_network
         volumes:
-            - db_volumes:/var/lib/mysql
+            - db_volume:/var/lib/mysql
 
     admin:
         container_name: admin
@@ -154,7 +154,7 @@ networks:
     db_network:
 
 volumes:
-    db_volumes:
+    db_volume:
 `;
     return dockerComposeConfig.trim();
 }
