@@ -5,7 +5,7 @@ function dockerMongodb(): string {
 services:
     database:
         container_name: db
-        image: mongo:latest
+        image: mongo:8.0.17
         ports:
             - "27017:27017"
         environment:
@@ -19,15 +19,13 @@ services:
 
     admin:
         container_name: admin
-        image: mongo-express:latest
+        image: mongo-express:1.0.2
         ports:
             - "6969:8081"
         environment:
             ME_CONFIG_MONGODB_ADMINUSERNAME: admin
             ME_CONFIG_MONGODB_ADMINPASSWORD: password123
             ME_CONFIG_MONGODB_SERVER: db
-
-            # mongo-express ui credentials
             ME_CONFIG_BASICAUTH_USERNAME: admin
             ME_CONFIG_BASICAUTH_PASSWORD: adminpassword
         depends_on:
@@ -49,7 +47,7 @@ function dockerPostgres(): string {
 services:
     database:
         container_name: db
-        image: postgres:latest
+        image: postgres:18
         ports:
             - "5432:5432"
         environment:
@@ -63,7 +61,7 @@ services:
 
     admin:
         container_name: admin
-        image: dpage/pgadmin4:latest
+        image: dpage/pgadmin4:9.11
         ports:
             - "6969:80"
         environment:
@@ -88,7 +86,7 @@ function dockerMysql(): string {
 services:
     database:
         container_name: db
-        image: mysql:latest
+        image: mysql:8.4.6
         ports:
             - "3306:3306"
         environment:
@@ -103,7 +101,7 @@ services:
 
     admin:
         container_name: admin
-        image: phpmyadmin:latest
+        image: phpmyadmin:5.2.3
         ports:
             - "6969:80"
         environment:
@@ -127,7 +125,7 @@ function dockerMariadb(): string {
 services:
     database:
         container_name: db
-        image: mariadb:latest
+        image: mariadb:11.4.5
         ports:
             - "3306:3306"
         environment:
@@ -142,7 +140,7 @@ services:
 
     admin:
         container_name: admin
-        image: phpmyadmin:latest
+        image: phpmyadmin:5.2.3
         ports:
             - "6969:80"
         environment:
