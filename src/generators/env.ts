@@ -41,7 +41,7 @@ function getEnvVariables(
 
             ME_CONFIG_MONGODB_ADMINUSERNAME: "admin",
             ME_CONFIG_MONGODB_ADMINPASSWORD: "password123",
-            ME_CONFIG_MONGODB_SERVER: "db",
+            ME_CONFIG_MONGODB_SERVER: "mongodb_container",
             ME_CONFIG_BASICAUTH_USERNAME: "admin",
             ME_CONFIG_BASICAUTH_PASSWORD: "adminpassword",
         },
