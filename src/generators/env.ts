@@ -18,58 +18,64 @@ function getEnvVariables(
                 "mongodb://admin:password123@localhost:27017/app_db?authSource=admin",
         },
         postgres: {
-            DB_HOST: "localhost",
-            DB_PORT: "5432",
-            DB_NAME: "app_db",
-            DB_USER: "admin",
-            DB_PASSWORD: "password123",
             DATABASE_URL:
                 "postgresql://admin:password123@localhost:5432/app_db",
         },
         mysql: {
-            DB_HOST: "localhost",
-            DB_PORT: "3306",
-            DB_NAME: "app_db",
-            DB_USER: "user",
-            DB_PASSWORD: "password123",
-            DB_ROOT_PASSWORD: "rootpassword",
             DATABASE_URL: "mysql://user:password123@localhost:3306/app_db",
         },
         mariadb: {
-            DB_HOST: "localhost",
-            DB_PORT: "3306",
-            DB_NAME: "app_db",
-            DB_USER: "user",
-            DB_PASSWORD: "password123",
-            DB_ROOT_PASSWORD: "rootpassword",
             DATABASE_URL: "mysql://user:password123@localhost:3306/app_db",
         },
     };
 
     const dockerConfigs = {
         mongodb: {
+            MONGODB_PORT: "27017",
+            ADMIN_PANEL_PORT: "6969",
+
             MONGO_INITDB_DATABASE: "app_db",
             MONGO_INITDB_ROOT_USERNAME: "admin",
             MONGO_INITDB_ROOT_PASSWORD: "password123",
+
             ME_CONFIG_MONGODB_ADMINUSERNAME: "admin",
             ME_CONFIG_MONGODB_ADMINPASSWORD: "password123",
             ME_CONFIG_MONGODB_SERVER: "db",
             ME_CONFIG_BASICAUTH_USERNAME: "admin",
             ME_CONFIG_BASICAUTH_PASSWORD: "adminpassword",
-            ADMIN_PANEL_PORT: "6969",
         },
         postgres: {
+            POSTGRES_PORT: "5432",
+            ADMIN_PANEL_PORT: "6969",
+
+            POSTGRES_DB: "app_db",
+            POSTGRES_USER: "admin",
+            POSTGRES_PASSWORD: "password123",
+
             PGADMIN_DEFAULT_EMAIL: "admin@example.com",
             PGADMIN_DEFAULT_PASSWORD: "adminpassword",
-            ADMIN_PANEL_PORT: "6969",
         },
         mysql: {
-            PMA_HOST: "database",
+            MYSQL_PORT: "3306",
             ADMIN_PANEL_PORT: "6969",
+
+            MYSQL_DATABASE: "app_db",
+            MYSQL_USER: "user",
+            MYSQL_PASSWORD: "password123",
+            MYSQL_ROOT_PASSWORD: "rootpassword",
+
+            PMA_HOST: "database",
         },
         mariadb: {
-            PMA_HOST: "database",
+            MARIADB_PORT: "3306",
             ADMIN_PANEL_PORT: "6969",
+
+            MARIADB_DATABASE: "app_db",
+            MARIADB_USER: "user",
+            MARIADB_PASSWORD: "password123",
+            MARIADB_ROOT_PASSWORD: "rootpassword",
+
+            PMA_HOST: "database",
         },
     };
 
