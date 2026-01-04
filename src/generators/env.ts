@@ -33,6 +33,7 @@ function getEnvVariables(
         mongodb: {
             MONGODB_PORT: "27017",
             ADMIN_PANEL_PORT: "6969",
+            MONGODB_HOST: "localhost",
 
             MONGO_INITDB_DATABASE: "app_db",
             MONGO_INITDB_ROOT_USERNAME: "admin",
@@ -47,6 +48,7 @@ function getEnvVariables(
         postgres: {
             POSTGRES_PORT: "5432",
             ADMIN_PANEL_PORT: "6969",
+            POSTGRES_HOST: "localhost",
 
             POSTGRES_DB: "app_db",
             POSTGRES_USER: "admin",
@@ -58,6 +60,7 @@ function getEnvVariables(
         mysql: {
             MYSQL_PORT: "3306",
             ADMIN_PANEL_PORT: "6969",
+            MYSQL_HOST: "localhost",
 
             MYSQL_DATABASE: "app_db",
             MYSQL_USER: "user",
@@ -69,6 +72,7 @@ function getEnvVariables(
         mariadb: {
             MARIADB_PORT: "3306",
             ADMIN_PANEL_PORT: "6969",
+            MARIADB_HOST: "localhost",
 
             MARIADB_DATABASE: "app_db",
             MARIADB_USER: "user",
