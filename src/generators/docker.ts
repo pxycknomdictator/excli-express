@@ -7,11 +7,11 @@ services:
         container_name: db
         image: mongo:8.0.17
         ports:
-            - "27017:27017"
+            - "\${MONGODB_PORT}:27017"
         environment:
-            MONGO_INITDB_DATABASE: app_db
-            MONGO_INITDB_ROOT_USERNAME: admin
-            MONGO_INITDB_ROOT_PASSWORD: password123
+            MONGO_INITDB_DATABASE: \${MONGO_INITDB_DATABASE}
+            MONGO_INITDB_ROOT_USERNAME: \${MONGO_INITDB_ROOT_USERNAME}
+            MONGO_INITDB_ROOT_PASSWORD: \${MONGO_INITDB_ROOT_PASSWORD}
         networks:
             - db_network
         volumes:
@@ -21,13 +21,13 @@ services:
         container_name: admin
         image: mongo-express:1.0.2
         ports:
-            - "6969:8081"
+            - "\${ADMIN_PANEL_PORT}:8081"
         environment:
-            ME_CONFIG_MONGODB_ADMINUSERNAME: admin
-            ME_CONFIG_MONGODB_ADMINPASSWORD: password123
-            ME_CONFIG_MONGODB_SERVER: db
-            ME_CONFIG_BASICAUTH_USERNAME: admin
-            ME_CONFIG_BASICAUTH_PASSWORD: adminpassword
+            ME_CONFIG_MONGODB_ADMINUSERNAME: \${ME_CONFIG_MONGODB_ADMINUSERNAME}
+            ME_CONFIG_MONGODB_ADMINPASSWORD: \${ME_CONFIG_MONGODB_ADMINPASSWORD}
+            ME_CONFIG_MONGODB_SERVER: \${ME_CONFIG_MONGODB_SERVER}
+            ME_CONFIG_BASICAUTH_USERNAME: \${ME_CONFIG_BASICAUTH_USERNAME}
+            ME_CONFIG_BASICAUTH_PASSWORD: \${ME_CONFIG_BASICAUTH_PASSWORD}
         depends_on:
             - database
         networks:
@@ -49,11 +49,11 @@ services:
         container_name: db
         image: postgres:18
         ports:
-            - "5432:5432"
+            - "\${POSTGRES_PORT}:5432"
         environment:
-            POSTGRES_DB: app_db
-            POSTGRES_USER: admin
-            POSTGRES_PASSWORD: password123
+            POSTGRES_DB: \${POSTGRES_DB}
+            POSTGRES_USER: \${POSTGRES_USER}
+            POSTGRES_PASSWORD: \${POSTGRES_PASSWORD}
         networks:
             - db_network
         volumes:
@@ -63,10 +63,10 @@ services:
         container_name: admin
         image: dpage/pgadmin4:9.11
         ports:
-            - "6969:80"
+            - "\${ADMIN_PANEL_PORT}:80"
         environment:
-            PGADMIN_DEFAULT_EMAIL: admin@example.com
-            PGADMIN_DEFAULT_PASSWORD: adminpassword
+            PGADMIN_DEFAULT_EMAIL: \${PGADMIN_DEFAULT_EMAIL}
+            PGADMIN_DEFAULT_PASSWORD: \${PGADMIN_DEFAULT_PASSWORD}
         networks:
             - db_network
         depends_on:
@@ -88,12 +88,12 @@ services:
         container_name: db
         image: mysql:8.4.6
         ports:
-            - "3306:3306"
+            - "\${MYSQL_PORT}:3306"
         environment:
-            MYSQL_DATABASE: app_db
-            MYSQL_USER: user
-            MYSQL_PASSWORD: password123
-            MYSQL_ROOT_PASSWORD: rootpassword
+            MYSQL_DATABASE: \${MYSQL_DATABASE}
+            MYSQL_USER: \${MYSQL_USER}
+            MYSQL_PASSWORD: \${MYSQL_PASSWORD}
+            MYSQL_ROOT_PASSWORD: \${MYSQL_ROOT_PASSWORD}
         networks:
             - db_network
         volumes:
@@ -103,9 +103,9 @@ services:
         container_name: admin
         image: phpmyadmin:5.2.3
         ports:
-            - "6969:80"
+            - "\${ADMIN_PANEL_PORT}:80"
         environment:
-            PMA_HOST: database
+            PMA_HOST: \${PMA_HOST}
         networks:
             - db_network
         depends_on:
@@ -127,12 +127,12 @@ services:
         container_name: db
         image: mariadb:11.4.5
         ports:
-            - "3306:3306"
+            - "\${MARIADB_PORT}:3306"
         environment:
-            MARIADB_DATABASE: app_db
-            MARIADB_USER: user
-            MARIADB_PASSWORD: password123
-            MARIADB_ROOT_PASSWORD: rootpassword
+            MARIADB_DATABASE: \${MARIADB_DATABASE}
+            MARIADB_USER: \${MARIADB_USER}
+            MARIADB_PASSWORD: \${MARIADB_PASSWORD}
+            MARIADB_ROOT_PASSWORD: \${MARIADB_ROOT_PASSWORD}
         networks:
             - db_network
         volumes:
@@ -142,9 +142,9 @@ services:
         container_name: admin
         image: phpmyadmin:5.2.3
         ports:
-            - "6969:80"
+            - "\${ADMIN_PANEL_PORT}:80"
         environment:
-            PMA_HOST: database
+            PMA_HOST: \${PMA_HOST}
         networks:
             - db_network
         depends_on:
