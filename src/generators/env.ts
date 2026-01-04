@@ -92,11 +92,178 @@ function getEnvVariables(
     return requiredConfig;
 }
 
-export function generateEnvFile(database: Database, mode: Mode): string {
-    const secret = getEnvVariables(database, mode);
-    return Object.entries(secret)
-        .map(([key, value]) => `${key}=${value}`)
-        .join("\n");
+function formatEnvWithComments(database: Database, mode: Mode): string {
+    const vars = getEnvVariables(database, mode);
+    const lines: string[] = [];
+
+    lines.push("# Application Configuration");
+    lines.push(`NODE_ENV=${vars.NODE_ENV}`);
+    lines.push(`PORT=${vars.PORT}`);
+    lines.push(`CLIENT_ORIGIN=${vars.CLIENT_ORIGIN}`);
+
+    if (mode === "production") {
+        lines.push("");
+        lines.push("# Database Connection");
+        lines.push(`DATABASE_URL=${vars.DATABASE_URL}`);
+
+        if (database === "mongodb") {
+            lines.push("");
+            lines.push("# MongoDB Configuration");
+            lines.push(`MONGODB_PORT=${vars.MONGODB_PORT}`);
+            lines.push(`MONGODB_HOST=${vars.MONGODB_HOST}`);
+            lines.push(`MONGO_INITDB_DATABASE=${vars.MONGO_INITDB_DATABASE}`);
+            lines.push(
+                `MONGO_INITDB_ROOT_USERNAME=${vars.MONGO_INITDB_ROOT_USERNAME}`,
+            );
+            lines.push(
+                `MONGO_INITDB_ROOT_PASSWORD=${vars.MONGO_INITDB_ROOT_PASSWORD}`,
+            );
+
+            lines.push("");
+            lines.push("# Mongo Express Admin Panel");
+            lines.push(`ADMIN_PANEL_PORT=${vars.ADMIN_PANEL_PORT}`);
+            lines.push(
+                `ME_CONFIG_MONGODB_ADMINUSERNAME=${vars.ME_CONFIG_MONGODB_ADMINUSERNAME}`,
+            );
+            lines.push(
+                `ME_CONFIG_MONGODB_ADMINPASSWORD=${vars.ME_CONFIG_MONGODB_ADMINPASSWORD}`,
+            );
+            lines.push(
+                `ME_CONFIG_MONGODB_SERVER=${vars.ME_CONFIG_MONGODB_SERVER}`,
+            );
+            lines.push(
+                `ME_CONFIG_BASICAUTH_USERNAME=${vars.ME_CONFIG_BASICAUTH_USERNAME}`,
+            );
+            lines.push(
+                `ME_CONFIG_BASICAUTH_PASSWORD=${vars.ME_CONFIG_BASICAUTH_PASSWORD}`,
+            );
+        } else if (database === "postgres") {
+            lines.push("");
+            lines.push("# PostgreSQL Configuration");
+            lines.push(`POSTGRES_PORT=${vars.POSTGRES_PORT}`);
+            lines.push(`POSTGRES_HOST=${vars.POSTGRES_HOST}`);
+            lines.push(`POSTGRES_DB=${vars.POSTGRES_DB}`);
+            lines.push(`POSTGRES_USER=${vars.POSTGRES_USER}`);
+            lines.push(`POSTGRES_PASSWORD=${vars.POSTGRES_PASSWORD}`);
+
+            lines.push("");
+            lines.push("# pgAdmin Admin Panel");
+            lines.push(`ADMIN_PANEL_PORT=${vars.ADMIN_PANEL_PORT}`);
+            lines.push(`PGADMIN_DEFAULT_EMAIL=${vars.PGADMIN_DEFAULT_EMAIL}`);
+            lines.push(
+                `PGADMIN_DEFAULT_PASSWORD=${vars.PGADMIN_DEFAULT_PASSWORD}`,
+            );
+        } else if (database === "mysql") {
+            lines.push("");
+            lines.push("# MySQL Configuration");
+            lines.push(`MYSQL_PORT=${vars.MYSQL_PORT}`);
+            lines.push(`MYSQL_HOST=${vars.MYSQL_HOST}`);
+            lines.push(`MYSQL_DATABASE=${vars.MYSQL_DATABASE}`);
+            lines.push(`MYSQL_USER=${vars.MYSQL_USER}`);
+            lines.push(`MYSQL_PASSWORD=${vars.MYSQL_PASSWORD}`);
+            lines.push(`MYSQL_ROOT_PASSWORD=${vars.MYSQL_ROOT_PASSWORD}`);
+
+            lines.push("");
+            lines.push("# phpMyAdmin Admin Panel");
+            lines.push(`ADMIN_PANEL_PORT=${vars.ADMIN_PANEL_PORT}`);
+            lines.push(`PMA_HOST=${vars.PMA_HOST}`);
+        } else if (database === "mariadb") {
+            lines.push("");
+            lines.push("# MariaDB Configuration");
+            lines.push(`MARIADB_PORT=${vars.MARIADB_PORT}`);
+            lines.push(`MARIADB_HOST=${vars.MARIADB_HOST}`);
+            lines.push(`MARIADB_DATABASE=${vars.MARIADB_DATABASE}`);
+            lines.push(`MARIADB_USER=${vars.MARIADB_USER}`);
+            lines.push(`MARIADB_PASSWORD=${vars.MARIADB_PASSWORD}`);
+            lines.push(`MARIADB_ROOT_PASSWORD=${vars.MARIADB_ROOT_PASSWORD}`);
+
+            lines.push("");
+            lines.push("# phpMyAdmin Admin Panel");
+            lines.push(`ADMIN_PANEL_PORT=${vars.ADMIN_PANEL_PORT}`);
+            lines.push(`PMA_HOST=${vars.PMA_HOST}`);
+        }
+    }
+
+    return lines.join("\n");
+}
+
+function formatEnvExampleWithComments(database: Database, mode: Mode): string {
+    getEnvVariables(database, mode);
+    const lines: string[] = [];
+
+    lines.push("# Application Configuration");
+    lines.push("NODE_ENV=");
+    lines.push("PORT=");
+    lines.push("CLIENT_ORIGIN=");
+
+    if (mode === "production") {
+        lines.push("");
+        lines.push("# Database Connection");
+        lines.push("DATABASE_URL=");
+
+        if (database === "mongodb") {
+            lines.push("");
+            lines.push("# MongoDB Configuration");
+            lines.push("MONGODB_PORT=");
+            lines.push("MONGODB_HOST=");
+            lines.push("MONGO_INITDB_DATABASE=");
+            lines.push("MONGO_INITDB_ROOT_USERNAME=");
+            lines.push("MONGO_INITDB_ROOT_PASSWORD=");
+
+            lines.push("");
+            lines.push("# Mongo Express Admin Panel");
+            lines.push("ADMIN_PANEL_PORT=");
+            lines.push("ME_CONFIG_MONGODB_ADMINUSERNAME=");
+            lines.push("ME_CONFIG_MONGODB_ADMINPASSWORD=");
+            lines.push("ME_CONFIG_MONGODB_SERVER=");
+            lines.push("ME_CONFIG_BASICAUTH_USERNAME=");
+            lines.push("ME_CONFIG_BASICAUTH_PASSWORD=");
+        } else if (database === "postgres") {
+            lines.push("");
+            lines.push("# PostgreSQL Configuration");
+            lines.push("POSTGRES_PORT=");
+            lines.push("POSTGRES_HOST=");
+            lines.push("POSTGRES_DB=");
+            lines.push("POSTGRES_USER=");
+            lines.push("POSTGRES_PASSWORD=");
+
+            lines.push("");
+            lines.push("# pgAdmin Admin Panel");
+            lines.push("ADMIN_PANEL_PORT=");
+            lines.push("PGADMIN_DEFAULT_EMAIL=");
+            lines.push("PGADMIN_DEFAULT_PASSWORD=");
+        } else if (database === "mysql") {
+            lines.push("");
+            lines.push("# MySQL Configuration");
+            lines.push("MYSQL_PORT=");
+            lines.push("MYSQL_HOST=");
+            lines.push("MYSQL_DATABASE=");
+            lines.push("MYSQL_USER=");
+            lines.push("MYSQL_PASSWORD=");
+            lines.push("MYSQL_ROOT_PASSWORD=");
+
+            lines.push("");
+            lines.push("# phpMyAdmin Admin Panel");
+            lines.push("ADMIN_PANEL_PORT=");
+            lines.push("PMA_HOST=");
+        } else if (database === "mariadb") {
+            lines.push("");
+            lines.push("# MariaDB Configuration");
+            lines.push("MARIADB_PORT=");
+            lines.push("MARIADB_HOST=");
+            lines.push("MARIADB_DATABASE=");
+            lines.push("MARIADB_USER=");
+            lines.push("MARIADB_PASSWORD=");
+            lines.push("MARIADB_ROOT_PASSWORD=");
+
+            lines.push("");
+            lines.push("# phpMyAdmin Admin Panel");
+            lines.push("ADMIN_PANEL_PORT=");
+            lines.push("PMA_HOST=");
+        }
+    }
+
+    return lines.join("\n");
 }
 
 export async function setupEnv(
@@ -106,10 +273,12 @@ export async function setupEnv(
 ) {
     const envFile = join(targetDir, ".env");
     const envExampleFile = join(targetDir, ".env.example");
-    const secrets = generateEnvFile(database, mode);
+
+    const envContent = formatEnvWithComments(database, mode);
+    const envExampleContent = formatEnvExampleWithComments(database, mode);
 
     await Promise.all([
-        writeFile(envFile, secrets, { encoding: "utf-8" }),
-        writeFile(envExampleFile, secrets, { encoding: "utf-8" }),
+        writeFile(envFile, envContent, { encoding: "utf-8" }),
+        writeFile(envExampleFile, envExampleContent, { encoding: "utf-8" }),
     ]);
 }
