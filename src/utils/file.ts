@@ -1,6 +1,6 @@
 import { join } from "node:path";
 import { writeFile, readFile } from "node:fs/promises";
-import { Language, ScriptConfig } from "@/types/index";
+import type { Language, ScriptConfig } from "@/types/index";
 
 export async function writeConfigFiles(
     targetDir: string,

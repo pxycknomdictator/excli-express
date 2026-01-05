@@ -4,7 +4,7 @@ import { cp } from "node:fs/promises";
 import { fireShell } from "@/utils/shell";
 import { modifyPackageJson } from "@/utils/file";
 import { generateScripts } from "@/generators/scripts";
-import { DevTools, Language, PackageManager } from "@/types";
+import type { DevTools, Language, PackageManager } from "@/types";
 import { BASE_PACKAGES, TS_DEV_PACKAGES } from "@/config/constants";
 
 export async function installPackages(

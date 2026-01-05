@@ -16,7 +16,7 @@ import {
     promptMode,
     promptPackageManager,
 } from "@/cli/prompts";
-import { Database, DevTools, ProjectConfig } from "@/types";
+import type { Database, DevTools, ProjectConfig } from "@/types";
 import {
     validateDirectory,
     validatePackageManager,

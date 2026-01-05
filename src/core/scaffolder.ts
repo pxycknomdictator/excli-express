@@ -2,7 +2,7 @@ import { join } from "node:path";
 import { __dirname } from "@/index";
 import { fireShell } from "@/utils/shell";
 import { DIRECTORIES } from "@/config/constants";
-import { Language, PackageManager, ProjectConfig } from "@/types";
+import type { Language, PackageManager, ProjectConfig } from "@/types";
 import { cp, mkdir, writeFile } from "node:fs/promises";
 import { generateDockerCompose } from "@/generators/docker";
 import { generatePrettierConfig } from "@/generators/prettier";

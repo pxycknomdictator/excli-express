@@ -1,16 +1,15 @@
 {
     "name": "@excli/express",
     "version": "2.3.1",
-    "main": "dist/index.js",
+    "main": "dist/index.mjs",
     "type": "module",
-    "types": "dist/index.d.ts",
+    "types": "dist/index.d.mts",
     "description": "A cli tool for creating Express.js applications, supporting both JavaScript and TypeScript.",
     "scripts": {
-        "ts": "tsc",
-        "build": "node esbuild.config.js && npm run ts",
-        "dev": "node --watch dist/index.js",
+        "build": "tsdown",
+        "dev": "tsdown --watch",
         "lint": "eslint src/**/*.ts",
-        "start": "node dist/index.js",
+        "start": "node dist/index.mjs",
         "lint:fix": "eslint src/**/*.ts --fix",
         "format": "prettier --write .",
         "format:check": "prettier --check \"src/**/*.{ts,js,json}\"",
@@ -23,7 +22,7 @@
         "express-generator"
     ],
     "bin": {
-        "excli": "./dist/index.js"
+        "excli": "./dist/index.mjs"
     },
     "author": "Noman <pxycknomdictator@gmail.com>",
     "license": "ISC",
@@ -45,18 +44,17 @@
     },
     "dependencies": {
         "@clack/prompts": "^0.11.0",
-        "esbuild": "^0.25.5",
         "figlet": "^1.8.1"
     },
     "devDependencies": {
         "@eslint/js": "^9.29.0",
         "@types/figlet": "^1.7.0",
         "@types/node": "^24.0.1",
-        "esbuild-node-externals": "^1.18.0",
         "eslint": "^9.29.0",
         "globals": "^16.2.0",
         "husky": "^9.1.7",
         "prettier": "^3.5.3",
+        "tsdown": "0.19.0-beta.3",
         "typescript": "^5.0.0",
         "typescript-eslint": "^8.34.1"
     }
