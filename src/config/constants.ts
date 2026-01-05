@@ -24,10 +24,4 @@ export const TS_DEV_PACKAGES = [
     "@types/cors",
 ];
 
-export const ENV_VARIABLES = `NODE_ENV="development"
-PORT=3000
-DATABASE_URL=
-CLIENT_ORIGIN="http://localhost:5173"
-`;
-
 export const BANNER_FONT = "Standard";
