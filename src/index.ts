@@ -119,6 +119,8 @@ displayBanner();
         );
     }
 
+    await fireShell("npx prettier --write .", targetDir);
+
     s1.stop(`Successfully created project \x1b[32m${dirName}\x1b[0m`);
 
     log.success(`Scaffolding project in ${targetDir}...`);

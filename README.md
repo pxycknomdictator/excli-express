@@ -67,7 +67,7 @@ npx @excli/express
 4. **Development Tools** - Git, Prettier, Docker, Husky
 5. **Database** - Choose MySQL, MariaDB, PostgreSQL, or MongoDB (production mode only)
 
-#### Starting Your Application
+### Starting Your Application
 
 After project creation:
 
@@ -78,8 +78,7 @@ cd my-project
 # Start the development server
 npm run dev
 
-# Open your browser
-# Visit http://localhost:3000
+# Open your browser at http://localhost:3000
 ```
 
 That's it! Your Express server is running with hot reload enabled.
@@ -96,12 +95,6 @@ When enabled, Husky automatically sets up Git hooks to maintain code quality:
 - **Pre-push hook** - Ensures tests pass before pushing to remote
 - **Commit message validation** - Enforces conventional commit standards
 
-**Husky commands:**
-
-```bash
-npm run prepare      # Initialize Husky (runs automatically after install)
-```
-
 #### Database Options
 
 Choose the database that fits your needs:
@@ -115,6 +108,18 @@ Choose the database that fits your needs:
 
 All admin panels are accessible at `http://localhost:6969` after running `npm run docker:up`.
 
+> **Note:** Some admin panels might take a minute to initialize. Why? Great question! I wish I knew. Please be patient during first startup while they contemplate the meaning of life.
+
+### Docker & Environment Files
+
+Your project includes pre-configured Docker setup:
+
+- **Dockerfile** - Production-ready container configuration
+- **.env files** - Environment variables for different environments
+- **docker-compose.yml** - Multi-service orchestration with proper volume paths
+
+> **Important:** PostgreSQL volume path has been fixed in the latest version to ensure proper data persistence across container restarts.
+
 ---
 
 ### Common Commands
@@ -125,7 +130,6 @@ All admin panels are accessible at `http://localhost:6969` after running `npm ru
 npm run dev          # Start development server with hot reload
 npm run start        # Start production server
 npm run format       # Format code with Prettier
-npm run lint         # Run ESLint checks
 ```
 
 #### TypeScript Projects
@@ -145,28 +149,23 @@ npm run docker:down  # Stop all Docker services
 
 ### Managing Your Database
 
-After running `npm run docker:up`, access your database admin panel:
-
-**Visit:** http://localhost:6969
-
-**NOTE:** Some admin panels might not run immediately, so be patient.
+After running `npm run docker:up`, access your database admin panel at **http://localhost:6969**
 
 - **pgAdmin** - Full-featured PostgreSQL management
-- **phpMyAdmin** - Intuitive MySQL && MariaDB interface
+- **phpMyAdmin** - Intuitive MySQL & MariaDB interface
 - **Mongo Express** - Simple MongoDB administration
 
 ---
 
-### Technical Updates
+### Recent Updates
 
-#### Modern Node.js APIs
+#### Version Improvements
 
-This CLI tool uses modern Node.js APIs to ensure compatibility with current and future versions:
-
-- **No deprecated `child_process.spawn` usage** - Migrated to `node:child_process` with proper options
-- Uses `spawn` with `shell: true` option for cross-platform compatibility
-- Properly handles stdio streams and error handling
-- Compatible with Node.js 20+ long-term support
+- ✅ Fixed PostgreSQL volume path in Docker configuration for proper data persistence
+- ✅ Added production-ready Dockerfile
+- ✅ Improved environment variable management
+- ✅ Modern Node.js APIs (no deprecated methods)
+- ✅ Cross-platform compatibility improvements
 
 ---
 
@@ -179,8 +178,7 @@ Check if another service is running on port 3000 or 6969, or modify the ports in
 Make sure Docker Desktop is running before executing `npm run docker:up`.
 
 **Husky hooks not running?**
-Ensure to add a valid script in .husky/pre-commit file!
-Ensure Git is initialized and run `npm run prepare` to set up hooks.
+Ensure Git is initialized and add a valid script in `.husky/pre-commit` file, then run `npm run prepare` to set up hooks.
 
 **Need help?**
 Open an issue on GitHub with details about your problem.
