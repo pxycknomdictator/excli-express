@@ -25,3 +25,4 @@ export const TS_DEV_PACKAGES = [
 ];
 
 export const BANNER_FONT = "Standard";
+export const HUSKY_COMMIT_FILE_NAME = "pre-commit";

@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { __dirname } from "@/index";
 import { fireShell } from "@/utils/shell";
-import { DIRECTORIES } from "@/config/constants";
+import { DIRECTORIES, HUSKY_COMMIT_FILE_NAME } from "@/config/constants";
 import type { Language, PackageManager, ProjectConfig } from "@/types";
 import { cp, mkdir, writeFile } from "node:fs/promises";
 import { generateDockerCompose } from "@/generators/docker";
@@ -68,6 +68,8 @@ export async function setupPrettier(targetDir: string): Promise<void> {
 
 export async function setupHusky(targetDir: string): Promise<void> {
     await fireShell("npx husky init", targetDir);
+    const huskyFileLocation = join(targetDir, ".husky", HUSKY_COMMIT_FILE_NAME);
+    await writeFile(huskyFileLocation, "", "utf-8");
 }
 
 export async function createDirectoryStructure(
