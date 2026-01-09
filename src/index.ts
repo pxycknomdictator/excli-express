@@ -98,7 +98,7 @@ displayBanner();
         if (devTools.includes("git") && hasGit()) {
             await Promise.all([
                 fireShell("git init", targetDir),
-                setupGit(targetDir, pkgManager),
+                setupGit(targetDir),
             ]);
         }
 

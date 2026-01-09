@@ -83,6 +83,7 @@ export async function promptPackageManager(): Promise<PackageManager> {
     const pkgManager = (await select({
         message: "Select your package manager:",
         options: [
+            { label: "None", value: "none" },
             { label: "npm", value: "npm" },
             { label: "yarn", value: "yarn" },
             { label: "pnpm", value: "pnpm" },

@@ -2,25 +2,14 @@ import { join } from "node:path";
 import { __dirname } from "@/index";
 import { fireShell } from "@/utils/shell";
 import { DIRECTORIES, HUSKY_COMMIT_FILE_NAME } from "@/config/constants";
-import type { Language, PackageManager, ProjectConfig } from "@/types";
+import type { Language, ProjectConfig } from "@/types";
 import { cp, mkdir, writeFile } from "node:fs/promises";
 import { generateDockerCompose } from "@/generators/docker";
 import { generatePrettierConfig } from "@/generators/prettier";
 import { writeConfigFiles } from "@/utils/file";
 
-export async function setupGit(
-    targetDir: string,
-    pkgManager: PackageManager,
-): Promise<void> {
-    const managerMap: Record<string, string> = {
-        npm: "npx",
-        pnpm: "pnpm dlx",
-        yarn: "yarn dlx",
-        bun: "bunx",
-    };
-
-    const manager = managerMap[pkgManager] ?? null;
-    await fireShell(`${manager} gitignore node`, targetDir);
+export async function setupGit(targetDir: string): Promise<void> {
+    await fireShell(`npx gitignore node`, targetDir);
 }
 
 export async function setupProjectDirectories(
