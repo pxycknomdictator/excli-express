@@ -32,3 +32,22 @@ export function fireShell(command: string, targetDir: string = process.cwd()) {
         child.on("error", (err) => reject(err));
     });
 }
+
+export async function getPackageLatestVersion(
+    packageName: string,
+    targetDir: string,
+): Promise<string> {
+    const { exec } = await import("child_process");
+    const { promisify } = await import("util");
+
+    const execAsync = promisify(exec);
+
+    try {
+        const { stdout } = await execAsync(`npm view ${packageName} version`, {
+            cwd: targetDir,
+        });
+        return stdout.trim();
+    } catch (error) {
+        throw new Error(`Failed to fetch version for ${packageName}`);
+    }
+}
