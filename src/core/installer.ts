@@ -1,6 +1,5 @@
-import { __dirname } from "@/index";
 import { fireShell } from "@/utils/shell";
-import { modifyPackageJson } from "@/utils/file";
+import { addPackagesToJson, modifyPackageJson } from "@/utils/file";
 import { generateScripts } from "@/generators/scripts";
 import type { DevTools, Language, PackageManager } from "@/types";
 import { BASE_PACKAGES, TS_DEV_PACKAGES } from "@/config/constants";
@@ -26,6 +25,11 @@ export async function installPackages(
     await initializeNodeProject(targetDir);
     const scripts = generateScripts(language, devTools);
     await modifyPackageJson(targetDir, language, dirName, scripts);
+
+    if (pkgManager === "none") {
+        await addPackagesToJson(targetDir, packages, devPackages);
+        return;
+    }
 
     const installCmdMap: Record<string, string> = {
         npm: "install",

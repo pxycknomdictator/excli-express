@@ -1,6 +1,7 @@
 import { join } from "node:path";
 import { writeFile, readFile } from "node:fs/promises";
 import type { Language, ScriptConfig } from "@/types/index";
+import { formatPackageVersions } from "./shell";
 
 export async function writeConfigFiles(
     targetDir: string,
@@ -37,4 +38,38 @@ export async function modifyPackageJson(
     pkg.scripts = scripts;
 
     await writeFile(fullPath, JSON.stringify(pkg, null, 2));
+}
+
+export async function addPackagesToJson(
+    targetDir: string,
+    packages: string[],
+    devPackages: string[] = [],
+) {
+    const packageJsonPath = join(targetDir, "package.json");
+    const content = await readFile(packageJsonPath, "utf-8");
+    const packageData = JSON.parse(content);
+
+    const depVersions = await formatPackageVersions(packages, targetDir);
+
+    let devDepVersions = {};
+    if (devPackages.length > 0) {
+        devDepVersions = await formatPackageVersions(devPackages, targetDir);
+    }
+
+    packageData.dependencies = {
+        ...packageData.dependencies,
+        ...depVersions,
+    };
+
+    if (Object.keys(devDepVersions).length > 0) {
+        packageData.devDependencies = {
+            ...packageData.devDependencies,
+            ...devDepVersions,
+        };
+    }
+
+    await writeFile(
+        packageJsonPath,
+        JSON.stringify(packageData, null, 2) + "\n",
+    );
 }

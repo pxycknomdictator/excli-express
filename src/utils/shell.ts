@@ -48,6 +48,22 @@ export async function getPackageLatestVersion(
         });
         return stdout.trim();
     } catch (error) {
-        throw new Error(`Failed to fetch version for ${packageName}`);
+        throw new Error(
+            `Failed to fetch version for ${packageName}: Error: ${error}`,
+        );
     }
+}
+
+export async function formatPackageVersions(
+    packages: string[] = [],
+    targetDir: string,
+) {
+    return Object.fromEntries(
+        await Promise.all(
+            packages.map(async (pkg) => [
+                pkg,
+                `^${await getPackageLatestVersion(pkg, targetDir)}`,
+            ]),
+        ),
+    );
 }
