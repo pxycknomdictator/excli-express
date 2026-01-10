@@ -1,5 +1,0 @@
-{
-    "name": "express",
-    "type": "module",
-    "main": "src/main.js"
-}

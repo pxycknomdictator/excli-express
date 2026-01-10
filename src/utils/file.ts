@@ -33,6 +33,7 @@ export async function modifyPackageJson(
 
     pkg.name = dirName;
     pkg.main = `src/main.${language}`;
+    pkg.type = "module";
     pkg.scripts = scripts;
 
     await writeFile(fullPath, JSON.stringify(pkg, null, 2));

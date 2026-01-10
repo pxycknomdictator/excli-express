@@ -1,6 +1,4 @@
-import { join } from "node:path";
 import { __dirname } from "@/index";
-import { cp } from "node:fs/promises";
 import { fireShell } from "@/utils/shell";
 import { modifyPackageJson } from "@/utils/file";
 import { generateScripts } from "@/generators/scripts";
@@ -25,9 +23,7 @@ export async function installPackages(
 
     if (language === "ts") devPackages.push(...TS_DEV_PACKAGES);
 
-    const packageJson = join(__dirname, "..", "templates", "package.json");
-    await cp(packageJson, join(targetDir, "package.json"));
-
+    await initializeNodeProject(targetDir);
     const scripts = generateScripts(language, devTools);
     await modifyPackageJson(targetDir, language, dirName, scripts);
 
@@ -50,4 +46,8 @@ export async function installPackages(
             targetDir,
         );
     }
+}
+
+export async function initializeNodeProject(targetDir: string) {
+    await fireShell("npm init -y", targetDir);
 }
