@@ -47,6 +47,11 @@ async function main() {
 
 async function getUserInputs() {
     const directory = await promptDirectory();
+
+    const rootDir = cwd();
+    const targetDir = !directory?.trim() ? rootDir : join(rootDir, directory);
+    validateDirectory(targetDir, directory);
+
     const language = await promptLanguage();
     const mode = await promptMode();
 
@@ -62,20 +67,32 @@ async function getUserInputs() {
 
     const pkgManager = await promptPackageManager();
 
-    return { directory, language, mode, devTools, database, pkgManager };
+    return {
+        directory,
+        language,
+        mode,
+        devTools,
+        database,
+        pkgManager,
+        targetDir,
+    };
 }
 
 async function prepareProjectConfig(
     userInputs: Awaited<ReturnType<typeof getUserInputs>>,
 ) {
-    const { directory, language, mode, devTools, database, pkgManager } =
-        userInputs;
+    const {
+        directory,
+        language,
+        mode,
+        devTools,
+        database,
+        pkgManager,
+        targetDir,
+    } = userInputs;
 
-    const rootDir = cwd();
-    const targetDir = !directory?.trim() ? rootDir : join(rootDir, directory);
     const dirName = basename(targetDir) || "container_app";
 
-    validateDirectory(targetDir, directory);
     validatePackageManager(pkgManager);
 
     const templatePath = join(__dirname, "..", "templates", language);
