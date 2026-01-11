@@ -3,11 +3,11 @@
 import { cwd } from "node:process";
 import { existsSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
-import { spinner } from "@clack/prompts";
-import { fileURLToPath } from "node:url";
-import { outro, log } from "@clack/prompts";
-import { displayBanner } from "@/cli/banner";
 import { join, basename, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { spinner, outro, log } from "@clack/prompts";
+
+import { displayBanner } from "@/cli/banner";
 import {
     promptDatabase,
     promptDevTools,
@@ -16,7 +16,6 @@ import {
     promptMode,
     promptPackageManager,
 } from "@/cli/prompts";
-import type { Database, DevTools, ProjectConfig } from "@/types";
 import {
     validateDirectory,
     validatePackageManager,
@@ -26,25 +25,28 @@ import {
     createDirectoryStructure,
     setupProjectDirectories,
 } from "@/core/scaffolder";
-import { installPackages } from "./core/installer";
-import { fireShell } from "./utils/shell";
-import { setupEnv } from "./generators/env";
-import { setupDevTools } from "./utils/file";
+import { installPackages } from "@/core/installer";
+import { setupEnv } from "@/generators/env";
+import { setupDevTools } from "@/utils/file";
+import { fireShell } from "@/utils/shell";
+
+import type { Database, DevTools, ProjectConfig } from "@/types";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
 
-displayBanner();
+async function main() {
+    displayBanner();
 
-(async () => {
+    const userInputs = await getUserInputs();
+    const config = await prepareProjectConfig(userInputs);
+
+    await createProject(config);
+    showCompletionMessage(config);
+}
+
+async function getUserInputs() {
     const directory = await promptDirectory();
-
-    const rootDir = cwd();
-    const targetDir = !directory?.trim() ? rootDir : join(rootDir, directory);
-    const dirName = basename(targetDir) || "container_app";
-
-    validateDirectory(targetDir, directory);
-
     const language = await promptLanguage();
     const mode = await promptMode();
 
@@ -53,11 +55,31 @@ displayBanner();
 
     if (mode === "production") {
         devTools = await promptDevTools();
-        if (devTools.includes("docker")) database = await promptDatabase();
+        if (devTools.includes("docker")) {
+            database = await promptDatabase();
+        }
     }
 
     const pkgManager = await promptPackageManager();
+
+    return { directory, language, mode, devTools, database, pkgManager };
+}
+
+async function prepareProjectConfig(
+    userInputs: Awaited<ReturnType<typeof getUserInputs>>,
+) {
+    const { directory, language, mode, devTools, database, pkgManager } =
+        userInputs;
+
+    const rootDir = cwd();
+    const targetDir = !directory?.trim() ? rootDir : join(rootDir, directory);
+    const dirName = basename(targetDir) || "container_app";
+
+    validateDirectory(targetDir, directory);
     validatePackageManager(pkgManager);
+
+    const templatePath = join(__dirname, "..", "templates", language);
+    validateTemplate(templatePath);
 
     const config: ProjectConfig = {
         directory,
@@ -70,47 +92,94 @@ displayBanner();
         dirName,
     };
 
-    const s1 = spinner({ indicator: "dots" });
-    s1.start("Installing dependencies...");
+    return { ...config, templatePath };
+}
 
-    if (!existsSync(targetDir)) await mkdir(targetDir, { recursive: true });
+async function createProject(config: ProjectConfig & { templatePath: string }) {
+    const { targetDir, mode, database, pkgManager, dirName, templatePath } =
+        config;
 
-    const sourceDir = join(targetDir, "src");
-    const publicDir = join(targetDir, "public");
+    const s = spinner();
+    s.start("Creating project...");
 
-    const templatePath = join(__dirname, "..", "templates", language);
-    validateTemplate(templatePath);
+    try {
+        if (!existsSync(targetDir)) {
+            await mkdir(targetDir, { recursive: true });
+        }
 
-    await createDirectoryStructure(targetDir, publicDir, templatePath);
+        const sourceDir = join(targetDir, "src");
+        const publicDir = join(targetDir, "public");
 
-    if (mode === "production" && database) {
-        await setupEnv(targetDir, mode, database);
-    } else {
-        await setupEnv(targetDir, mode);
+        await createDirectoryStructure(targetDir, publicDir, templatePath);
+
+        if (mode === "production" && database) {
+            await setupEnv(targetDir, mode, database);
+        } else {
+            await setupEnv(targetDir, mode);
+        }
+
+        if (mode === "production") {
+            await setupProductionProject(config, sourceDir);
+        } else {
+            await setupNormalProject(config);
+        }
+
+        if (pkgManager !== "none") {
+            await fireShell("npx prettier --write .", targetDir);
+        }
+
+        s.stop(`Successfully created project \x1b[32m${dirName}\x1b[0m`);
+        log.success(`Scaffolding project in ${targetDir}...`);
+    } catch (error) {
+        s.stop("Failed to create project");
+        throw error;
     }
+}
 
-    if (mode === "production") {
-        await Promise.all([
-            setupProjectDirectories(language, sourceDir),
-            setupDevTools(config),
-        ]);
+async function setupProductionProject(
+    config: ProjectConfig,
+    sourceDir: string,
+) {
+    const { language } = config;
+
+    await Promise.all([
+        setupProjectDirectories(language, sourceDir),
+        setupDevTools(config),
+    ]);
+}
+
+async function setupNormalProject(config: ProjectConfig) {
+    const { pkgManager, targetDir, language, devTools, dirName } = config;
+    await installPackages(pkgManager, targetDir, language, devTools, dirName);
+}
+
+function showCompletionMessage(config: ProjectConfig) {
+    const { dirName, pkgManager } = config;
+
+    if (pkgManager === "none") {
+        outro(`
+🎉 Project created successfully!
+
+📦 package.json has been created with latest package versions.
+
+Next steps:
+  cd ${dirName}
+  <install packages using your preferred package manager>
+  npm install    # or pnpm install, yarn install, bun install
+  npm run dev
+        `);
     } else {
-        await installPackages(
-            pkgManager,
-            targetDir,
-            language,
-            devTools,
-            dirName,
-        );
+        outro(`
+🎉 Project created successfully!
+
+Next steps:
+  cd ${dirName}
+  ${pkgManager} run dev
+        `);
     }
+}
 
-    await fireShell("npx prettier --write .", targetDir);
-
-    s1.stop(`Successfully created project \x1b[32m${dirName}\x1b[0m`);
-
-    log.success(`Scaffolding project in ${targetDir}...`);
-
-    outro(`cd ${dirName}
-${pkgManager} run dev
-    `);
-})();
+main().catch((error) => {
+    console.error("❌ Error creating project:", error);
+    process.exit(1);
+});
