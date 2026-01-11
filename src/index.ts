@@ -96,8 +96,7 @@ async function prepareProjectConfig(
 }
 
 async function createProject(config: ProjectConfig & { templatePath: string }) {
-    const { targetDir, mode, database, pkgManager, dirName, templatePath } =
-        config;
+    const { targetDir, mode, database, dirName, templatePath } = config;
 
     const s = spinner();
     s.start("Creating project...");
@@ -124,9 +123,7 @@ async function createProject(config: ProjectConfig & { templatePath: string }) {
             await setupNormalProject(config);
         }
 
-        if (pkgManager !== "none") {
-            await fireShell("npx prettier --write .", targetDir);
-        }
+        await fireShell("npx prettier --write .", targetDir);
 
         s.stop(`Successfully created project \x1b[32m${dirName}\x1b[0m`);
         log.success(`Scaffolding project in ${targetDir}...`);
