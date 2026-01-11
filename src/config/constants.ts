@@ -24,5 +24,12 @@ export const TS_DEV_PACKAGES = [
     "@types/cors",
 ];
 
+export const installCmdMap: Record<string, string> = {
+    npm: "install",
+    pnpm: "add",
+    yarn: "add",
+    bun: "add",
+};
+
 export const BANNER_FONT = "Standard";
 export const HUSKY_COMMIT_FILE_NAME = "pre-commit";

@@ -2,7 +2,11 @@ import { fireShell } from "@/utils/shell";
 import { addPackagesToJson, modifyPackageJson } from "@/utils/file";
 import { generateScripts } from "@/generators/scripts";
 import type { DevTools, Language, PackageManager } from "@/types";
-import { BASE_PACKAGES, TS_DEV_PACKAGES } from "@/config/constants";
+import {
+    BASE_PACKAGES,
+    installCmdMap,
+    TS_DEV_PACKAGES,
+} from "@/config/constants";
 
 export async function installPackages(
     pkgManager: PackageManager,
@@ -31,14 +35,8 @@ export async function installPackages(
         return;
     }
 
-    const installCmdMap: Record<string, string> = {
-        npm: "install",
-        pnpm: "add",
-        yarn: "add",
-        bun: "add",
-    };
-
     const installCmd = installCmdMap[pkgManager] ?? null;
+
     await fireShell(
         `${pkgManager} ${installCmd} ${packages.join(" ")}`,
         targetDir,
