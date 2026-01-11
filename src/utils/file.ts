@@ -90,9 +90,9 @@ export async function setupDevTools(config: ProjectConfig) {
             setupGit(targetDir),
         ]);
     }
-    if (devTools.includes("husky")) await setupHusky(targetDir);
+    await installPackages(pkgManager, targetDir, language, devTools, dirName);
+
     if (devTools.includes("prettier")) await setupPrettier(targetDir);
     if (devTools.includes("docker")) await setupDocker(targetDir, config);
-
-    await installPackages(pkgManager, targetDir, language, devTools, dirName);
+    if (devTools.includes("husky")) await setupHusky(targetDir);
 }
