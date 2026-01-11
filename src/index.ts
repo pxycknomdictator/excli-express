@@ -5,7 +5,7 @@ import { existsSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
 import { join, basename, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { spinner, outro, log } from "@clack/prompts";
+import { spinner, outro, log, note } from "@clack/prompts";
 
 import { displayBanner } from "@/cli/banner";
 import {
@@ -157,26 +157,27 @@ function showCompletionMessage(config: ProjectConfig) {
     const { dirName, pkgManager } = config;
 
     if (pkgManager === "none") {
-        outro(`
-🎉 Project created successfully!
-
-📦 package.json has been created with latest package versions.
-
-Next steps:
+        note(
+            `
+To get started:
   cd ${dirName}
-  <install packages using your preferred package manager>
-  npm install    # or pnpm install, yarn install, bun install
-  npm run dev
-        `);
+
+Install dependencies:
+  npm install
+
+Start development:
+  npm run dev`,
+            "📦 Setup Complete",
+        );
     } else {
-        outro(`
-🎉 Project created successfully!
-
-Next steps:
-  cd ${dirName}
-  ${pkgManager} run dev
-        `);
+        note(
+            `cd ${dirName}
+${pkgManager} run dev`,
+            "🚀 Ready to start",
+        );
     }
+
+    outro("Happy coding! ✨");
 }
 
 main().catch((error) => {
