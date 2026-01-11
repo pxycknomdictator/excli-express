@@ -2,11 +2,8 @@ import { fireShell } from "@/utils/shell";
 import { addPackagesToJson, modifyPackageJson } from "@/utils/file";
 import { generateScripts } from "@/generators/scripts";
 import type { DevTools, Language, PackageManager } from "@/types";
-import {
-    BASE_PACKAGES,
-    installCmdMap,
-    TS_DEV_PACKAGES,
-} from "@/config/constants";
+import { installCmdMap } from "@/config/constants";
+import { getSelectedPackages } from "@/utils/packages";
 
 export async function installPackages(
     pkgManager: PackageManager,
@@ -15,16 +12,7 @@ export async function installPackages(
     devTools: DevTools[],
     dirName: string,
 ) {
-    const packages: string[] = [...BASE_PACKAGES];
-    const devPackages: string[] = [];
-
-    const isPrettier = devTools.includes("prettier");
-    if (isPrettier) devPackages.push("prettier");
-
-    const isHusky = devTools.includes("husky");
-    if (isHusky) devPackages.push("husky");
-
-    if (language === "ts") devPackages.push(...TS_DEV_PACKAGES);
+    const { packages, devPackages } = getSelectedPackages(devTools, language);
 
     await initializeNodeProject(targetDir);
     const scripts = generateScripts(language, devTools);
