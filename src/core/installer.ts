@@ -3,7 +3,7 @@ import { addPackagesToJson, modifyPackageJson } from "@/utils/file";
 import { generateScripts } from "@/generators/scripts";
 import type { DevTools, Language, PackageManager } from "@/types";
 import { installCmdMap } from "@/config/constants";
-import { getSelectedPackages } from "@/utils/packages";
+import { collectPackages } from "@/utils/packages";
 
 export async function installPackages(
     pkgManager: PackageManager,
@@ -12,7 +12,7 @@ export async function installPackages(
     devTools: DevTools[],
     dirName: string,
 ) {
-    const { packages, devPackages } = getSelectedPackages(devTools, language);
+    const { packages, devPackages } = collectPackages(devTools, language);
 
     await initializeNodeProject(targetDir);
     const scripts = generateScripts(language, devTools);
@@ -23,6 +23,20 @@ export async function installPackages(
         return;
     }
 
+    await installPackagesWithManager(
+        pkgManager,
+        targetDir,
+        packages,
+        devPackages,
+    );
+}
+
+async function installPackagesWithManager(
+    pkgManager: PackageManager,
+    targetDir: string,
+    packages: string[],
+    devPackages: string[],
+) {
     const installCmd = installCmdMap[pkgManager] ?? null;
 
     await fireShell(
