@@ -24,15 +24,12 @@ import {
 } from "@/core/validator";
 import {
     createDirectoryStructure,
-    setupDocker,
-    setupGit,
-    setupHusky,
-    setupPrettier,
     setupProjectDirectories,
 } from "@/core/scaffolder";
 import { installPackages } from "./core/installer";
-import { fireShell, hasGit } from "./utils/shell";
+import { fireShell } from "./utils/shell";
 import { setupEnv } from "./generators/env";
+import { setupDevTools } from "./utils/file";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
@@ -93,22 +90,10 @@ displayBanner();
     }
 
     if (mode === "production") {
-        await setupProjectDirectories(language, sourceDir);
-
-        if (devTools.includes("git") && hasGit()) {
-            await Promise.all([
-                fireShell("git init", targetDir),
-                setupGit(targetDir),
-            ]);
-        }
-
         await Promise.all([
-            setupDocker(targetDir, config),
-            installPackages(pkgManager, targetDir, language, devTools, dirName),
+            setupProjectDirectories(language, sourceDir),
+            setupDevTools(config),
         ]);
-
-        if (devTools.includes("prettier")) await setupPrettier(targetDir);
-        if (devTools.includes("husky")) await setupHusky(targetDir);
     } else {
         await installPackages(
             pkgManager,

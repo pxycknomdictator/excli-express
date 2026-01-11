@@ -1,7 +1,14 @@
 import { join } from "node:path";
 import { writeFile, readFile } from "node:fs/promises";
-import type { Language, ScriptConfig } from "@/types/index";
-import { formatPackageVersions } from "./shell";
+import type { Language, ProjectConfig, ScriptConfig } from "@/types/index";
+import { fireShell, formatPackageVersions, hasGit } from "./shell";
+import {
+    setupDocker,
+    setupGit,
+    setupHusky,
+    setupPrettier,
+} from "@/core/scaffolder";
+import { installPackages } from "@/core/installer";
 
 export async function writeConfigFiles(
     targetDir: string,
@@ -72,4 +79,20 @@ export async function addPackagesToJson(
         packageJsonPath,
         JSON.stringify(packageData, null, 2) + "\n",
     );
+}
+
+export async function setupDevTools(config: ProjectConfig) {
+    const { devTools, targetDir, pkgManager, language, dirName } = config;
+
+    if (devTools.includes("git") && hasGit()) {
+        await Promise.all([
+            fireShell("git init", targetDir),
+            setupGit(targetDir),
+        ]);
+    }
+    if (devTools.includes("husky")) await setupHusky(targetDir);
+    if (devTools.includes("prettier")) await setupPrettier(targetDir);
+    if (devTools.includes("docker")) await setupDocker(targetDir, config);
+
+    await installPackages(pkgManager, targetDir, language, devTools, dirName);
 }
