@@ -17,7 +17,7 @@ Start building features immediately with a complete, production-ready Express.js
 
 - 🚀 TypeScript or JavaScript support
 - 🐳 Docker-ready with one command
-- 🗄️ Pre-configured databases (MySQL, PostgreSQL, MongoDB)
+- 🗄️ Pre-configured databases (MySQL, MariaDB, PostgreSQL, MongoDB)
 - 🔥 Hot reload for rapid development
 - 📦 Clean, scalable architecture
 - 🛠️ Admin panels included for database management
