@@ -5,8 +5,8 @@ import type {
     Database,
     PackageManager,
     DevTools,
-} from "@/types";
-import { terminate } from "@/utils/terminate";
+} from "src/types";
+import { terminate } from "src/utils/terminate";
 
 export async function promptDirectory(): Promise<string> {
     const directory = (await text({

@@ -3,11 +3,11 @@
 import { cwd } from "node:process";
 import { existsSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
-import { join, basename, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { join, basename, dirname } from "node:path";
 import { spinner, outro, log, note } from "@clack/prompts";
 
-import { displayBanner } from "@/cli/banner";
+import { displayBanner } from "./cli/banner";
 import {
     promptDatabase,
     promptDevTools,
@@ -15,22 +15,22 @@ import {
     promptLanguage,
     promptMode,
     promptPackageManager,
-} from "@/cli/prompts";
+} from "./cli/prompts";
 import {
     validateDirectory,
     validatePackageManager,
     validateTemplate,
-} from "@/core/validator";
+} from "./core/validator";
 import {
     createDirectoryStructure,
     setupProjectDirectories,
-} from "@/core/scaffolder";
-import { installPackages } from "@/core/installer";
-import { setupEnv } from "@/generators/env";
-import { setupDevTools } from "@/utils/file";
-import { fireShell } from "@/utils/shell";
+} from "./core/scaffolder";
+import { installPackages } from "./core/installer";
+import { setupEnv } from "./generators/env";
+import { setupDevTools } from "./utils/file";
+import { fireShell } from "./utils/shell";
 
-import type { Database, DevTools, ProjectConfig } from "@/types";
+import type { Database, DevTools, ProjectConfig } from "./types";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);

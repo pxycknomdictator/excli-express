@@ -1,4 +1,4 @@
-import type { ScriptConfig, Language, DevTools } from "@/types";
+import type { ScriptConfig, Language, DevTools } from "src/types";
 
 const tsScripts: ScriptConfig = {
     build: "tsc",

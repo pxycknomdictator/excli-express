@@ -27,9 +27,6 @@
         "skipLibCheck": true,
         "verbatimModuleSyntax": true,
         "baseUrl": "./",
-        "paths": {
-            "@/*": ["src/*"]
-        },
         "rootDir": "./src",
         "outDir": "./dist"
     },

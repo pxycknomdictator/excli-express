@@ -1,9 +1,9 @@
-import { fireShell } from "@/utils/shell";
-import { addPackagesToJson, modifyPackageJson } from "@/utils/file";
-import { generateScripts } from "@/generators/scripts";
-import type { DevTools, Language, PackageManager } from "@/types";
-import { installCmdMap } from "@/config/constants";
-import { collectPackages } from "@/utils/packages";
+import { fireShell } from "src/utils/shell";
+import { addPackagesToJson, modifyPackageJson } from "src/utils/file";
+import { generateScripts } from "src/generators/scripts";
+import type { DevTools, Language, PackageManager } from "src/types";
+import { installCmdMap } from "src/config/constants";
+import { collectPackages } from "src/utils/packages";
 
 export async function installPackages(
     pkgManager: PackageManager,

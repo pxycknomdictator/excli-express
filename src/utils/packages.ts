@@ -1,5 +1,5 @@
-import type { DevTools, Language } from "@/types";
-import { BASE_PACKAGES, TS_DEV_PACKAGES } from "@/config/constants";
+import type { DevTools, Language } from "src/types";
+import { BASE_PACKAGES, TS_DEV_PACKAGES } from "src/config/constants";
 
 export function collectPackages(devTools: DevTools[], language: Language) {
     const packages: string[] = [...BASE_PACKAGES];

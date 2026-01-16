@@ -1,4 +1,4 @@
-import type { ConfigFile } from "@/types";
+import type { ConfigFile } from "src/types";
 
 const prettierrcContent = `
 {

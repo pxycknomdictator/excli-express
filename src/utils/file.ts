@@ -1,14 +1,14 @@
 import { join } from "node:path";
 import { writeFile, readFile } from "node:fs/promises";
-import type { Language, ProjectConfig, ScriptConfig } from "@/types/index";
+import type { Language, ProjectConfig, ScriptConfig } from "src/types";
 import { fireShell, formatPackageVersions, hasGit } from "./shell";
 import {
     setupDocker,
     setupGit,
     setupHusky,
     setupPrettier,
-} from "@/core/scaffolder";
-import { installPackages } from "@/core/installer";
+} from "src/core/scaffolder";
+import { installPackages } from "src/core/installer";
 
 export async function writeConfigFiles(
     targetDir: string,

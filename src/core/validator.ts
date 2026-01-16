@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
-import { hasPkManager } from "@/utils/shell";
-import { terminate } from "@/utils/terminate";
-import type { PackageManager } from "@/types";
+import { hasPkManager } from "src/utils/shell";
+import { terminate } from "src/utils/terminate";
+import type { PackageManager } from "src/types";
 
 export function validateDirectory(targetDir: string, directory: string): void {
     if (existsSync(targetDir) && directory?.trim()) {

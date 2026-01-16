@@ -1,6 +1,6 @@
 import { platform } from "node:process";
 import { spawnSync, spawn } from "node:child_process";
-import type { PackageManager } from "@/types";
+import type { PackageManager } from "src/types";
 
 export function hasPkManager(pkgM: PackageManager): boolean {
     if (pkgM === "none") return true;
