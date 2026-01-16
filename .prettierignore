@@ -4,3 +4,4 @@ dist
 output
 .env
 .env.example
+pnpm-lock.yaml

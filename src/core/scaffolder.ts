@@ -1,10 +1,8 @@
 import { join } from "node:path";
-import { __dirname } from "@/index";
 import { fireShell } from "@/utils/shell";
 import { DIRECTORIES, HUSKY_COMMIT_FILE_NAME } from "@/config/constants";
 import type { Language, ProjectConfig } from "@/types";
 import { cp, mkdir, writeFile } from "node:fs/promises";
-import { generateDockerCompose } from "@/generators/docker";
 import { generatePrettierConfig } from "@/generators/prettier";
 import { writeConfigFiles } from "@/utils/file";
 
@@ -23,31 +21,15 @@ export async function setupProjectDirectories(
     }
 }
 
-export async function setupDocker(
-    targetDir: string,
-    config: ProjectConfig,
-): Promise<void> {
-    if (!config.devTools.includes("docker") || !config.database) return;
+export async function setupDocker(config: ProjectConfig): Promise<void> {
+    const { devTools, database, language, pkgManager } = config;
+    if (!devTools.includes("docker") || !database) return;
 
-    const compose = generateDockerCompose(config.database);
-    const composeFile = join(targetDir, "compose.yaml");
-
-    const dockerignoreSource = join(
-        __dirname,
-        "..",
-        "templates",
-        ".dockerignore",
+    const pkg = pkgManager === "none" ? "npm" : pkgManager;
+    await fireShell(
+        `npx --yes @excli/docker -l=${language} -d=${database} -p=${pkg}`,
+        config.targetDir,
     );
-    const dockerfileSource = join(__dirname, "..", "templates", "Dockerfile");
-
-    const dockerignoreDest = join(targetDir, ".dockerignore");
-    const dockerFileDest = join(targetDir, "Dockerfile");
-
-    await Promise.all([
-        writeFile(composeFile, compose, { encoding: "utf-8" }),
-        cp(dockerignoreSource, dockerignoreDest),
-        cp(dockerfileSource, dockerFileDest),
-    ]);
 }
 
 export async function setupPrettier(targetDir: string): Promise<void> {

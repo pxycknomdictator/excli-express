@@ -113,7 +113,7 @@ async function prepareProjectConfig(
 }
 
 async function createProject(config: ProjectConfig & { templatePath: string }) {
-    const { targetDir, mode, database, dirName, templatePath } = config;
+    const { targetDir, mode, dirName, templatePath } = config;
 
     const s = spinner();
     s.start("Creating project...");
@@ -126,13 +126,10 @@ async function createProject(config: ProjectConfig & { templatePath: string }) {
         const sourceDir = join(targetDir, "src");
         const publicDir = join(targetDir, "public");
 
-        await createDirectoryStructure(targetDir, publicDir, templatePath);
-
-        if (mode === "production" && database) {
-            await setupEnv(targetDir, mode, database);
-        } else {
-            await setupEnv(targetDir, mode);
-        }
+        await Promise.all([
+            createDirectoryStructure(targetDir, publicDir, templatePath),
+            setupEnv(targetDir),
+        ]);
 
         if (mode === "production") {
             await setupProductionProject(config, sourceDir);
