@@ -7,28 +7,25 @@ import { fileURLToPath } from "node:url";
 import { join, basename, dirname } from "node:path";
 import { spinner, outro, log, note } from "@clack/prompts";
 
-import { displayBanner } from "./cli/banner";
 import {
+    displayBanner,
     promptDatabase,
     promptDevTools,
     promptDirectory,
     promptLanguage,
     promptMode,
     promptPackageManager,
-} from "./cli/prompts";
+} from "./cli";
 import {
     validateDirectory,
     validatePackageManager,
     validateTemplate,
-} from "./core/validator";
-import {
     createDirectoryStructure,
     setupProjectDirectories,
-} from "./core/scaffolder";
-import { installPackages } from "./core/installer";
-import { setupEnv } from "./generators/env";
-import { setupDevTools } from "./utils/file";
-import { fireShell } from "./utils/shell";
+    installPackages,
+} from "./core";
+import { setupEnv } from "./generators";
+import { setupDevTools, fireShell } from "./utils";
 
 import type { Database, DevTools, ProjectConfig } from "./types";
 

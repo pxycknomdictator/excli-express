@@ -1,12 +1,12 @@
 import { text, select, multiselect, isCancel } from "@clack/prompts";
+import { terminate } from "src/utils";
 import type {
-    Language,
-    Mode,
     Database,
-    PackageManager,
     DevTools,
+    Language,
+    PackageManager,
+    Mode,
 } from "src/types";
-import { terminate } from "src/utils/terminate";
 
 export async function promptDirectory(): Promise<string> {
     const directory = (await text({

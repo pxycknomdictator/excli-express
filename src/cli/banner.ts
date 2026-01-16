@@ -1,5 +1,5 @@
 import figlet from "figlet";
-import { BANNER_FONT } from "src/config/constants";
+import { BANNER_FONT } from "src/config";
 
 export function displayBanner(): void {
     console.clear();

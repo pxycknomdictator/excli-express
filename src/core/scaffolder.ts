@@ -1,10 +1,9 @@
 import { join } from "node:path";
-import { fireShell } from "src/utils/shell";
-import { DIRECTORIES, HUSKY_COMMIT_FILE_NAME } from "src/config/constants";
+import { mkdir, cp, writeFile } from "node:fs/promises";
+import { generatePrettierConfig } from "src/generators";
+import { fireShell, writeConfigFiles } from "src/utils";
+import { DIRECTORIES, HUSKY_COMMIT_FILE_NAME } from "src/config";
 import type { Language, ProjectConfig } from "src/types";
-import { cp, mkdir, writeFile } from "node:fs/promises";
-import { generatePrettierConfig } from "src/generators/prettier";
-import { writeConfigFiles } from "src/utils/file";
 
 export async function setupGit(targetDir: string): Promise<void> {
     await fireShell(`npx gitignore node`, targetDir);
