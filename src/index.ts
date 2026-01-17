@@ -3,8 +3,7 @@
 import { cwd } from "node:process";
 import { existsSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import { join, basename, dirname } from "node:path";
+import { join, basename } from "node:path";
 import { spinner, outro, log, note } from "@clack/prompts";
 
 import {
@@ -28,9 +27,6 @@ import { setupEnv } from "./generators";
 import { setupDevTools, fireShell } from "./utils";
 
 import type { Database, DevTools, ProjectConfig } from "./types";
-
-const __filename = fileURLToPath(import.meta.url);
-export const __dirname = dirname(__filename);
 
 async function main() {
     displayBanner();
@@ -72,6 +68,7 @@ async function getUserInputs() {
         database,
         pkgManager,
         targetDir,
+        rootDir,
     };
 }
 
@@ -86,13 +83,14 @@ async function prepareProjectConfig(
         database,
         pkgManager,
         targetDir,
+        rootDir,
     } = userInputs;
 
     const dirName = basename(targetDir) || "container_app";
 
     validatePackageManager(pkgManager);
 
-    const templatePath = join(__dirname, "..", "templates", language);
+    const templatePath = join(rootDir, "templates", language);
     validateTemplate(templatePath);
 
     const config: ProjectConfig = {
@@ -104,6 +102,7 @@ async function prepareProjectConfig(
         pkgManager,
         targetDir,
         dirName,
+        rootDir,
     };
 
     return { ...config, templatePath };
