@@ -1,9 +1,10 @@
 import { join } from "node:path";
 import { writeFile, readFile } from "node:fs/promises";
 import { installPackages } from "src/core";
-import { fireShell, formatPackageVersions, hasGit } from "./shell";
+import { fireShell, hasGit } from "./shell";
 import { setupDocker, setupGit, setupHusky, setupPrettier } from "src/core";
 import type { Language, ProjectConfig, ScriptConfig } from "src/types";
+import { formatPackageVersions } from "./package-utils";
 
 export async function writeConfigFiles(
     targetDir: string,

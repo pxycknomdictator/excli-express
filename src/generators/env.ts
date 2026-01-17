@@ -1,13 +1,8 @@
 import { join } from "node:path";
 import { writeFile } from "node:fs/promises";
+import { envConfig } from "src/config";
 
 function getEnvVariables(): Record<string, string> {
-    const envConfig = {
-        NODE_ENV: "development",
-        PORT: "3000",
-        CLIENT_ORIGIN: "http://localhost:5173",
-    };
-
     return envConfig;
 }
 

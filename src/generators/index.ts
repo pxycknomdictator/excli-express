@@ -1,3 +1,4 @@
 export * from "./env";
 export * from "./scripts";
-export * from "./prettier";
+export * from "./package-config";
+export * from "./prettier-config";

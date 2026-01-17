@@ -1,3 +1,5 @@
+import type { ScriptConfig } from "src/types";
+
 export const DIRECTORIES: string[] = [
     "config",
     "controllers",
@@ -29,6 +31,33 @@ export const installCmdMap: Record<string, string> = {
     pnpm: "add",
     yarn: "add",
     bun: "add",
+};
+
+export const envConfig = {
+    NODE_ENV: "development",
+    PORT: "3000",
+    CLIENT_ORIGIN: "http://localhost:5173",
+};
+
+export const tsScripts: ScriptConfig = {
+    build: "tsc",
+    dev: "tsx watch --env-file=.env src/main.ts",
+    start: "node --env-file=.env dist/main.js",
+};
+
+export const jsScripts: ScriptConfig = {
+    dev: "node --watch --env-file=.env src/main.js",
+    start: "node --env-file=.env src/main.js",
+};
+
+export const prettierScripts: ScriptConfig = {
+    format: "prettier --write .",
+};
+
+export const dockerScripts: ScriptConfig = {
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:run": "node dist/main.js",
 };
 
 export const BANNER_FONT = "Standard";

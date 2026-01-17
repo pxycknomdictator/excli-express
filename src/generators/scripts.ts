@@ -1,25 +1,10 @@
+import {
+    dockerScripts,
+    jsScripts,
+    prettierScripts,
+    tsScripts,
+} from "src/config";
 import type { ScriptConfig, Language, DevTools } from "src/types";
-
-const tsScripts: ScriptConfig = {
-    build: "tsc",
-    dev: "tsx watch --env-file=.env src/main.ts",
-    start: "node --env-file=.env dist/main.js",
-};
-
-const jsScripts: ScriptConfig = {
-    dev: "node --watch --env-file=.env src/main.js",
-    start: "node --env-file=.env src/main.js",
-};
-
-const prettierScripts: ScriptConfig = {
-    format: "prettier --write .",
-};
-
-const dockerScripts: ScriptConfig = {
-    "docker:up": "docker compose up -d",
-    "docker:down": "docker compose down",
-    "docker:run": "node dist/main.js",
-};
 
 export function generateScripts(
     language: Language,
