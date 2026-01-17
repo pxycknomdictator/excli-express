@@ -1,5 +1,6 @@
 import { cwd } from "node:process";
 import { basename, join } from "node:path";
+import { __dirname } from "src";
 import {
     promptDatabase,
     promptDevTools,
@@ -60,14 +61,13 @@ export async function prepareProjectConfig(
         database,
         pkgManager,
         targetDir,
-        rootDir,
     } = userInputs;
 
     const dirName = basename(targetDir) || "container_app";
 
     validatePackageManager(pkgManager);
 
-    const templatePath = join(rootDir, "templates", language);
+    const templatePath = join(__dirname, "..", "templates", language);
     validateTemplate(templatePath);
 
     const config: ProjectConfig = {
@@ -79,7 +79,6 @@ export async function prepareProjectConfig(
         pkgManager,
         targetDir,
         dirName,
-        rootDir,
     };
 
     return { ...config, templatePath };

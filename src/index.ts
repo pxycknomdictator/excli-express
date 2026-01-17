@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { displayBanner, showCompletionMessage } from "./cli";
 import { createProject, getUserInputs, prepareProjectConfig } from "./core";
+
+const __filename = fileURLToPath(import.meta.url);
+export const __dirname = dirname(__filename);
 
 async function main() {
     displayBanner();

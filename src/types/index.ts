@@ -13,7 +13,6 @@ export type ProjectConfig = {
     pkgManager: PackageManager;
     targetDir: string;
     dirName: string;
-    rootDir: string;
 };
 
 export type ScriptConfig = {
