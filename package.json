@@ -17,9 +17,13 @@
         "prepare": "husky"
     },
     "keywords": [
+        "@excli/express",
         "express",
         "nodejs",
-        "express-generator"
+        "cli",
+        "express-generator",
+        "typescript",
+        "server"
     ],
     "bin": {
         "excli": "./dist/index.mjs"
