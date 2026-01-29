@@ -7,7 +7,7 @@ export async function setupDocker(config: ProjectConfig): Promise<void> {
 
     const pkg = pkgManager === "none" ? "npm" : pkgManager;
     await fireShell(
-        `npx --yes @excli/docker -l=${language} -d=${database} -p=${pkg}`,
+        `npx --yes @excli/docker --${language} --${database} --${pkg}`,
         config.targetDir,
     );
 }
