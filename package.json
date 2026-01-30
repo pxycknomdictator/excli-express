@@ -1,6 +1,6 @@
 {
     "name": "@excli/express",
-    "version": "2.4.0",
+    "version": "2.5.0",
     "main": "dist/index.mjs",
     "type": "module",
     "types": "dist/index.d.mts",
