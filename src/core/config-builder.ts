@@ -2,6 +2,7 @@ import { cwd } from "node:process";
 import { basename, join } from "node:path";
 import { __dirname } from "src";
 import {
+    promptCache,
     promptDatabase,
     promptDevTools,
     promptDirectory,
@@ -14,7 +15,7 @@ import {
     validatePackageManager,
     validateTemplate,
 } from "./validator";
-import type { Database, DevTools, ProjectConfig } from "src/types";
+import type { Cache, Database, DevTools, ProjectConfig } from "src/types";
 
 export async function getUserInputs() {
     const directory = await promptDirectory();
@@ -28,12 +29,12 @@ export async function getUserInputs() {
 
     let devTools: DevTools[] = [];
     let database: Database | undefined;
+    let cache: Cache | undefined;
 
     if (mode === "production") {
         devTools = await promptDevTools();
-        if (devTools.includes("docker")) {
-            database = await promptDatabase();
-        }
+        if (devTools.includes("docker")) database = await promptDatabase();
+        cache = await promptCache();
     }
 
     const pkgManager = await promptPackageManager();
@@ -47,6 +48,7 @@ export async function getUserInputs() {
         pkgManager,
         targetDir,
         rootDir,
+        cache,
     };
 }
 
