@@ -18,6 +18,7 @@ Start building features immediately with a complete, production-ready Express.js
 - 🚀 TypeScript or JavaScript support
 - 🐳 Docker-ready with one command
 - 🗄️ Pre-configured databases (MySQL, MariaDB, PostgreSQL, MongoDB)
+- 💾 Redis for in memory database
 - 🔥 Hot reload for rapid development
 - 📦 Clean, scalable architecture
 - 🛠️ Admin panels included for database management
@@ -66,6 +67,7 @@ npx @excli/express
 3. **Project Mode** - Normal (basic setup) or Production (includes Docker & databases)
 4. **Development Tools** - Git, Prettier, Docker, Husky
 5. **Database** - Choose MySQL, MariaDB, PostgreSQL, or MongoDB (production mode only)
+6. **Cache** - Confirm if you want Redis for In memory cache
 
 ### Starting Your Application
 
