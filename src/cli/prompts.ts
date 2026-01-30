@@ -1,4 +1,4 @@
-import { text, select, multiselect, isCancel } from "@clack/prompts";
+import { text, select, multiselect, isCancel, confirm } from "@clack/prompts";
 import { terminate } from "src/utils";
 import type {
     Database,
@@ -6,6 +6,7 @@ import type {
     Language,
     PackageManager,
     Mode,
+    Cache,
 } from "src/types";
 
 export async function promptDirectory(): Promise<string> {
@@ -77,6 +78,16 @@ export async function promptDatabase(): Promise<Database> {
     if (isCancel(db)) terminate("Process cancelled ❌");
 
     return db;
+}
+
+export async function promptCache(): Promise<Cache | undefined> {
+    const shouldUseRedisCache = await confirm({
+        message: "Do you want to integrate Redis for Cache?",
+    });
+
+    if (isCancel(shouldUseRedisCache)) terminate("Process cancelled ❌");
+
+    return shouldUseRedisCache ? "redis" : undefined;
 }
 
 export async function promptPackageManager(): Promise<PackageManager> {

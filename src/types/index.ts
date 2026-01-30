@@ -1,3 +1,4 @@
+export type Cache = "redis";
 export type Language = "ts" | "js";
 export type Mode = "normal" | "production";
 export type DevTools = "prettier" | "docker" | "git" | "husky";
