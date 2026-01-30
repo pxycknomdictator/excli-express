@@ -14,6 +14,7 @@ export type ProjectConfig = {
     pkgManager: PackageManager;
     targetDir: string;
     dirName: string;
+    cache?: Cache;
 };
 
 export type ScriptConfig = {

@@ -63,6 +63,7 @@ export async function prepareProjectConfig(
         database,
         pkgManager,
         targetDir,
+        cache,
     } = userInputs;
 
     const dirName = basename(targetDir) || "container_app";
@@ -81,6 +82,7 @@ export async function prepareProjectConfig(
         pkgManager,
         targetDir,
         dirName,
+        cache,
     };
 
     return { ...config, templatePath };

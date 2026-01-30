@@ -38,9 +38,7 @@ export async function createProject(
     s.start("Creating project...");
 
     try {
-        if (!existsSync(targetDir)) {
-            await mkdir(targetDir, { recursive: true });
-        }
+        if (!existsSync(targetDir)) await mkdir(targetDir, { recursive: true });
 
         const sourceDir = join(targetDir, "src");
         const publicDir = join(targetDir, "public");
