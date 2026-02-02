@@ -33,8 +33,10 @@ export async function getUserInputs() {
 
     if (mode === "production") {
         devTools = await promptDevTools();
-        if (devTools.includes("docker")) database = await promptDatabase();
-        cache = await promptCache();
+        if (devTools.includes("docker")) {
+            database = await promptDatabase();
+            cache = await promptCache();
+        }
     }
 
     const pkgManager = await promptPackageManager();
