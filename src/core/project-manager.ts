@@ -56,6 +56,10 @@ export async function createProject(
 
         await fireShell("npx prettier --write .", targetDir);
 
+        if (config.language === "ts") {
+            await fireShell("node --run build", targetDir);
+        }
+
         s.stop(`Successfully created project \x1b[32m${dirName}\x1b[0m`);
         log.success(`Scaffolding project in ${targetDir}...`);
     } catch (error) {

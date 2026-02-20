@@ -19,11 +19,11 @@ export const BASE_PACKAGES = [
 ];
 
 export const TS_DEV_PACKAGES = [
-    "tsx",
     "@types/node",
     "@types/express",
     "typescript",
     "@types/cors",
+    "concurrently",
 ];
 
 export const installCmdMap: Record<string, string> = {
@@ -41,8 +41,10 @@ export const envConfig = {
 
 export const tsScripts: ScriptConfig = {
     build: "tsc",
-    dev: "tsx watch --env-file=.env src/main.ts",
+    "build:watch": "tsc --watch",
     start: "node --env-file=.env dist/main.js",
+    "start:watch": "node --watch --env-file=.env dist/main.js",
+    dev: 'concurrently "npm run build:watch" "npm run start:watch"',
 };
 
 export const jsScripts: ScriptConfig = {
