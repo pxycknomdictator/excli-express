@@ -1,8 +1,13 @@
+.git/
+.husky/
+.vscode/
 node_modules/
 src/
 .gitignore
-.npmignore
 .prettierignore
 .prettierrc
-tsconfig.json
+eslint.config.js
 pnpm-lock.yaml
+tsconfig.json
+tsdown.config.ts
+.npmignore
