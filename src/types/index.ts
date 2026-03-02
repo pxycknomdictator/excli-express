@@ -5,6 +5,7 @@ export type DevTools = "prettier" | "docker" | "git" | "husky";
 export type PackageManager = "none" | "npm" | "yarn" | "pnpm" | "bun";
 export type Database = "mysql" | "mariadb" | "postgres" | "mongodb";
 
+export type DATABASE_TYPE = "sql" | "no_sql";
 export type SQL_DATABASE = "mysql" | "mariadb" | "postgres";
 export type SQL_ORMS = "prisma" | "drizzle" | "typeorm" | "sequelize";
 export type NO_SQL_DATABASE = "mongodb";
@@ -15,7 +16,9 @@ export type ProjectConfig = {
     language: Language;
     mode: Mode;
     devTools: DevTools[];
+    databaseType?: DATABASE_TYPE;
     database?: Database;
+    databaseOrm?: SQL_ORMS | NO_SQL_ORMS;
     pkgManager: PackageManager;
     targetDir: string;
     dirName: string;
