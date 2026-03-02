@@ -4,6 +4,8 @@ import { __dirname } from "src";
 import {
     promptCache,
     promptDatabase,
+    promptDatabaseOrm,
+    promptDatabaseType,
     promptDevTools,
     promptDirectory,
     promptLanguage,
@@ -15,7 +17,13 @@ import {
     validatePackageManager,
     validateTemplate,
 } from "./validator";
-import type { Cache, Database, DevTools, ProjectConfig } from "src/types";
+import type {
+    Cache,
+    Database,
+    DATABASE_TYPE,
+    DevTools,
+    ProjectConfig,
+} from "src/types";
 
 export async function getUserInputs() {
     const directory = await promptDirectory();
@@ -28,13 +36,17 @@ export async function getUserInputs() {
     const mode = await promptMode();
 
     let devTools: DevTools[] = [];
+    let databaseType: DATABASE_TYPE | undefined;
     let database: Database | undefined;
+    let databaseOrm: ProjectConfig["databaseOrm"];
     let cache: Cache | undefined;
 
     if (mode === "production") {
         devTools = await promptDevTools();
         if (devTools.includes("docker")) {
-            database = await promptDatabase();
+            databaseType = await promptDatabaseType();
+            database = await promptDatabase(databaseType);
+            databaseOrm = await promptDatabaseOrm(databaseType);
             cache = await promptCache();
         }
     }
@@ -46,7 +58,9 @@ export async function getUserInputs() {
         language,
         mode,
         devTools,
+        databaseType,
         database,
+        databaseOrm,
         pkgManager,
         targetDir,
         rootDir,

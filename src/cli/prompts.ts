@@ -7,7 +7,15 @@ import type {
     PackageManager,
     Mode,
     Cache,
+    DATABASE_TYPE,
+    ProjectConfig,
 } from "src/types";
+import {
+    no_sql_database,
+    no_sql_orms,
+    sql_database,
+    sql_orms,
+} from "src/config";
 
 export async function promptDirectory(): Promise<string> {
     const directory = (await text({
@@ -64,20 +72,52 @@ export async function promptDevTools(): Promise<DevTools[]> {
     return devTools;
 }
 
-export async function promptDatabase(): Promise<Database> {
-    const db = (await select({
-        message: "Select your database:",
+export async function promptDatabaseType(): Promise<DATABASE_TYPE> {
+    const databaseType = await select({
+        message: "Select your Database type:",
         options: [
-            { label: "MySQL", value: "mysql" },
-            { label: "MariaDB", value: "mariadb" },
-            { label: "PostgreSQL", value: "postgres" },
-            { label: "MongoDB", value: "mongodb" },
+            { label: "SQL", value: "sql" },
+            { label: "NOSQL", value: "no_sql" },
         ],
-    })) as Database;
+    });
 
-    if (isCancel(db)) terminate("Process cancelled ❌");
+    if (isCancel(databaseType)) terminate("Process cancelled ❌");
 
-    return db;
+    return databaseType as DATABASE_TYPE;
+}
+
+export async function promptDatabase(type: DATABASE_TYPE): Promise<Database> {
+    const options = type === "sql" ? sql_database : no_sql_database;
+
+    const database = await select({
+        message: "Choose your database",
+        options: options.map((db) => ({
+            label: db.toUpperCase(),
+            value: db,
+        })),
+    });
+
+    if (isCancel(database)) terminate("Process cancelled ❌");
+
+    return database as Database;
+}
+
+export async function promptDatabaseOrm(
+    type: DATABASE_TYPE,
+): Promise<ProjectConfig["databaseOrm"]> {
+    const options = type === "sql" ? sql_orms : no_sql_orms;
+
+    const orm = await select({
+        message: "Choose your database",
+        options: options.map((orm) => ({
+            label: orm.toUpperCase(),
+            value: orm,
+        })),
+    });
+
+    if (isCancel(orm)) terminate("Process cancelled ❌");
+
+    return orm as ProjectConfig["databaseOrm"];
 }
 
 export async function promptCache(): Promise<Cache | undefined> {
