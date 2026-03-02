@@ -71,16 +71,7 @@ export async function getUserInputs() {
 export async function prepareProjectConfig(
     userInputs: Awaited<ReturnType<typeof getUserInputs>>,
 ) {
-    const {
-        directory,
-        language,
-        mode,
-        devTools,
-        database,
-        pkgManager,
-        targetDir,
-        cache,
-    } = userInputs;
+    const { language, pkgManager, targetDir } = userInputs;
 
     const dirName = basename(targetDir) || "container_app";
 
@@ -90,15 +81,8 @@ export async function prepareProjectConfig(
     validateTemplate(templatePath);
 
     const config: ProjectConfig = {
-        directory,
-        language,
-        mode,
-        devTools,
-        database,
-        pkgManager,
-        targetDir,
+        ...userInputs,
         dirName,
-        cache,
     };
 
     return { ...config, templatePath };
