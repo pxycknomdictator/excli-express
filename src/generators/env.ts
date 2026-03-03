@@ -13,7 +13,7 @@ function formatEnvWithComments(): string {
     lines.push("# Application Configuration");
     lines.push(`NODE_ENV=${vars.NODE_ENV}`);
     lines.push(`PORT=${vars.PORT}`);
-    lines.push(`CLIENT_ORIGIN=${vars.CLIENT_ORIGIN}`);
+    lines.push(`CLIENT_ORIGIN=${vars.CLIENT_ORIGIN}\n`);
 
     return lines.join("\n");
 }
@@ -25,7 +25,7 @@ function formatEnvExampleWithComments(): string {
     lines.push("# Application Configuration");
     lines.push("NODE_ENV=");
     lines.push("PORT=");
-    lines.push("CLIENT_ORIGIN=");
+    lines.push(`CLIENT_ORIGIN=\n`);
 
     return lines.join("\n");
 }
