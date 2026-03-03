@@ -4,3 +4,4 @@ export * from "./husky";
 export * from "./prettier";
 export * from "./dev-tools";
 export * from "./directories";
+export * from "./orms";

@@ -1,4 +1,5 @@
 import { setupGit } from "./git";
+import { setupOrm } from "./orms";
 import { setupHusky } from "./husky";
 import { setupDocker } from "./docker";
 import { setupPrettier } from "./prettier";
@@ -18,6 +19,9 @@ export async function setupDevTools(config: ProjectConfig) {
     await installPackages(pkgManager, targetDir, language, devTools, dirName);
 
     if (devTools.includes("prettier")) await setupPrettier(targetDir);
-    if (devTools.includes("docker")) await setupDocker(config);
     if (devTools.includes("husky")) await setupHusky(targetDir);
+    if (devTools.includes("docker")) {
+        await setupDocker(config);
+        await setupOrm(config);
+    }
 }
