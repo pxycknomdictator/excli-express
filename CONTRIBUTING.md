@@ -204,18 +204,24 @@ The CLI prompts are sequential and conditional. Some prompts only appear based o
 | 4 | Docker | Yes, No | Only in **Production** mode |
 | 5 | Database | MySQL, MariaDB, PostgreSQL, MongoDB | Only if **Docker = Yes** |
 | 6 | Redis | Yes, No | Only if **Docker = Yes** |
+| 7 | ORM | Prisma, Drizzle, TypeORM, Mongoose, Sequelize | Only if **Docker = Yes** |
 
-> **Database and Redis prompts only appear when Docker is selected in Production mode.** You must reach step 4 and choose Yes to see them.
+> **Database, Redis, and ORM prompts only appear when Docker is selected in Production mode.** You must reach step 4 and choose Yes to see them.
+>
+> **ORM compatibility note:** Mongoose is intended for MongoDB. Prisma, Drizzle, TypeORM, and Sequelize work with MySQL, MariaDB, and PostgreSQL. When testing, make sure the selected ORM matches the selected database.
 
 ### Minimum test matrix
 
-| Language | Mode | Docker | Database | Must verify |
-|----------|------|--------|----------|-------------|
-| TypeScript | Normal | No | — | Basic TS scaffold generates correctly |
-| JavaScript | Normal | No | — | Basic JS scaffold generates correctly |
-| TypeScript | Production | Yes | PostgreSQL | TS + Dockerfile + pgAdmin at :6969 |
-| JavaScript | Production | Yes | MongoDB | JS + Dockerfile + Mongo Express at :6969 |
-| Any | Production | No | — | No docker-compose or DB config generated |
+| Language | Mode | Docker | Database | ORM | Must verify |
+|----------|------|--------|----------|-----|-------------|
+| TypeScript | Normal | No | — | — | Basic TS scaffold generates correctly |
+| JavaScript | Normal | No | — | — | Basic JS scaffold generates correctly |
+| TypeScript | Production | Yes | PostgreSQL | Prisma | TS + Dockerfile + pgAdmin + Prisma config |
+| TypeScript | Production | Yes | PostgreSQL | Drizzle | TS + Dockerfile + pgAdmin + Drizzle config |
+| TypeScript | Production | Yes | PostgreSQL | TypeORM | TS + Dockerfile + pgAdmin + TypeORM config |
+| JavaScript | Production | Yes | MongoDB | Mongoose | JS + Dockerfile + Mongo Express + Mongoose config |
+| JavaScript | Production | Yes | MySQL | Sequelize | JS + Dockerfile + phpMyAdmin + Sequelize config |
+| Any | Production | No | — | — | No docker-compose, no DB, no ORM config generated |
 
 After scaffolding, go into the generated project and verify it actually runs:
 
