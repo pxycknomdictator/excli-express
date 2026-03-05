@@ -26,12 +26,12 @@ We welcome contributions of all kinds. Whether you're fixing a real bug, improvi
 
 Make sure you have the following installed before working on this project:
 
-| Tool | Version | Notes |
-|------|---------|-------|
-| Node.js | `>= 20.0.0` | Use LTS — v18 is EOL, do not use it |
-| pnpm | latest | `npm i -g pnpm` |
-| Git | any recent | — |
-| Docker | optional | only needed for database template testing |
+| Tool    | Version     | Notes                                     |
+| ------- | ----------- | ----------------------------------------- |
+| Node.js | `>= 20.0.0` | Use LTS — v18 is EOL, do not use it       |
+| pnpm    | latest      | `npm i -g pnpm`                           |
+| Git     | any recent  | —                                         |
+| Docker  | optional    | only needed for database template testing |
 
 > **Why pnpm?** This project uses `pnpm-lock.yaml`. Using npm or yarn will generate a conflicting lockfile and your PR will be rejected. Always use `pnpm`.
 
@@ -91,12 +91,12 @@ git checkout -b fix/your-branch-name
 
 Branch naming convention:
 
-| Type | Example |
-|------|---------|
-| Bug fix | `fix/docker-volume-path` |
-| New feature | `feat/bun-runtime-support` |
+| Type          | Example                    |
+| ------------- | -------------------------- |
+| Bug fix       | `fix/docker-volume-path`   |
+| New feature   | `feat/bun-runtime-support` |
 | Documentation | `docs/update-readme-flags` |
-| Refactor | `refactor/cli-prompt-flow` |
+| Refactor      | `refactor/cli-prompt-flow` |
 
 ### Step 6 — Make your changes
 
@@ -105,7 +105,6 @@ Do your work on this branch. Build and test as you go (see [Testing Your Changes
 ```bash
 pnpm run build        # compile TypeScript → dist/
 pnpm run start        # start the project
-node dist/index.js    # run the CLI locally
 ```
 
 ### Step 7 — Commit your changes
@@ -175,8 +174,8 @@ excli-express/
 
 ```bash
 pnpm run build      # compile TypeScript to dist/
-pnpm run start      # start the project
 pnpm run format     # format all files with Prettier
+pnpm run start      # start the project
 ```
 
 ---
@@ -189,22 +188,22 @@ There are no automated tests yet. Testing is done manually by running through th
 
 ```bash
 pnpm run build
-node dist/index.js
+pnpm run start
 ```
 
 ### How the CLI prompt flow works
 
 The CLI prompts are sequential and conditional. Some prompts only appear based on previous answers:
 
-| Step | Prompt | Options | Condition |
-|------|--------|---------|-----------|
-| 1 | Project Name | _(any name)_ | Always shown |
-| 2 | Language | TypeScript, JavaScript | Always shown |
-| 3 | Mode | Normal, Production | Always shown |
-| 4 | Docker | Yes, No | Only in **Production** mode |
-| 5 | Database | MySQL, MariaDB, PostgreSQL, MongoDB | Only if **Docker = Yes** |
-| 6 | Redis | Yes, No | Only if **Docker = Yes** |
-| 7 | ORM | Prisma, Drizzle, TypeORM, Mongoose, Sequelize | Only if **Docker = Yes** |
+| Step | Prompt       | Options                                       | Condition                   |
+| ---- | ------------ | --------------------------------------------- | --------------------------- |
+| 1    | Project Name | _(any name)_                                  | Always shown                |
+| 2    | Language     | TypeScript, JavaScript                        | Always shown                |
+| 3    | Mode         | Normal, Production                            | Always shown                |
+| 4    | Docker       | Yes, No                                       | Only in **Production** mode |
+| 5    | Database     | MySQL, MariaDB, PostgreSQL, MongoDB           | Only if **Docker = Yes**    |
+| 6    | Redis        | Yes, No                                       | Only if **Docker = Yes**    |
+| 7    | ORM          | Prisma, Drizzle, TypeORM, Mongoose, Sequelize | Only if **Docker = Yes**    |
 
 > **Database, Redis, and ORM prompts only appear when Docker is selected in Production mode.** You must reach step 4 and choose Yes to see them.
 >
@@ -212,22 +211,21 @@ The CLI prompts are sequential and conditional. Some prompts only appear based o
 
 ### Minimum test matrix
 
-| Language | Mode | Docker | Database | ORM | Must verify |
-|----------|------|--------|----------|-----|-------------|
-| TypeScript | Normal | No | — | — | Basic TS scaffold generates correctly |
-| JavaScript | Normal | No | — | — | Basic JS scaffold generates correctly |
-| TypeScript | Production | Yes | PostgreSQL | Prisma | TS + Dockerfile + pgAdmin + Prisma config |
-| TypeScript | Production | Yes | PostgreSQL | Drizzle | TS + Dockerfile + pgAdmin + Drizzle config |
-| TypeScript | Production | Yes | PostgreSQL | TypeORM | TS + Dockerfile + pgAdmin + TypeORM config |
-| JavaScript | Production | Yes | MongoDB | Mongoose | JS + Dockerfile + Mongo Express + Mongoose config |
-| JavaScript | Production | Yes | MySQL | Sequelize | JS + Dockerfile + phpMyAdmin + Sequelize config |
-| Any | Production | No | — | — | No docker-compose, no DB, no ORM config generated |
+| Language   | Mode       | Docker | Database   | ORM       | Must verify                                       |
+| ---------- | ---------- | ------ | ---------- | --------- | ------------------------------------------------- |
+| TypeScript | Normal     | No     | —          | —         | Basic TS scaffold generates correctly             |
+| JavaScript | Normal     | No     | —          | —         | Basic JS scaffold generates correctly             |
+| TypeScript | Production | Yes    | PostgreSQL | Prisma    | TS + Dockerfile + pgAdmin + Prisma config         |
+| TypeScript | Production | Yes    | PostgreSQL | Drizzle   | TS + Dockerfile + pgAdmin + Drizzle config        |
+| TypeScript | Production | Yes    | PostgreSQL | TypeORM   | TS + Dockerfile + pgAdmin + TypeORM config        |
+| JavaScript | Production | Yes    | MongoDB    | Mongoose  | JS + Dockerfile + Mongo Express + Mongoose config |
+| JavaScript | Production | Yes    | MySQL      | Sequelize | JS + Dockerfile + phpMyAdmin + Sequelize config   |
 
 After scaffolding, go into the generated project and verify it actually runs:
 
 ```bash
 cd my-generated-project
-pnpm install
+pnpm install          # if you not install by cli
 pnpm run start        # server should start at localhost:3000
 pnpm run build        # TypeScript projects only — must compile without errors
 ```
@@ -249,12 +247,14 @@ pnpm run docker:down
 We merge PRs that solve **real problems** or add **clear value**. Before submitting, ask yourself: does this fix something users actually hit, or add something they would genuinely use?
 
 **We will not merge PRs that:**
+
 - Only fix typos or minor grammar (unless they cause genuine confusion)
 - Make cosmetic changes with no functional impact
 - Refactor working code without a clear reason
 - Add dependencies that are not justified
 
 **A strong PR:**
+
 - Has a clear, specific title — `fix(docker): resolve volume path on Windows` not `fixed stuff`
 - Explains **what** changed and **why** in the description
 - Lists what was tested and how
@@ -284,14 +284,14 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/). 
 [optional footer — breaking changes, issue refs]
 ```
 
-| Type | When to use |
-|------|-------------|
-| `feat` | New feature or template option |
-| `fix` | Bug fix |
-| `docs` | Documentation only |
+| Type       | When to use                                     |
+| ---------- | ----------------------------------------------- |
+| `feat`     | New feature or template option                  |
+| `fix`      | Bug fix                                         |
+| `docs`     | Documentation only                              |
 | `refactor` | Code change that is neither a fix nor a feature |
-| `chore` | Dependency updates, config changes |
-| `test` | Adding or updating tests |
+| `chore`    | Dependency updates, config changes              |
+| `test`     | Adding or updating tests                        |
 
 **Good examples:**
 
