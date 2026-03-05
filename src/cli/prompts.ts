@@ -108,7 +108,7 @@ export async function promptDatabaseOrm(
     const options = type === "sql" ? sql_orms : no_sql_orms;
 
     const orm = await select({
-        message: "Choose your database",
+        message: "Choose your ORM",
         options: options.map((orm) => ({
             label: orm.toUpperCase(),
             value: orm,
