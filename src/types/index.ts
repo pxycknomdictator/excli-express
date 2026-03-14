@@ -11,6 +11,12 @@ export type SQL_ORMS = "prisma" | "drizzle" | "typeorm" | "sequelize";
 export type NO_SQL_DATABASE = "mongodb";
 export type NO_SQL_ORMS = "prisma" | "typeorm" | "mongoose";
 
+export type INTERACTIVE_PROMPTS = {
+    label: string;
+    emoji: string;
+    value: string;
+};
+
 export type ProjectConfig = {
     directory: string;
     language: Language;
