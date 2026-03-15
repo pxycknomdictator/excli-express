@@ -117,3 +117,10 @@ export const dockerScripts: ScriptConfig = {
 
 export const BANNER_FONT = "Standard";
 export const HUSKY_COMMIT_FILE_NAME = "pre-commit";
+
+export function generateOptions(options: INTERACTIVE_PROMPTS[]) {
+    return options.map(({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
+        label: `${label} ${emoji}`,
+        value: value,
+    }));
+}

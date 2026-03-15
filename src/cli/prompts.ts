@@ -1,13 +1,9 @@
 import { text, select, multiselect, isCancel, confirm } from "@clack/prompts";
 import { terminate } from "src/utils";
-import type {
-    Cache,
-    DATABASE_TYPE,
-    ProjectConfig,
-    INTERACTIVE_PROMPTS,
-} from "src/types";
+import type { Cache, DATABASE_TYPE, ProjectConfig } from "src/types";
 import {
     database_types,
+    generateOptions,
     languages,
     modes,
     no_sql_database,
@@ -32,12 +28,7 @@ export async function promptDirectory(): Promise<string> {
 export async function promptLanguage(): Promise<ProjectConfig["language"]> {
     const language = await select({
         message: "Select your programming language:",
-        options: languages.map(
-            ({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
-                label: `${label} ${emoji}`,
-                value: value,
-            }),
-        ),
+        options: generateOptions(languages),
     });
 
     if (isCancel(language)) terminate("Process cancelled ❌");
@@ -48,10 +39,7 @@ export async function promptLanguage(): Promise<ProjectConfig["language"]> {
 export async function promptMode(): Promise<ProjectConfig["mode"]> {
     const mode = await select({
         message: "Select project mode:",
-        options: modes.map(({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
-            label: `${label} ${emoji}`,
-            value: value,
-        })),
+        options: generateOptions(modes),
     });
 
     if (isCancel(mode)) terminate("Process cancelled ❌");
@@ -62,10 +50,7 @@ export async function promptMode(): Promise<ProjectConfig["mode"]> {
 export async function promptDevTools(): Promise<ProjectConfig["devTools"]> {
     const devTools = await multiselect({
         message: "Select development tools:",
-        options: tools.map(({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
-            label: `${label} ${emoji}`,
-            value: value,
-        })),
+        options: generateOptions(tools),
     });
 
     if (isCancel(devTools)) terminate("Process cancelled ❌");
@@ -78,12 +63,7 @@ export async function promptDatabaseType(): Promise<
 > {
     const databaseType = await select({
         message: "Select your Database type:",
-        options: database_types.map(
-            ({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
-                label: `${label} ${emoji}`,
-                value: value,
-            }),
-        ),
+        options: generateOptions(database_types),
     });
 
     if (isCancel(databaseType)) terminate("Process cancelled ❌");
@@ -98,12 +78,7 @@ export async function promptDatabase(
 
     const database = await select({
         message: "Choose your database",
-        options: options.map(
-            ({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
-                label: `${label} ${emoji}`,
-                value: value,
-            }),
-        ),
+        options: generateOptions(options),
     });
 
     if (isCancel(database)) terminate("Process cancelled ❌");
@@ -118,12 +93,7 @@ export async function promptDatabaseOrm(
 
     const orm = await select({
         message: "Choose your ORM",
-        options: options.map(
-            ({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
-                label: `${label} ${emoji}`,
-                value: value,
-            }),
-        ),
+        options: generateOptions(options),
     });
 
     if (isCancel(orm)) terminate("Process cancelled ❌");
@@ -146,12 +116,7 @@ export async function promptPackageManager(): Promise<
 > {
     const pkgManager = await select({
         message: "Select your package manager:",
-        options: pkg_managers.map(
-            ({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
-                label: `${label} ${emoji}`,
-                value: value,
-            }),
-        ),
+        options: generateOptions(pkg_managers),
     });
 
     if (isCancel(pkgManager)) terminate("Process cancelled ❌");
