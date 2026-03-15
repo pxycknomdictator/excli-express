@@ -1,8 +1,6 @@
 import { text, select, multiselect, isCancel, confirm } from "@clack/prompts";
 import { terminate } from "src/utils";
 import type {
-    DevTools,
-    Mode,
     Cache,
     DATABASE_TYPE,
     ProjectConfig,
@@ -11,11 +9,13 @@ import type {
 import {
     database_types,
     languages,
+    modes,
     no_sql_database,
     no_sql_orms,
     pkg_managers,
     sql_database,
     sql_orms,
+    tools,
 } from "src/config";
 
 export async function promptDirectory(): Promise<string> {
@@ -45,34 +45,32 @@ export async function promptLanguage(): Promise<ProjectConfig["language"]> {
     return language as ProjectConfig["language"];
 }
 
-export async function promptMode(): Promise<Mode> {
-    const mode = (await select({
+export async function promptMode(): Promise<ProjectConfig["mode"]> {
+    const mode = await select({
         message: "Select project mode:",
-        options: [
-            { label: "Normal", value: "normal" },
-            { label: "Production", value: "production" },
-        ],
-    })) as Mode;
+        options: modes.map(({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
+            label: `${label} ${emoji}`,
+            value: value,
+        })),
+    });
 
     if (isCancel(mode)) terminate("Process cancelled ❌");
 
-    return mode;
+    return mode as ProjectConfig["mode"];
 }
 
-export async function promptDevTools(): Promise<DevTools[]> {
-    const devTools = (await multiselect({
+export async function promptDevTools(): Promise<ProjectConfig["devTools"]> {
+    const devTools = await multiselect({
         message: "Select development tools:",
-        options: [
-            { label: "Prettier", value: "prettier" },
-            { label: "Docker (deployment + database)", value: "docker" },
-            { label: "Git", value: "git" },
-            { label: "Husky", value: "husky" },
-        ],
-    })) as DevTools[];
+        options: tools.map(({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
+            label: `${label} ${emoji}`,
+            value: value,
+        })),
+    });
 
     if (isCancel(devTools)) terminate("Process cancelled ❌");
 
-    return devTools;
+    return devTools as ProjectConfig["devTools"];
 }
 
 export async function promptDatabaseType(): Promise<

@@ -5,6 +5,18 @@ export const languages: INTERACTIVE_PROMPTS[] = [
     { label: "TypeScript", emoji: "🔵", value: "ts" },
 ];
 
+export const modes: INTERACTIVE_PROMPTS[] = [
+    { label: "Development", emoji: "🛠️", value: "normal" },
+    { label: "Production", emoji: "🚀", value: "production" },
+];
+
+export const tools: INTERACTIVE_PROMPTS[] = [
+    { label: "Git", emoji: "🐙", value: "git" },
+    { label: "Prettier", emoji: "✨", value: "prettier" },
+    { label: "Docker", emoji: "🐳", value: "docker" },
+    { label: "Husky", emoji: "🐶", value: "husky" },
+];
+
 export const database_types: INTERACTIVE_PROMPTS[] = [
     { label: "SQL", emoji: "🗃️", value: "sql" },
     { label: "NoSQL", emoji: "🌿", value: "no_sql" },
