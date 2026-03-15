@@ -6,7 +6,7 @@ export const languages: INTERACTIVE_PROMPTS[] = [
 ];
 
 export const modes: INTERACTIVE_PROMPTS[] = [
-    { label: "Development", emoji: "🛠️", value: "normal" },
+    { label: "Development", emoji: "🛠️", value: "development" },
     { label: "Production", emoji: "🚀", value: "production" },
 ];
 

@@ -1,6 +1,6 @@
 export type Cache = "redis";
 export type Language = "ts" | "js";
-export type Mode = "normal" | "production";
+export type Mode = "development" | "production";
 export type DevTools = "prettier" | "docker" | "git" | "husky";
 export type PackageManager = "none" | "npm" | "yarn" | "pnpm" | "bun";
 export type Database = "mysql" | "mariadb" | "postgres" | "mongodb";

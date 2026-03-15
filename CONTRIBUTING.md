@@ -199,7 +199,7 @@ The CLI prompts are sequential and conditional. Some prompts only appear based o
 | ---- | ------------ | --------------------------------------------- | --------------------------- |
 | 1    | Project Name | _(any name)_                                  | Always shown                |
 | 2    | Language     | TypeScript, JavaScript                        | Always shown                |
-| 3    | Mode         | Normal, Production                            | Always shown                |
+| 3    | Mode         | Development, Production                       | Always shown                |
 | 4    | Docker       | Yes, No                                       | Only in **Production** mode |
 | 5    | Database     | MySQL, MariaDB, PostgreSQL, MongoDB           | Only if **Docker = Yes**    |
 | 6    | Redis        | Yes, No                                       | Only if **Docker = Yes**    |
@@ -211,15 +211,15 @@ The CLI prompts are sequential and conditional. Some prompts only appear based o
 
 ### Minimum test matrix
 
-| Language   | Mode       | Docker | Database   | ORM       | Must verify                                       |
-| ---------- | ---------- | ------ | ---------- | --------- | ------------------------------------------------- |
-| TypeScript | Normal     | No     | —          | —         | Basic TS scaffold generates correctly             |
-| JavaScript | Normal     | No     | —          | —         | Basic JS scaffold generates correctly             |
-| TypeScript | Production | Yes    | PostgreSQL | Prisma    | TS + Dockerfile + pgAdmin + Prisma config         |
-| TypeScript | Production | Yes    | PostgreSQL | Drizzle   | TS + Dockerfile + pgAdmin + Drizzle config        |
-| TypeScript | Production | Yes    | PostgreSQL | TypeORM   | TS + Dockerfile + pgAdmin + TypeORM config        |
-| JavaScript | Production | Yes    | MongoDB    | Mongoose  | JS + Dockerfile + Mongo Express + Mongoose config |
-| JavaScript | Production | Yes    | MySQL      | Sequelize | JS + Dockerfile + phpMyAdmin + Sequelize config   |
+| Language   | Mode        | Docker | Database   | ORM       | Must verify                                       |
+| ---------- | ----------- | ------ | ---------- | --------- | ------------------------------------------------- |
+| TypeScript | Development | No     | —          | —         | Basic TS scaffold generates correctly             |
+| JavaScript | Development | No     | —          | —         | Basic JS scaffold generates correctly             |
+| TypeScript | Production  | Yes    | PostgreSQL | Prisma    | TS + Dockerfile + pgAdmin + Prisma config         |
+| TypeScript | Production  | Yes    | PostgreSQL | Drizzle   | TS + Dockerfile + pgAdmin + Drizzle config        |
+| TypeScript | Production  | Yes    | PostgreSQL | TypeORM   | TS + Dockerfile + pgAdmin + TypeORM config        |
+| JavaScript | Production  | Yes    | MongoDB    | Mongoose  | JS + Dockerfile + Mongo Express + Mongoose config |
+| JavaScript | Production  | Yes    | MySQL      | Sequelize | JS + Dockerfile + phpMyAdmin + Sequelize config   |
 
 After scaffolding, go into the generated project and verify it actually runs:
 

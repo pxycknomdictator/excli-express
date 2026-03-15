@@ -65,7 +65,7 @@ npx @excli/express
 
 1. **Project Name** - What to call your new application
 2. **Language** - TypeScript or JavaScript
-3. **Project Mode** - Normal (basic setup) or Production (includes Docker & databases)
+3. **Project Mode** - Development (basic setup) or Production (includes Docker & databases)
 4. **Development Tools** - Git, Prettier, Docker, Husky
 5. **Database** - Choose MySQL, MariaDB, PostgreSQL, or MongoDB (production mode only)
 6. **Cache** - Confirm if you want Redis for in memory cache
@@ -118,13 +118,13 @@ All admin panels are accessible at `http://localhost:6969` after running `pnpm r
 
 Pick the ORM that matches your database and coding style:
 
-| ORM           | Best For                          | Language Support |
-| ------------- | --------------------------------- | ---------------- |
-| **Prisma**    | PostgreSQL, MySQL, MariaDB        | TS & JS          |
-| **Drizzle**   | PostgreSQL, MySQL, MariaDB        | TS & JS          |
-| **TypeORM**   | PostgreSQL, MySQL, MariaDB        | TS & JS          |
-| **Sequelize** | PostgreSQL, MySQL, MariaDB        | TS & JS          |
-| **Mongoose**  | MongoDB                           | TS & JS          |
+| ORM           | Best For                   | Language Support |
+| ------------- | -------------------------- | ---------------- |
+| **Prisma**    | PostgreSQL, MySQL, MariaDB | TS & JS          |
+| **Drizzle**   | PostgreSQL, MySQL, MariaDB | TS & JS          |
+| **TypeORM**   | PostgreSQL, MySQL, MariaDB | TS & JS          |
+| **Sequelize** | PostgreSQL, MySQL, MariaDB | TS & JS          |
+| **Mongoose**  | MongoDB                    | TS & JS          |
 
 > **Note:** Mongoose is designed exclusively for MongoDB. For SQL databases (MySQL, MariaDB, PostgreSQL), choose Prisma, Drizzle, TypeORM, or Sequelize.
 

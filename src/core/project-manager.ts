@@ -24,7 +24,7 @@ async function setupProductionProject(
     ]);
 }
 
-async function setupNormalProject(config: ProjectConfig) {
+async function setupDevelopmentProject(config: ProjectConfig) {
     const { pkgManager, targetDir, language, devTools, dirName } = config;
     await installPackages(pkgManager, targetDir, language, devTools, dirName);
 }
@@ -51,7 +51,7 @@ export async function createProject(
         if (mode === "production") {
             await setupProductionProject(config, sourceDir);
         } else {
-            await setupNormalProject(config);
+            await setupDevelopmentProject(config);
         }
 
         await fireShell("npx prettier --write .", targetDir);
