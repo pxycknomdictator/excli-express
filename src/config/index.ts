@@ -4,7 +4,25 @@ import type {
     NO_SQL_DATABASE,
     SQL_ORMS,
     NO_SQL_ORMS,
+    INTERACTIVE_PROMPTS,
 } from "src/types";
+
+export const languages: INTERACTIVE_PROMPTS[] = [
+    { label: "JavaScript", emoji: "🟡", value: "js" },
+    { label: "TypeScript", emoji: "🔵", value: "ts" },
+];
+
+export const database_types: INTERACTIVE_PROMPTS[] = [
+    { label: "SQL", emoji: "🗃️", value: "sql" },
+    { label: "NoSQL", emoji: "🌿", value: "no_sql" },
+];
+
+export const pkg_managers: INTERACTIVE_PROMPTS[] = [
+    { label: "npm", emoji: "📦", value: "npm" },
+    { label: "yarn", emoji: "🧶", value: "yarn" },
+    { label: "pnpm", emoji: "🚀", value: "pnpm" },
+    { label: "bun", emoji: "🥟", value: "bun" },
+];
 
 export const sql_database: SQL_DATABASE[] = ["mysql", "mariadb", "postgres"];
 export const no_sql_database: NO_SQL_DATABASE[] = ["mongodb"];
