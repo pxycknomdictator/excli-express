@@ -45,8 +45,8 @@ export async function getUserInputs() {
         devTools = await promptDevTools();
         if (devTools.includes("docker")) {
             databaseType = await promptDatabaseType();
-            database = await promptDatabase(databaseType);
-            databaseOrm = await promptDatabaseOrm(databaseType);
+            database = await promptDatabase(databaseType!);
+            databaseOrm = await promptDatabaseOrm(databaseType!);
             cache = await promptCache();
         }
     }

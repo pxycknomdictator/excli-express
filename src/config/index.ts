@@ -1,11 +1,4 @@
-import type {
-    ScriptConfig,
-    SQL_DATABASE,
-    NO_SQL_DATABASE,
-    SQL_ORMS,
-    NO_SQL_ORMS,
-    INTERACTIVE_PROMPTS,
-} from "src/types";
+import type { ScriptConfig, INTERACTIVE_PROMPTS } from "src/types";
 
 export const languages: INTERACTIVE_PROMPTS[] = [
     { label: "JavaScript", emoji: "🟡", value: "js" },
@@ -24,16 +17,29 @@ export const pkg_managers: INTERACTIVE_PROMPTS[] = [
     { label: "bun", emoji: "🥟", value: "bun" },
 ];
 
-export const sql_database: SQL_DATABASE[] = ["mysql", "mariadb", "postgres"];
-export const no_sql_database: NO_SQL_DATABASE[] = ["mongodb"];
-
-export const sql_orms: SQL_ORMS[] = [
-    "prisma",
-    "drizzle",
-    "typeorm",
-    "sequelize",
+export const sql_database: INTERACTIVE_PROMPTS[] = [
+    { label: "MySQL", emoji: "🐬", value: "mysql" },
+    { label: "MariaDB", emoji: "🦭", value: "mariadb" },
+    { label: "SQLite", emoji: "🪶", value: "sqlite" },
+    { label: "PostgreSQL", emoji: "🐘", value: "postgres" },
 ];
-export const no_sql_orms: NO_SQL_ORMS[] = ["prisma", "typeorm", "mongoose"];
+
+export const no_sql_database: INTERACTIVE_PROMPTS[] = [
+    { label: "MongoDB", emoji: "🍃", value: "mongodb" },
+];
+
+export const sql_orms: INTERACTIVE_PROMPTS[] = [
+    { label: "Prisma", emoji: "📐", value: "prisma" },
+    { label: "Drizzle", emoji: "⚡", value: "drizzle" },
+    { label: "TypeORM", emoji: "🏗️", value: "typeorm" },
+    { label: "Sequelize", emoji: "🐚", value: "sequelize" },
+];
+
+export const no_sql_orms: INTERACTIVE_PROMPTS[] = [
+    { label: "Prisma", emoji: "📐", value: "prisma" },
+    { label: "TypeORM", emoji: "🏗️", value: "typeorm" },
+    { label: "Mongoose", emoji: "🦦", value: "mongoose" },
+];
 
 export const DIRECTORIES: string[] = [
     "config",

@@ -1,18 +1,19 @@
 import { text, select, multiselect, isCancel, confirm } from "@clack/prompts";
 import { terminate } from "src/utils";
 import type {
-    Database,
     DevTools,
-    Language,
-    PackageManager,
     Mode,
     Cache,
     DATABASE_TYPE,
     ProjectConfig,
+    INTERACTIVE_PROMPTS,
 } from "src/types";
 import {
+    database_types,
+    languages,
     no_sql_database,
     no_sql_orms,
+    pkg_managers,
     sql_database,
     sql_orms,
 } from "src/config";
@@ -28,18 +29,20 @@ export async function promptDirectory(): Promise<string> {
     return directory;
 }
 
-export async function promptLanguage(): Promise<Language> {
-    const language = (await select({
+export async function promptLanguage(): Promise<ProjectConfig["language"]> {
+    const language = await select({
         message: "Select your programming language:",
-        options: [
-            { label: "TypeScript", value: "ts" },
-            { label: "JavaScript", value: "js" },
-        ],
-    })) as Language;
+        options: languages.map(
+            ({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
+                label: `${label} ${emoji}`,
+                value: value,
+            }),
+        ),
+    });
 
     if (isCancel(language)) terminate("Process cancelled ❌");
 
-    return language;
+    return language as ProjectConfig["language"];
 }
 
 export async function promptMode(): Promise<Mode> {
@@ -72,34 +75,42 @@ export async function promptDevTools(): Promise<DevTools[]> {
     return devTools;
 }
 
-export async function promptDatabaseType(): Promise<DATABASE_TYPE> {
+export async function promptDatabaseType(): Promise<
+    ProjectConfig["databaseType"]
+> {
     const databaseType = await select({
         message: "Select your Database type:",
-        options: [
-            { label: "SQL", value: "sql" },
-            { label: "NOSQL", value: "no_sql" },
-        ],
+        options: database_types.map(
+            ({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
+                label: `${label} ${emoji}`,
+                value: value,
+            }),
+        ),
     });
 
     if (isCancel(databaseType)) terminate("Process cancelled ❌");
 
-    return databaseType as DATABASE_TYPE;
+    return databaseType as ProjectConfig["databaseType"];
 }
 
-export async function promptDatabase(type: DATABASE_TYPE): Promise<Database> {
+export async function promptDatabase(
+    type: DATABASE_TYPE,
+): Promise<ProjectConfig["database"]> {
     const options = type === "sql" ? sql_database : no_sql_database;
 
     const database = await select({
         message: "Choose your database",
-        options: options.map((db) => ({
-            label: db.toUpperCase(),
-            value: db,
-        })),
+        options: options.map(
+            ({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
+                label: `${label} ${emoji}`,
+                value: value,
+            }),
+        ),
     });
 
     if (isCancel(database)) terminate("Process cancelled ❌");
 
-    return database as Database;
+    return database as ProjectConfig["database"];
 }
 
 export async function promptDatabaseOrm(
@@ -109,10 +120,12 @@ export async function promptDatabaseOrm(
 
     const orm = await select({
         message: "Choose your ORM",
-        options: options.map((orm) => ({
-            label: orm.toUpperCase(),
-            value: orm,
-        })),
+        options: options.map(
+            ({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
+                label: `${label} ${emoji}`,
+                value: value,
+            }),
+        ),
     });
 
     if (isCancel(orm)) terminate("Process cancelled ❌");
@@ -130,19 +143,20 @@ export async function promptCache(): Promise<Cache | undefined> {
     return shouldUseRedisCache ? "redis" : undefined;
 }
 
-export async function promptPackageManager(): Promise<PackageManager> {
-    const pkgManager = (await select({
+export async function promptPackageManager(): Promise<
+    ProjectConfig["pkgManager"]
+> {
+    const pkgManager = await select({
         message: "Select your package manager:",
-        options: [
-            { label: "None", value: "none" },
-            { label: "npm", value: "npm" },
-            { label: "yarn", value: "yarn" },
-            { label: "pnpm", value: "pnpm" },
-            { label: "bun", value: "bun" },
-        ],
-    })) as PackageManager;
+        options: pkg_managers.map(
+            ({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
+                label: `${label} ${emoji}`,
+                value: value,
+            }),
+        ),
+    });
 
     if (isCancel(pkgManager)) terminate("Process cancelled ❌");
 
-    return pkgManager;
+    return pkgManager as ProjectConfig["pkgManager"];
 }
