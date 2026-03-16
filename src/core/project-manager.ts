@@ -1,4 +1,3 @@
-import { join } from "node:path";
 import { existsSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
 import { log, spinner } from "@clack/prompts";
@@ -29,19 +28,15 @@ async function setupDevelopmentProject(config: ProjectConfig) {
     await installPackages(pkgManager, targetDir, language, devTools, dirName);
 }
 
-export async function createProject(
-    config: ProjectConfig & { templatePath: string },
-) {
-    const { targetDir, mode, dirName, templatePath } = config;
+export async function createProject(config: ProjectConfig) {
+    const { targetDir, mode, dirName, templatePath, publicDir, sourceDir } =
+        config;
 
     const s = spinner();
     s.start("Creating project...");
 
     try {
         if (!existsSync(targetDir)) await mkdir(targetDir, { recursive: true });
-
-        const sourceDir = join(targetDir, "src");
-        const publicDir = join(targetDir, "public");
 
         await Promise.all([
             createDirectoryStructure(targetDir, publicDir, templatePath),

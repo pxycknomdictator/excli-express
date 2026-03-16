@@ -80,10 +80,16 @@ export async function prepareProjectConfig(
     const templatePath = join(__dirname, "..", "templates", mode, language);
     validateTemplate(templatePath);
 
+    const sourceDir = join(targetDir, "src");
+    const publicDir = join(targetDir, "public");
+
     const config: ProjectConfig = {
         ...userInputs,
+        sourceDir,
+        publicDir,
+        templatePath,
         dirName,
     };
 
-    return { ...config, templatePath };
+    return config;
 }
