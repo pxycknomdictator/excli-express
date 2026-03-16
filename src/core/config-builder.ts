@@ -71,13 +71,13 @@ export async function getUserInputs() {
 export async function prepareProjectConfig(
     userInputs: Awaited<ReturnType<typeof getUserInputs>>,
 ) {
-    const { language, pkgManager, targetDir } = userInputs;
+    const { language, pkgManager, targetDir, mode } = userInputs;
 
     const dirName = basename(targetDir) || "container_app";
 
     validatePackageManager(pkgManager);
 
-    const templatePath = join(__dirname, "..", "templates", language);
+    const templatePath = join(__dirname, "..", "templates", mode, language);
     validateTemplate(templatePath);
 
     const config: ProjectConfig = {
