@@ -17,13 +17,7 @@ import {
     validatePackageManager,
     validateTemplate,
 } from "./validator";
-import type {
-    Cache,
-    Database,
-    DATABASE_TYPE,
-    DevTools,
-    ProjectConfig,
-} from "src/types";
+import type { ProjectConfig } from "src/types";
 
 export async function getUserInputs() {
     const directory = await promptDirectory();
@@ -35,11 +29,11 @@ export async function getUserInputs() {
     const language = await promptLanguage();
     const mode = await promptMode();
 
-    let devTools: DevTools[] = [];
-    let databaseType: DATABASE_TYPE | undefined;
-    let database: Database | undefined;
+    let devTools: ProjectConfig["devTools"] = [];
+    let databaseType: ProjectConfig["databaseType"];
+    let database: ProjectConfig["database"];
     let databaseOrm: ProjectConfig["databaseOrm"];
-    let cache: Cache | undefined;
+    let cache: ProjectConfig["cache"];
 
     if (mode === "production") {
         devTools = await promptDevTools();
