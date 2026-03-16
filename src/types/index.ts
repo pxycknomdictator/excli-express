@@ -22,6 +22,9 @@ export type ProjectConfig = {
     language: Language;
     mode: Mode;
     devTools: DevTools[];
+    templatePath: string;
+    sourceDir: string;
+    publicDir: string;
     databaseType?: DATABASE_TYPE;
     database?: Database;
     databaseOrm?: SQL_ORMS | NO_SQL_ORMS;
