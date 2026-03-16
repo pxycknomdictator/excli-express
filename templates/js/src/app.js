@@ -6,11 +6,11 @@ import helmet from "helmet";
 import express from "express";
 import { rateLimit } from "express-rate-limit";
 
-import { env, globalLimiter } from "./constant.js";
+import { globalLimiter } from "./constant.js";
 
 const app = express();
-const client = env.CLIENT_ORIGIN || "*";
 const limiter = rateLimit(globalLimiter);
+const client = process.env.CLIENT_ORIGIN || "*";
 const staticFiles = path.join(process.cwd(), "public");
 
 app.use(limiter);

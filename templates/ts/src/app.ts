@@ -7,11 +7,11 @@ import express from "express";
 import { rateLimit } from "express-rate-limit";
 import type { Express, Request, Response } from "express";
 
-import { env, globalLimiter } from "./constant.js";
+import { globalLimiter } from "./constant.js";
 
 const app: Express = express();
-const client = env.CLIENT_ORIGIN || "*";
 const limiter = rateLimit(globalLimiter);
+const client = process.env.CLIENT_ORIGIN || "*";
 const staticFiles = path.join(process.cwd(), "public");
 
 app.use(limiter);
