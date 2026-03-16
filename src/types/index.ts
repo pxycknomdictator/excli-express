@@ -3,10 +3,10 @@ export type Language = "ts" | "js";
 export type Mode = "development" | "production";
 export type DevTools = "prettier" | "docker" | "git" | "husky";
 export type PackageManager = "none" | "npm" | "yarn" | "pnpm" | "bun";
-export type Database = "mysql" | "mariadb" | "postgres" | "mongodb";
+export type Database = "mysql" | "mariadb" | "sqlite" | "postgres" | "mongodb";
 
 export type DATABASE_TYPE = "sql" | "no_sql";
-export type SQL_DATABASE = "mysql" | "mariadb" | "postgres";
+export type SQL_DATABASE = "mysql" | "mariadb" | "postgres" | "sqlite";
 export type SQL_ORMS = "prisma" | "drizzle" | "typeorm" | "sequelize";
 export type NO_SQL_DATABASE = "mongodb";
 export type NO_SQL_ORMS = "prisma" | "typeorm" | "mongoose";
