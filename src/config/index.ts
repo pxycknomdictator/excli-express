@@ -23,6 +23,7 @@ export const database_types: INTERACTIVE_PROMPTS[] = [
 ];
 
 export const pkg_managers: INTERACTIVE_PROMPTS[] = [
+    { label: "None", emoji: "🚫", value: "none" },
     { label: "npm", emoji: "📦", value: "npm" },
     { label: "yarn", emoji: "🧶", value: "yarn" },
     { label: "pnpm", emoji: "🚀", value: "pnpm" },
