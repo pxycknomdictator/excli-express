@@ -45,7 +45,7 @@ export async function getUserInputs() {
         }
     }
 
-    const pkgManager = await promptPackageManager();
+    const pkgManager = await promptPackageManager(mode);
 
     return {
         directory,

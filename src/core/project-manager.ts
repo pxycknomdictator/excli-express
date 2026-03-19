@@ -29,8 +29,16 @@ async function setupDevelopmentProject(config: ProjectConfig) {
 }
 
 export async function createProject(config: ProjectConfig) {
-    const { targetDir, mode, dirName, templatePath, publicDir, sourceDir } =
-        config;
+    const {
+        targetDir,
+        mode,
+        dirName,
+        templatePath,
+        publicDir,
+        sourceDir,
+        language,
+        pkgManager,
+    } = config;
 
     const s = spinner();
     s.start("Creating project...");
@@ -51,7 +59,7 @@ export async function createProject(config: ProjectConfig) {
 
         await fireShell("npx prettier --write .", targetDir);
 
-        if (config.language === "ts") {
+        if (language === "ts" && pkgManager !== "none") {
             await fireShell("node --run build", targetDir);
         }
 
