@@ -1,13 +1,33 @@
-import { BASE_PACKAGES, TS_DEV_PACKAGES } from "src/config";
-import type { DevTools, Language } from "src/types";
+import {
+    BASE_PACKAGES,
+    TS_DEV_PACKAGES,
+    ADDITION_PACKAGES,
+    TS_ADDITIONAL_PACKAGES,
+} from "src/config";
+import type { ProjectConfig } from "src/types";
 
-export function collectPackages(devTools: DevTools[], language: Language) {
+export function collectPackages(
+    config: Pick<ProjectConfig, "devTools" | "language" | "mode">,
+) {
+    const { devTools, language, mode } = config;
+
     const packages: string[] = [...BASE_PACKAGES];
     const devPackages: string[] = [];
 
+    if (mode === "production") {
+        packages.push(...ADDITION_PACKAGES);
+    }
+
+    if (language === "ts") {
+        devPackages.push(...TS_DEV_PACKAGES);
+    }
+
+    if (language === "ts" && mode === "production") {
+        devPackages.push(...TS_ADDITIONAL_PACKAGES);
+    }
+
     if (devTools.includes("prettier")) devPackages.push("prettier");
     if (devTools.includes("husky")) devPackages.push("husky");
-    if (language === "ts") devPackages.push(...TS_DEV_PACKAGES);
 
     return { packages, devPackages };
 }

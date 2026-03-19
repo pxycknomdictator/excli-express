@@ -24,8 +24,7 @@ async function setupProductionProject(
 }
 
 async function setupDevelopmentProject(config: ProjectConfig) {
-    const { pkgManager, targetDir, language, devTools, dirName } = config;
-    await installPackages(pkgManager, targetDir, language, devTools, dirName);
+    await installPackages(config);
 }
 
 export async function createProject(config: ProjectConfig) {

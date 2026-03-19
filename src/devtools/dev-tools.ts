@@ -8,7 +8,7 @@ import { fireShell, hasGit } from "src/utils";
 import type { ProjectConfig } from "src/types";
 
 export async function setupDevTools(config: ProjectConfig) {
-    const { devTools, targetDir, pkgManager, language, dirName } = config;
+    const { devTools, targetDir } = config;
 
     if (devTools.includes("git") && hasGit()) {
         await Promise.all([
@@ -16,7 +16,7 @@ export async function setupDevTools(config: ProjectConfig) {
             setupGit(targetDir),
         ]);
     }
-    await installPackages(pkgManager, targetDir, language, devTools, dirName);
+    await installPackages(config);
 
     if (devTools.includes("prettier")) await setupPrettier(targetDir);
     if (devTools.includes("husky")) await setupHusky(targetDir);
