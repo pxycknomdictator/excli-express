@@ -17,7 +17,7 @@ Start building features immediately with a complete, production-ready Express.js
 
 - 🚀 TypeScript or JavaScript support
 - 🐳 Docker-ready with one command
-- 🗄️ Pre-configured databases (MySQL, MariaDB, PostgreSQL, MongoDB)
+- 🗄️ Pre-configured databases (MySQL, MariaDB, SQLite, PostgreSQL, MongoDB)
 - 💾 Redis for in memory database
 - 🔥 Hot reload for rapid development
 - 📦 Clean, scalable architecture
@@ -67,9 +67,10 @@ npx @excli/express
 2. **Language** - TypeScript or JavaScript
 3. **Project Mode** - Development (basic setup) or Production (includes Docker & databases)
 4. **Development Tools** - Git, Prettier, Docker, Husky
-5. **Database** - Choose MySQL, MariaDB, PostgreSQL, or MongoDB (production mode only)
-6. **Cache** - Confirm if you want Redis for in memory cache
-7. **ORM** - Choose your preferred ORM/ODM (production mode only)
+5. **Database type** - SQL, NOSQL
+6. **Database** - Choose MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB (production mode only)
+7. **Cache** - Confirm if you want Redis for in memory cache
+8. **ORM** - Choose your preferred ORM/ODM (production mode only)
 
 ### Starting Your Application
 
@@ -107,6 +108,7 @@ Choose the database that fits your needs:
 | -------------- | ------------- | ---------------- |
 | **MySQL**      | phpMyAdmin    | 6969             |
 | **MariaDB**    | phpMyAdmin    | 6969             |
+| **SQLite**     | ---           | ---              |
 | **PostgreSQL** | pgAdmin       | 6969             |
 | **MongoDB**    | Mongo Express | 6969             |
 
@@ -118,15 +120,15 @@ All admin panels are accessible at `http://localhost:6969` after running `pnpm r
 
 Pick the ORM that matches your database and coding style:
 
-| ORM           | Best For                   | Language Support |
-| ------------- | -------------------------- | ---------------- |
-| **Prisma**    | PostgreSQL, MySQL, MariaDB | TS & JS          |
-| **Drizzle**   | PostgreSQL, MySQL, MariaDB | TS & JS          |
-| **TypeORM**   | PostgreSQL, MySQL, MariaDB | TS & JS          |
-| **Sequelize** | PostgreSQL, MySQL, MariaDB | TS & JS          |
-| **Mongoose**  | MongoDB                    | TS & JS          |
+| ORM           | Best For                           | Language Support |
+| ------------- | ---------------------------------- | ---------------- |
+| **Prisma**    | PostgreSQL, MySQL, MariaDB, SQLite | TS & JS          |
+| **Drizzle**   | PostgreSQL, MySQL, MariaDB, SQLite | TS & JS          |
+| **TypeORM**   | PostgreSQL, MySQL, MariaDB, SQLite | TS & JS          |
+| **Sequelize** | PostgreSQL, MySQL, MariaDB, SQLite | TS & JS          |
+| **Mongoose**  | MongoDB                            | TS & JS          |
 
-> **Note:** Mongoose is designed exclusively for MongoDB. For SQL databases (MySQL, MariaDB, PostgreSQL), choose Prisma, Drizzle, TypeORM, or Sequelize.
+> **Note:** Mongoose is designed exclusively for MongoDB. For SQL databases (MySQL, MariaDB, SQLite, PostgreSQL), choose Prisma, Drizzle, TypeORM, or Sequelize.
 
 ### Docker & Environment Files
 
@@ -171,19 +173,6 @@ After running `pnpm run docker:up`, access your database admin panel at **http:/
 - **pgAdmin** - Full-featured PostgreSQL management
 - **phpMyAdmin** - Intuitive MySQL & MariaDB interface
 - **Mongo Express** - Simple MongoDB administration
-
----
-
-### Recent Updates
-
-#### Version Improvements
-
-- ✅ Added ORM support (Prisma, Drizzle, TypeORM, Mongoose, Sequelize)
-- ✅ Fixed PostgreSQL volume path in Docker configuration for proper data persistence
-- ✅ Added production-ready Dockerfile
-- ✅ Improved environment variable management
-- ✅ Modern Node.js APIs (no deprecated methods)
-- ✅ Cross-platform compatibility improvements
 
 ---
 
