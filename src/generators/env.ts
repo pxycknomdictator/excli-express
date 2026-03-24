@@ -6,39 +6,32 @@ function getEnvVariables(): Record<string, string> {
     return envConfig;
 }
 
-function formatEnvWithComments(): string {
+function formatEnvWithComments(): { env: string; envExample: string } {
     const vars = getEnvVariables();
-    const lines: string[] = [];
+    const envLines: string[] = [];
+    const exampleEnvLines: string[] = [];
 
-    lines.push("# Application Configuration");
-    lines.push(`NODE_ENV=${vars.NODE_ENV}`);
-    lines.push(`PORT=${vars.PORT}`);
-    lines.push(`CLIENT_ORIGIN=${vars.CLIENT_ORIGIN}\n`);
+    envLines.push("# Application Configuration");
+    envLines.push(`NODE_ENV=${vars.NODE_ENV}`);
+    envLines.push(`PORT=${vars.PORT}`);
+    envLines.push(`CLIENT_ORIGIN=${vars.CLIENT_ORIGIN}\n`);
 
-    return lines.join("\n");
-}
+    exampleEnvLines.push("# Application Configuration");
+    exampleEnvLines.push("NODE_ENV=");
+    exampleEnvLines.push("PORT=");
+    exampleEnvLines.push(`CLIENT_ORIGIN=\n`);
 
-function formatEnvExampleWithComments(): string {
-    getEnvVariables();
-    const lines: string[] = [];
-
-    lines.push("# Application Configuration");
-    lines.push("NODE_ENV=");
-    lines.push("PORT=");
-    lines.push(`CLIENT_ORIGIN=\n`);
-
-    return lines.join("\n");
+    return { env: envLines.join("\n"), envExample: exampleEnvLines.join("\n") };
 }
 
 export async function setupEnv(targetDir: string) {
+    const { env, envExample } = formatEnvWithComments();
+
     const envFile = join(targetDir, ".env");
     const envExampleFile = join(targetDir, ".env.example");
 
-    const envContent = formatEnvWithComments();
-    const envExampleContent = formatEnvExampleWithComments();
-
     await Promise.all([
-        writeFile(envFile, envContent, { encoding: "utf-8" }),
-        writeFile(envExampleFile, envExampleContent, { encoding: "utf-8" }),
+        writeFile(envFile, env, { encoding: "utf-8" }),
+        writeFile(envExampleFile, envExample, { encoding: "utf-8" }),
     ]);
 }
