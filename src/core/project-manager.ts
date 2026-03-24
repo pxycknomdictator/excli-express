@@ -11,16 +11,8 @@ import { setupEnv } from "src/generators";
 import { installPackages } from "./installer";
 import type { ProjectConfig } from "src/types";
 
-async function setupProductionProject(
-    config: ProjectConfig,
-    sourceDir: string,
-) {
-    const { language } = config;
-
-    await Promise.all([
-        setupProjectDirectories(language, sourceDir),
-        setupDevTools(config),
-    ]);
+async function setupProductionProject(config: ProjectConfig) {
+    await Promise.all([setupProjectDirectories(config), setupDevTools(config)]);
 }
 
 async function setupDevelopmentProject(config: ProjectConfig) {
@@ -28,16 +20,7 @@ async function setupDevelopmentProject(config: ProjectConfig) {
 }
 
 export async function createProject(config: ProjectConfig) {
-    const {
-        targetDir,
-        mode,
-        dirName,
-        templatePath,
-        publicDir,
-        sourceDir,
-        language,
-        pkgManager,
-    } = config;
+    const { targetDir, mode, dirName, language, pkgManager } = config;
 
     const s = spinner();
     s.start("Creating project...");
@@ -46,12 +29,12 @@ export async function createProject(config: ProjectConfig) {
         if (!existsSync(targetDir)) await mkdir(targetDir, { recursive: true });
 
         await Promise.all([
-            createDirectoryStructure(targetDir, publicDir, templatePath),
+            createDirectoryStructure(config),
             setupEnv(targetDir),
         ]);
 
         if (mode === "production") {
-            await setupProductionProject(config, sourceDir);
+            await setupProductionProject(config);
         } else {
             await setupDevelopmentProject(config);
         }

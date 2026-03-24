@@ -1,12 +1,12 @@
 import { join } from "node:path";
 import { mkdir, cp } from "node:fs/promises";
 import { DIRECTORIES } from "src/config";
-import type { Language } from "src/types";
+import type { ProjectConfig } from "src/types";
 
 export async function setupProjectDirectories(
-    language: Language,
-    sourceDir: string,
+    config: Pick<ProjectConfig, "language" | "sourceDir">,
 ): Promise<void> {
+    const { language, sourceDir } = config;
     for (const dir of DIRECTORIES) {
         if (language !== "ts" && dir === "types") continue;
         const directoryPath = join(sourceDir, dir);
@@ -15,10 +15,9 @@ export async function setupProjectDirectories(
 }
 
 export async function createDirectoryStructure(
-    targetDir: string,
-    publicDir: string,
-    templatePath: string,
+    config: Pick<ProjectConfig, "publicDir" | "templatePath" | "targetDir">,
 ): Promise<void> {
+    const { publicDir, templatePath, targetDir } = config;
     await Promise.all([
         mkdir(publicDir, { recursive: true }),
         cp(templatePath, targetDir, { recursive: true }),
