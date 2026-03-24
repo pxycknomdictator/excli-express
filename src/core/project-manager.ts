@@ -1,12 +1,11 @@
 import { existsSync } from "node:fs";
-import { mkdir } from "node:fs/promises";
 import { log, spinner } from "@clack/prompts";
 import {
     createDirectoryStructure,
     setupDevTools,
     setupProjectDirectories,
 } from "src/devtools";
-import { fireShell } from "src/utils";
+import { fireShell, makeDirectory } from "src/utils";
 import { setupEnv } from "src/generators";
 import { installPackages } from "./installer";
 import type { ProjectConfig } from "src/types";
@@ -26,7 +25,7 @@ export async function createProject(config: ProjectConfig) {
     s.start("Creating project...");
 
     try {
-        if (!existsSync(targetDir)) await mkdir(targetDir, { recursive: true });
+        if (!existsSync(targetDir)) await makeDirectory(targetDir);
 
         await Promise.all([
             createDirectoryStructure(config),
