@@ -1,6 +1,8 @@
 import { cwd } from "node:process";
 import { basename, join } from "node:path";
 import { __dirname } from "src";
+import { copy } from "src/utils";
+import { tsconfigJson } from "src/config";
 import {
     promptCache,
     promptDatabase,
@@ -71,8 +73,19 @@ export async function prepareProjectConfig(
 
     validatePackageManager(pkgManager);
 
-    const templatePath = join(__dirname, "..", "templates", mode, language);
+    const templateBase = join(__dirname, "..", "templates");
+    const templatePath = join(templateBase, mode, language);
+
     validateTemplate(templatePath);
+
+    if (language === "ts") {
+        const tsConfigJsonPath = join(templateBase, tsconfigJson);
+        const tsConfigJsonDestination = join(targetDir, tsconfigJson);
+        await copy({
+            templatePath: tsConfigJsonPath,
+            targetDir: tsConfigJsonDestination,
+        });
+    }
 
     const sourceDir = join(targetDir, "src");
     const publicDir = join(targetDir, "public");

@@ -1,5 +1,7 @@
 import type { ScriptConfig, INTERACTIVE_PROMPTS } from "src/types";
 
+export const tsconfigJson = "tsconfig.json";
+
 export const languages: INTERACTIVE_PROMPTS[] = [
     { label: "JavaScript", emoji: "🟡", value: "js" },
     { label: "TypeScript", emoji: "🔵", value: "ts" },
