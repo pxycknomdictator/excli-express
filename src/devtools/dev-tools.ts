@@ -18,9 +18,9 @@ export async function setupDevTools(config: ProjectConfig) {
         ]);
     }
     if (devTools.includes("docker")) {
-        await setupDocker(config);
-        await setupOrm(config);
+        await Promise.all([setupDocker(config), setupOrm(config)]);
     }
+
     await installPackages(config);
     if (devTools.includes("husky")) await setupHusky(targetDir);
 }
