@@ -111,6 +111,10 @@ export const prettierScripts: ScriptConfig = {
     format: "prettier --write .",
 };
 
+export const vitestScripts: ScriptConfig = {
+    test: "vitest",
+};
+
 export const dockerScripts: ScriptConfig = {
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
