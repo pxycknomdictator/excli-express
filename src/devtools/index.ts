@@ -5,3 +5,4 @@ export * from "./prettier";
 export * from "./dev-tools";
 export * from "./directories";
 export * from "./orms";
+export * from "./vitest";
