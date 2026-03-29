@@ -2,6 +2,7 @@ import { setupGit } from "./git";
 import { setupOrm } from "./orms";
 import { setupHusky } from "./husky";
 import { setupDocker } from "./docker";
+import { setupVitest } from "./vitest";
 import { setupPrettier } from "./prettier";
 import { installPackages } from "src/core";
 import { fireShell, hasGit } from "src/utils";
@@ -11,6 +12,7 @@ export async function setupDevTools(config: ProjectConfig) {
     const { devTools, targetDir } = config;
 
     if (devTools.includes("prettier")) await setupPrettier(targetDir);
+    if (devTools.includes("vitest")) await setupVitest(config);
     if (devTools.includes("git") && hasGit()) {
         await Promise.all([
             fireShell("git init", targetDir),
