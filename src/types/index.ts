@@ -47,3 +47,8 @@ export type EnvConfig = {
     database: Record<string, string>;
     admin: Record<string, string>;
 };
+
+export type GenerateFileArgs = {
+    fileLocation: string;
+    fileContent: string;
+};
