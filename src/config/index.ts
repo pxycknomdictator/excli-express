@@ -15,6 +15,7 @@ export const modes: INTERACTIVE_PROMPTS[] = [
 export const tools: INTERACTIVE_PROMPTS[] = [
     { label: "Git", emoji: "🐙", value: "git" },
     { label: "Prettier", emoji: "✨", value: "prettier" },
+    { label: "Vitest", emoji: "🧪", value: "vitest" },
     { label: "Docker", emoji: "🐳", value: "docker" },
     { label: "Husky", emoji: "🐶", value: "husky" },
 ];
