@@ -15,6 +15,7 @@ export const modes: INTERACTIVE_PROMPTS[] = [
 export const tools: INTERACTIVE_PROMPTS[] = [
     { label: "Git", emoji: "🐙", value: "git" },
     { label: "Prettier", emoji: "✨", value: "prettier" },
+    { label: "Vitest", emoji: "🧪", value: "vitest" },
     { label: "Docker", emoji: "🐳", value: "docker" },
     { label: "Husky", emoji: "🐶", value: "husky" },
 ];
@@ -68,6 +69,7 @@ export const DIRECTORIES: string[] = [
 ];
 
 export const BASE_PACKAGES = ["express"];
+export const DEV_DEPENDENCIES = ["vitest", "supertest"];
 export const ADDITION_PACKAGES = ["cors", "helmet", "express-rate-limit"];
 
 export const TS_DEV_PACKAGES = [
@@ -76,6 +78,7 @@ export const TS_DEV_PACKAGES = [
     "typescript",
     "concurrently",
 ];
+export const TS_DEV_DEPENDENCIES = ["@types/supertest"];
 export const TS_ADDITIONAL_PACKAGES = ["@types/cors"];
 
 export const installCmdMap: Record<string, string> = {
@@ -106,6 +109,10 @@ export const jsScripts: ScriptConfig = {
 
 export const prettierScripts: ScriptConfig = {
     format: "prettier --write .",
+};
+
+export const vitestScripts: ScriptConfig = {
+    test: "vitest",
 };
 
 export const dockerScripts: ScriptConfig = {

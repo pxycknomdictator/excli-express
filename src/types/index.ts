@@ -1,7 +1,7 @@
 export type Cache = "redis";
 export type Language = "ts" | "js";
 export type Mode = "development" | "production";
-export type DevTools = "prettier" | "docker" | "git" | "husky";
+export type DevTools = "prettier" | "docker" | "git" | "husky" | "vitest";
 export type PackageManager = "none" | "npm" | "yarn" | "pnpm" | "bun";
 export type Database = "mysql" | "mariadb" | "sqlite" | "postgres" | "mongodb";
 
