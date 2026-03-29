@@ -1,5 +1,5 @@
 import { cp, mkdir } from "node:fs/promises";
-import type { ProjectConfig } from "src/types";
+import type { Language, ProjectConfig } from "src/types";
 
 export async function makeDirectory(directoryPath: string) {
     try {
@@ -18,4 +18,10 @@ export async function copy(
     } catch (error) {
         throw new Error(`Failed to copy: ${error}`);
     }
+}
+
+export function appendLanguageExtension(lang: Language, ...paths: string[]) {
+    const extension = lang === "ts" ? ".ts" : ".js";
+    const files = paths.map((file) => file.concat(extension));
+    return files;
 }
