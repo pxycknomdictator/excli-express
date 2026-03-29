@@ -1,5 +1,5 @@
-import { cp, mkdir } from "node:fs/promises";
-import type { Language, ProjectConfig } from "src/types";
+import { cp, mkdir, writeFile } from "node:fs/promises";
+import type { GenerateFileArgs, Language, ProjectConfig } from "src/types";
 
 export async function makeDirectory(directoryPath: string) {
     try {
@@ -17,6 +17,15 @@ export async function copy(
         await cp(copyPath, targetDir, { recursive: true });
     } catch (error) {
         throw new Error(`Failed to copy: ${error}`);
+    }
+}
+
+export async function generateFile(fileArgs: GenerateFileArgs) {
+    try {
+        const { fileLocation, fileContent } = fileArgs;
+        await writeFile(fileLocation, fileContent, "utf-8");
+    } catch (error) {
+        throw new Error(`failed to generate file: ${error}`);
     }
 }
 

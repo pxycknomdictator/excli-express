@@ -1,9 +1,12 @@
 import { join } from "node:path";
-import { writeFile } from "node:fs/promises";
-import { appendLanguageExtension, makeDirectory } from "src/utils";
-import type { ProjectConfig } from "src/types";
+import {
+    appendLanguageExtension,
+    generateFile,
+    makeDirectory,
+} from "src/utils";
+import type { GenerateFileArgs, ProjectConfig } from "src/types";
 
-export function generateTestTemplate() {
+function generateTestTemplate() {
     return `import request from "supertest";
 import { app } from "../src/app.js";
 import { describe, it, expect } from "vitest";
@@ -23,18 +26,40 @@ describe("GET /", () => {
 `;
 }
 
+function vitestConfig() {
+    return `import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+    test: {
+        globals: true,
+        environment: "node",
+        include: ["src/**/*.test.{js,ts}", "tests/**/*.spec.{js,ts}"],
+        exclude: ["**/node_modules/**", "**/dist/**"],
+    },
+});
+`;
+}
+
 export async function setupVitest({ language, targetDir }: ProjectConfig) {
     try {
-        const appTestName = "app.spec";
-        const [appTestPath] = appendLanguageExtension(language, appTestName);
-        const appTestContent = generateTestTemplate();
+        const vitestLang = appendLanguageExtension(
+            language,
+            "app.spec",
+            "vitest.config",
+        );
         const testDirectory = join(targetDir, "tests");
-        const appPath = join(testDirectory, appTestPath as string);
+        const appPath = join(testDirectory, vitestLang[0] as string);
+        const vitestPath = join(targetDir, vitestLang[1] as string);
 
-        await Promise.all([
-            makeDirectory(testDirectory),
-            writeFile(appPath, appTestContent, { encoding: "utf-8" }),
-        ]);
+        const vitest: GenerateFileArgs[] = [
+            { fileLocation: appPath, fileContent: generateTestTemplate() },
+            { fileLocation: vitestPath, fileContent: vitestConfig() },
+        ];
+
+        await makeDirectory(testDirectory);
+        await Promise.all(
+            vitest.map(async (vite) => await generateFile({ ...vite })),
+        );
     } catch (error) {
         throw new Error(`failed to setup vitest: ${error}`);
     }
