@@ -52,3 +52,8 @@ export type GenerateFileArgs = {
     fileLocation: string;
     fileContent: string;
 };
+
+export type DockerParams = Pick<
+    ProjectConfig,
+    "database" | "language" | "pkgManager" | "cache" | "targetDir"
+>;
