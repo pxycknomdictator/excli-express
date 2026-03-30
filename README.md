@@ -21,6 +21,7 @@ Start building features immediately with a complete, production-ready Express.js
 - 💾 Redis for in memory database
 - 🔥 Hot reload for rapid development
 - 📦 Clean, scalable architecture
+- 🧪 Testing with vitest and supertest
 - 🛠️ Admin panels included for database management
 - 🗃️ ORM support (Prisma, Drizzle, TypeORM, Mongoose, Sequelize)
 - 🐶 Husky integration for Git hooks
@@ -66,7 +67,7 @@ npx @excli/express
 1. **Project Name** - What to call your new application
 2. **Language** - TypeScript or JavaScript
 3. **Project Mode** - Development (basic setup) or Production (includes Docker & databases)
-4. **Development Tools** - Git, Prettier, Docker, Husky
+4. **Development Tools** - Git, Prettier, Docker, Husky, Vitest
 5. **Database type** - SQL, NOSQL
 6. **Database** - Choose MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB (production mode only)
 7. **Cache** - Confirm if you want Redis for in memory cache
