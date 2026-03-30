@@ -53,6 +53,8 @@ export type GenerateFileArgs = {
     fileContent: string;
 };
 
+export type EnvFileReturnType = { envContent: string; exEnvContent: string };
+
 export type DockerParams = Pick<
     ProjectConfig,
     "database" | "language" | "pkgManager" | "cache" | "targetDir"

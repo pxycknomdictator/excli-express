@@ -1,6 +1,6 @@
 import { join } from "node:path";
-import { readFile, writeFile } from "node:fs/promises";
-import { formatPackageVersions } from "src/utils";
+import { readFile } from "node:fs/promises";
+import { formatPackageVersions, generateFile } from "src/utils";
 import type { Language, ScriptConfig } from "src/types";
 
 export async function modifyPackageJson(
@@ -17,7 +17,10 @@ export async function modifyPackageJson(
     pkg.type = "module";
     pkg.scripts = scripts;
 
-    await writeFile(fullPath, JSON.stringify(pkg, null, 2));
+    await generateFile({
+        fileLocation: fullPath,
+        fileContent: JSON.stringify(pkg, null, 2),
+    });
 }
 
 export async function addPackagesToJson(
@@ -48,8 +51,8 @@ export async function addPackagesToJson(
         };
     }
 
-    await writeFile(
-        packageJsonPath,
-        JSON.stringify(packageData, null, 2) + "\n",
-    );
+    await generateFile({
+        fileLocation: packageJsonPath,
+        fileContent: JSON.stringify(packageData, null, 2) + "\n",
+    });
 }

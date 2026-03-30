@@ -1,5 +1,5 @@
 import { join } from "node:path";
-import { writeFile } from "node:fs/promises";
+import { generateFile } from "src/utils";
 
 export async function writeEnvFiles(
     targetDir: string,
@@ -7,6 +7,6 @@ export async function writeEnvFiles(
 ): Promise<void> {
     for (const { file, variables } of files) {
         const fullPath = join(targetDir, file);
-        await writeFile(fullPath, variables);
+        await generateFile({ fileLocation: fullPath, fileContent: variables });
     }
 }

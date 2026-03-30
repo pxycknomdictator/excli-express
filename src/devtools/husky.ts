@@ -1,6 +1,5 @@
 import { join } from "node:path";
-import { writeFile } from "node:fs/promises";
-import { fireShell } from "src/utils";
+import { fireShell, generateFile } from "src/utils";
 import { HUSKY_COMMIT_FILE_NAME } from "src/config";
 
 export async function setupHusky(targetDir: string): Promise<void> {
@@ -11,7 +10,10 @@ export async function setupHusky(targetDir: string): Promise<void> {
             ".husky",
             HUSKY_COMMIT_FILE_NAME,
         );
-        await writeFile(huskyFileLocation, "", "utf-8");
+        await generateFile({
+            fileLocation: huskyFileLocation,
+            fileContent: "",
+        });
     } catch (error) {
         throw new Error(`failed to setup husky: ${error}`);
     }
