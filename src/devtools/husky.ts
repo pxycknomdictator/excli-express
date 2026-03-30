@@ -4,7 +4,15 @@ import { fireShell } from "src/utils";
 import { HUSKY_COMMIT_FILE_NAME } from "src/config";
 
 export async function setupHusky(targetDir: string): Promise<void> {
-    await fireShell("npx husky init", targetDir);
-    const huskyFileLocation = join(targetDir, ".husky", HUSKY_COMMIT_FILE_NAME);
-    await writeFile(huskyFileLocation, "", "utf-8");
+    try {
+        await fireShell("npx husky init", targetDir);
+        const huskyFileLocation = join(
+            targetDir,
+            ".husky",
+            HUSKY_COMMIT_FILE_NAME,
+        );
+        await writeFile(huskyFileLocation, "", "utf-8");
+    } catch (error) {
+        throw new Error(`failed to setup husky: ${error}`);
+    }
 }
