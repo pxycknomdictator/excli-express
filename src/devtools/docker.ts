@@ -1,13 +1,14 @@
 import { fireShell } from "src/utils";
-import type { ProjectConfig } from "src/types";
+import type { DockerParams } from "src/types";
 
-export async function setupDocker(config: ProjectConfig): Promise<void> {
-    const { devTools, database, language, pkgManager, cache } = config;
-    if (!devTools.includes("docker") || !database) return;
-
-    const pkg = pkgManager === "none" ? "npm" : pkgManager;
-    await fireShell(
-        `npx @excli/docker --${language} --${database} --${pkg} --${cache}`,
-        config.targetDir,
-    );
+export async function setupDocker(config: DockerParams): Promise<void> {
+    try {
+        const { database, language, pkgManager, cache, targetDir } = config;
+        await fireShell(
+            `npx @excli/docker --${language} --${database} --${pkgManager} --${cache}`,
+            targetDir,
+        );
+    } catch (error) {
+        throw new Error(`failed to setup docker: ${error}`);
+    }
 }

@@ -1,5 +1,5 @@
 import { join } from "node:path";
-import { writeFile } from "node:fs/promises";
+import { generateFile } from "src/utils";
 
 export async function writeConfigFiles(
     targetDir: string,
@@ -7,6 +7,6 @@ export async function writeConfigFiles(
 ): Promise<void> {
     for (const { filename, content } of configs) {
         const fullPath = join(targetDir, filename);
-        await writeFile(fullPath, content);
+        await generateFile({ fileLocation: fullPath, fileContent: content });
     }
 }

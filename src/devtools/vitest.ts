@@ -4,7 +4,7 @@ import {
     generateFile,
     makeDirectory,
 } from "src/utils";
-import type { GenerateFileArgs, ProjectConfig } from "src/types";
+import type { GenerateFileArgs, VitestParams } from "src/types";
 
 function generateTestTemplate() {
     return `import request from "supertest";
@@ -40,7 +40,7 @@ export default defineConfig({
 `;
 }
 
-export async function setupVitest({ language, targetDir }: ProjectConfig) {
+export async function setupVitest({ language, targetDir }: VitestParams) {
     try {
         const vitestLang = appendLanguageExtension(
             language,

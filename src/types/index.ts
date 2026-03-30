@@ -52,3 +52,17 @@ export type GenerateFileArgs = {
     fileLocation: string;
     fileContent: string;
 };
+
+export type EnvFileReturnType = { envContent: string; exEnvContent: string };
+
+export type DockerParams = Pick<
+    ProjectConfig,
+    "database" | "language" | "pkgManager" | "cache" | "targetDir"
+>;
+
+export type OrmParams = Pick<
+    ProjectConfig,
+    "language" | "database" | "databaseOrm" | "pkgManager" | "targetDir"
+>;
+
+export type VitestParams = Pick<ProjectConfig, "language" | "targetDir">;

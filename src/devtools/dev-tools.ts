@@ -10,19 +10,22 @@ import type { ProjectConfig } from "src/types";
 
 export async function setupDevTools(config: ProjectConfig) {
     const { devTools, targetDir } = config;
+    try {
+        if (devTools.includes("prettier")) await setupPrettier(targetDir);
+        if (devTools.includes("vitest")) await setupVitest(config);
+        if (devTools.includes("git") && hasGit()) {
+            await Promise.all([
+                fireShell("git init", targetDir),
+                setupGit(targetDir),
+            ]);
+        }
+        if (devTools.includes("docker")) {
+            await Promise.all([setupDocker(config), setupOrm(config)]);
+        }
 
-    if (devTools.includes("prettier")) await setupPrettier(targetDir);
-    if (devTools.includes("vitest")) await setupVitest(config);
-    if (devTools.includes("git") && hasGit()) {
-        await Promise.all([
-            fireShell("git init", targetDir),
-            setupGit(targetDir),
-        ]);
+        await installPackages(config);
+        if (devTools.includes("husky")) await setupHusky(targetDir);
+    } catch (error) {
+        throw new Error(`failed to setup devTools: ${error}`);
     }
-    if (devTools.includes("docker")) {
-        await Promise.all([setupDocker(config), setupOrm(config)]);
-    }
-
-    await installPackages(config);
-    if (devTools.includes("husky")) await setupHusky(targetDir);
 }

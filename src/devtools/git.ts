@@ -1,5 +1,9 @@
 import { fireShell } from "src/utils";
 
 export async function setupGit(targetDir: string): Promise<void> {
-    await fireShell(`npx gitignore node`, targetDir);
+    try {
+        await fireShell(`npx gitignore node`, targetDir);
+    } catch (error) {
+        throw new Error(`failed to setup git: ${error}`);
+    }
 }

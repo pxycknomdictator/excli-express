@@ -1,8 +1,9 @@
 import { join } from "node:path";
-import { writeFile } from "node:fs/promises";
 import { envConfig } from "src/config";
+import { generateFile } from "src/utils";
+import type { EnvFileReturnType, GenerateFileArgs } from "src/types";
 
-function formatEnvWithComments(): { env: string; envExample: string } {
+function formatEnvWithComments(): EnvFileReturnType {
     const envLines: string[] = [];
     const exampleEnvLines: string[] = [];
 
@@ -16,17 +17,27 @@ function formatEnvWithComments(): { env: string; envExample: string } {
     exampleEnvLines.push("PORT=");
     exampleEnvLines.push(`CLIENT_ORIGIN=\n`);
 
-    return { env: envLines.join("\n"), envExample: exampleEnvLines.join("\n") };
+    return {
+        envContent: envLines.join("\n"),
+        exEnvContent: exampleEnvLines.join("\n"),
+    };
 }
 
 export async function setupEnv(targetDir: string) {
-    const { env, envExample } = formatEnvWithComments();
+    const { envContent, exEnvContent } = formatEnvWithComments();
+    try {
+        const envLocation = join(targetDir, ".env");
+        const exEnvLocation = join(targetDir, ".env.example");
 
-    const envFile = join(targetDir, ".env");
-    const envExampleFile = join(targetDir, ".env.example");
+        const envs: GenerateFileArgs[] = [
+            { fileLocation: envLocation, fileContent: envContent },
+            { fileLocation: exEnvLocation, fileContent: exEnvContent },
+        ];
 
-    await Promise.all([
-        writeFile(envFile, env, { encoding: "utf-8" }),
-        writeFile(envExampleFile, envExample, { encoding: "utf-8" }),
-    ]);
+        await Promise.all(
+            envs.map(async (env) => await generateFile({ ...env })),
+        );
+    } catch (error) {
+        throw new Error(`failed to setup env: ${error}`);
+    }
 }
