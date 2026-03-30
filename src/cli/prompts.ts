@@ -1,9 +1,8 @@
 import { text, select, multiselect, isCancel, confirm } from "@clack/prompts";
-import { terminate } from "src/utils";
+import { generateOptions, terminate } from "src/utils";
 import type { Cache, DATABASE_TYPE, ProjectConfig } from "src/types";
 import {
     database_types,
-    generateOptions,
     languages,
     modes,
     no_sql_database,

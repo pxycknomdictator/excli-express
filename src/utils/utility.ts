@@ -1,5 +1,10 @@
 import { cp, mkdir, writeFile } from "node:fs/promises";
-import type { GenerateFileArgs, Language, ProjectConfig } from "src/types";
+import type {
+    GenerateFileArgs,
+    INTERACTIVE_PROMPTS,
+    Language,
+    ProjectConfig,
+} from "src/types";
 
 export async function makeDirectory(directoryPath: string) {
     try {
@@ -27,6 +32,13 @@ export async function generateFile(fileArgs: GenerateFileArgs) {
     } catch (error) {
         throw new Error(`failed to generate file: ${error}`);
     }
+}
+
+export function generateOptions(options: INTERACTIVE_PROMPTS[]) {
+    return options.map(({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
+        label: `${label} ${emoji}`,
+        value: value,
+    }));
 }
 
 export function appendLanguageExtension(lang: Language, ...paths: string[]) {
