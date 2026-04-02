@@ -1,8 +1,8 @@
 import { cwd } from "node:process";
 import { basename, join } from "node:path";
-import { __dirname } from "src";
-import { copy } from "src/utils";
-import { tsconfigJson } from "src/config";
+import { __dirname } from "../index";
+import { copy } from "../utils";
+import { tsconfigJson } from "../config";
 import {
     promptCache,
     promptDatabase,
@@ -13,13 +13,13 @@ import {
     promptLanguage,
     promptMode,
     promptPackageManager,
-} from "src/cli";
+} from "../cli";
 import {
     validateDirectory,
     validatePackageManager,
     validateTemplate,
 } from "./validator";
-import type { ProjectConfig } from "src/types";
+import type { ProjectConfig } from "../types";
 
 export async function getUserInputs() {
     const directory = await promptDirectory();

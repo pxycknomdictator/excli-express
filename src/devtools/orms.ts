@@ -1,5 +1,5 @@
-import { fireShell } from "src/utils";
-import type { OrmParams } from "src/types";
+import { fireShell } from "../utils";
+import type { OrmParams } from "../types";
 
 export async function setupOrm(config: OrmParams): Promise<void> {
     try {

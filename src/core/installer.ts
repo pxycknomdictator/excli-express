@@ -1,8 +1,8 @@
-import { fireShell } from "src/utils";
-import { installCmdMap } from "src/config";
-import { collectPackages, generateScripts } from "src/generators";
-import { addPackagesToJson, modifyPackageJson } from "src/managers";
-import type { PackageManager, ProjectConfig } from "src/types";
+import { fireShell } from "../utils";
+import { installCmdMap } from "../config";
+import { collectPackages, generateScripts } from "../generators";
+import { addPackagesToJson, modifyPackageJson } from "../managers";
+import type { PackageManager, ProjectConfig } from "../types";
 
 export async function installPackages(config: ProjectConfig) {
     const { targetDir, language, devTools, dirName, pkgManager } = config;

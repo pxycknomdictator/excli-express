@@ -1,4 +1,4 @@
-import type { ScriptConfig, INTERACTIVE_PROMPTS } from "src/types";
+import type { ScriptConfig, INTERACTIVE_PROMPTS } from "../types";
 
 export const tsconfigJson = "tsconfig.json";
 

@@ -1,6 +1,6 @@
 import { join } from "node:path";
-import { fireShell, generateFile } from "src/utils";
-import { HUSKY_COMMIT_FILE_NAME } from "src/config";
+import { fireShell, generateFile } from "../utils";
+import { HUSKY_COMMIT_FILE_NAME } from "../config";
 
 export async function setupHusky(targetDir: string): Promise<void> {
     try {

@@ -4,11 +4,11 @@ import {
     createDirectoryStructure,
     setupDevTools,
     setupProjectDirectories,
-} from "src/devtools";
-import { fireShell, makeDirectory } from "src/utils";
-import { setupEnv } from "src/generators";
+} from "../devtools";
+import { fireShell, makeDirectory } from "../utils";
+import { setupEnv } from "../generators";
 import { installPackages } from "./installer";
-import type { ProjectConfig } from "src/types";
+import type { ProjectConfig } from "../types";
 
 async function setupProductionProject(config: ProjectConfig) {
     await Promise.all([setupProjectDirectories(config), setupDevTools(config)]);

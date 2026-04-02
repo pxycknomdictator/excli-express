@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { readFile } from "node:fs/promises";
-import { formatPackageVersions, generateFile } from "src/utils";
-import type { Language, ScriptConfig } from "src/types";
+import { formatPackageVersions, generateFile } from "../utils";
+import type { Language, ScriptConfig } from "../types";
 
 export async function modifyPackageJson(
     targetDir: string,

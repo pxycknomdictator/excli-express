@@ -4,8 +4,8 @@ import {
     prettierScripts,
     tsScripts,
     vitestScripts,
-} from "src/config";
-import type { ScriptConfig, Language, DevTools } from "src/types";
+} from "../config";
+import type { ScriptConfig, Language, DevTools } from "../types";
 
 export function generateScripts(
     language: Language,

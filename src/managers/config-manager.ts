@@ -1,5 +1,5 @@
 import { join } from "node:path";
-import { generateFile } from "src/utils";
+import { generateFile } from "../utils";
 
 export async function writeConfigFiles(
     targetDir: string,

@@ -4,7 +4,7 @@ import type {
     INTERACTIVE_PROMPTS,
     Language,
     ProjectConfig,
-} from "src/types";
+} from "../types";
 
 export async function makeDirectory(directoryPath: string) {
     try {
