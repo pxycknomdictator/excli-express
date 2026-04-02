@@ -1,7 +1,7 @@
 import { join } from "node:path";
-import { DIRECTORIES } from "src/config";
-import type { ProjectConfig } from "src/types";
-import { copy, makeDirectory } from "src/utils";
+import { DIRECTORIES } from "../config";
+import type { ProjectConfig } from "../types";
+import { copy, makeDirectory } from "../utils";
 
 export async function setupProjectDirectories(
     config: Pick<ProjectConfig, "language" | "sourceDir">,

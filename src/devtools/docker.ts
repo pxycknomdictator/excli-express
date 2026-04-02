@@ -1,5 +1,5 @@
-import { fireShell } from "src/utils";
-import type { DockerParams } from "src/types";
+import { fireShell } from "../utils";
+import type { DockerParams } from "../types";
 
 export async function setupDocker(config: DockerParams): Promise<void> {
     try {

@@ -1,7 +1,7 @@
 import { join } from "node:path";
-import { envConfig } from "src/config";
-import { generateFile } from "src/utils";
-import type { EnvFileReturnType, GenerateFileArgs } from "src/types";
+import { envConfig } from "../config";
+import { generateFile } from "../utils";
+import type { EnvFileReturnType, GenerateFileArgs } from "../types";
 
 function formatEnvWithComments(): EnvFileReturnType {
     const envLines: string[] = [];

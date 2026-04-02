@@ -1,10 +1,6 @@
 import { join } from "node:path";
-import {
-    appendLanguageExtension,
-    generateFile,
-    makeDirectory,
-} from "src/utils";
-import type { GenerateFileArgs, VitestParams } from "src/types";
+import { appendLanguageExtension, generateFile, makeDirectory } from "../utils";
+import type { GenerateFileArgs, VitestParams } from "../types";
 
 function generateTestTemplate() {
     return `import request from "supertest";

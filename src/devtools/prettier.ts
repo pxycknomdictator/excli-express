@@ -1,5 +1,5 @@
-import { writeConfigFiles } from "src/managers";
-import { generatePrettierConfig } from "src/generators";
+import { writeConfigFiles } from "../managers";
+import { generatePrettierConfig } from "../generators";
 
 export async function setupPrettier(targetDir: string): Promise<void> {
     try {

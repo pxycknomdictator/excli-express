@@ -1,6 +1,6 @@
 import { text, select, multiselect, isCancel, confirm } from "@clack/prompts";
-import { generateOptions, terminate } from "src/utils";
-import type { Cache, DATABASE_TYPE, ProjectConfig } from "src/types";
+import { generateOptions, terminate } from "../utils";
+import type { Cache, DATABASE_TYPE, ProjectConfig } from "../types";
 import {
     database_types,
     languages,
@@ -11,7 +11,7 @@ import {
     sql_database,
     sql_orms,
     tools,
-} from "src/config";
+} from "../config";
 
 export async function promptDirectory(): Promise<string> {
     const directory = (await text({

@@ -1,4 +1,4 @@
-import { fireShell } from "src/utils";
+import { fireShell } from "../utils";
 
 export async function setupGit(targetDir: string): Promise<void> {
     try {

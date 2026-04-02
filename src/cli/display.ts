@@ -1,5 +1,5 @@
 import { note, outro } from "@clack/prompts";
-import type { ProjectConfig } from "src/types";
+import type { ProjectConfig } from "../types";
 
 export function showCompletionMessage(config: ProjectConfig) {
     const { dirName, pkgManager } = config;

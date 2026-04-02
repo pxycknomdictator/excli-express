@@ -5,8 +5,8 @@ import {
     TS_ADDITIONAL_PACKAGES,
     DEV_DEPENDENCIES,
     TS_DEV_DEPENDENCIES,
-} from "src/config";
-import type { ProjectConfig } from "src/types";
+} from "../config";
+import type { ProjectConfig } from "../types";
 
 export function collectPackages(
     config: Pick<ProjectConfig, "devTools" | "language" | "mode">,

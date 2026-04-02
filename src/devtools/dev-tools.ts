@@ -4,9 +4,9 @@ import { setupHusky } from "./husky";
 import { setupDocker } from "./docker";
 import { setupVitest } from "./vitest";
 import { setupPrettier } from "./prettier";
-import { installPackages } from "src/core";
-import { fireShell, hasGit } from "src/utils";
-import type { ProjectConfig } from "src/types";
+import { installPackages } from "../core";
+import { fireShell, hasGit } from "../utils";
+import type { ProjectConfig } from "../types";
 
 export async function setupDevTools(config: ProjectConfig) {
     const { devTools, targetDir } = config;
