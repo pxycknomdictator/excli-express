@@ -118,7 +118,6 @@ export const vitestScripts: ScriptConfig = {
 export const dockerScripts: ScriptConfig = {
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
-    "docker:run": "node dist/main.js",
 };
 
 export const BANNER_FONT = "Standard";
