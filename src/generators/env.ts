@@ -34,9 +34,7 @@ export async function setupEnv(targetDir: string) {
             { fileLocation: exEnvLocation, fileContent: exEnvContent },
         ];
 
-        await Promise.all(
-            envs.map(async (env) => await generateFile({ ...env })),
-        );
+        await Promise.all(envs.map((env) => generateFile({ ...env })));
     } catch (error) {
         throw new Error(`failed to setup env: ${error}`);
     }

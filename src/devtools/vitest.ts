@@ -53,9 +53,7 @@ export async function setupVitest({ language, targetDir }: VitestParams) {
         ];
 
         await makeDirectory(testDirectory);
-        await Promise.all(
-            vitest.map(async (vite) => await generateFile({ ...vite })),
-        );
+        await Promise.all(vitest.map((vite) => generateFile({ ...vite })));
     } catch (error) {
         throw new Error(`failed to setup vitest: ${error}`);
     }
