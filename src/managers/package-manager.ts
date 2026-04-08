@@ -32,11 +32,11 @@ export async function addPackagesToJson(
     const content = await readFile(packageJsonPath, "utf-8");
     const packageData = JSON.parse(content);
 
-    const depVersions = await formatPackageVersions(packages, targetDir);
+    const depVersions = await formatPackageVersions(packages);
 
     let devDepVersions = {};
     if (devPackages.length > 0) {
-        devDepVersions = await formatPackageVersions(devPackages, targetDir);
+        devDepVersions = await formatPackageVersions(devPackages);
     }
 
     packageData.dependencies = {

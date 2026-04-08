@@ -1,17 +1,10 @@
-export async function getPackageLatestVersion(
-    packageName: string,
-    targetDir: string,
-): Promise<string> {
-    const { exec } = await import("child_process");
-    const { promisify } = await import("util");
-
-    const execAsync = promisify(exec);
-
+export async function getPackageLatestVersion(packageName: string) {
+    const URL = `https://registry.npmjs.org/${packageName}/latest`;
     try {
-        const { stdout } = await execAsync(`npm view ${packageName} version`, {
-            cwd: targetDir,
-        });
-        return stdout.trim();
+        const response = await fetch(URL);
+        if (!response.ok) throw new Error("failed to fetch:");
+        const { version } = (await response.json()) as { version: string };
+        return version;
     } catch (error) {
         throw new Error(
             `Failed to fetch version for ${packageName}: Error: ${error}`,
@@ -19,16 +12,14 @@ export async function getPackageLatestVersion(
     }
 }
 
-export async function formatPackageVersions(
-    packages: string[] = [],
-    targetDir: string,
-) {
-    return Object.fromEntries(
+export async function formatPackageVersions(packages: string[] = []) {
+    const formattedPackages = Object.fromEntries(
         await Promise.all(
             packages.map(async (pkg) => [
                 pkg,
-                `^${await getPackageLatestVersion(pkg, targetDir)}`,
+                `^${await getPackageLatestVersion(pkg)}`,
             ]),
         ),
     );
+    return formattedPackages;
 }
