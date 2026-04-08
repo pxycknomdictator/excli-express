@@ -1,6 +1,5 @@
 import { cwd } from "node:process";
 import { basename, join } from "node:path";
-import { __dirname } from "../index";
 import { copy } from "../utils";
 import { tsconfigJson } from "../config";
 import {
@@ -66,6 +65,7 @@ export async function getUserInputs() {
 
 export async function prepareProjectConfig(
     userInputs: Awaited<ReturnType<typeof getUserInputs>>,
+    underScoreDirname: string,
 ) {
     const { language, pkgManager, targetDir, mode } = userInputs;
 
@@ -73,7 +73,7 @@ export async function prepareProjectConfig(
 
     validatePackageManager(pkgManager);
 
-    const templateBase = join(__dirname, "..", "templates");
+    const templateBase = join(underScoreDirname, "..", "templates");
     const templatePath = join(templateBase, mode, language);
 
     validateTemplate(templatePath);

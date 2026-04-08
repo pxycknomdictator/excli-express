@@ -5,14 +5,13 @@ import { fileURLToPath } from "node:url";
 import { displayBanner, showCompletionMessage } from "./cli";
 import { createProject, getUserInputs, prepareProjectConfig } from "./core";
 
-const __filename = fileURLToPath(import.meta.url);
-export const __dirname = dirname(__filename);
-
 async function main() {
     displayBanner();
+    const underScoreFilename = fileURLToPath(import.meta.url);
+    const underScoreDirname = dirname(underScoreFilename);
 
     const userInputs = await getUserInputs();
-    const config = await prepareProjectConfig(userInputs);
+    const config = await prepareProjectConfig(userInputs, underScoreDirname);
 
     await createProject(config);
     showCompletionMessage(config);
