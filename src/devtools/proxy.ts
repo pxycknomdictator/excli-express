@@ -4,8 +4,9 @@ import type { ProxyParams } from "../types";
 export async function setupProxy(config: ProxyParams): Promise<void> {
     try {
         const { webServer, webServerMode, targetDir } = config;
+        const modifyFormat = webServerMode?.replace("_", "-");
         await fireShell(
-            `npx @excli/proxy --${webServer} --${webServerMode}`,
+            `npx @excli/proxy --${webServer} --${modifyFormat}`,
             targetDir,
         );
     } catch (error) {

@@ -7,6 +7,7 @@ import { setupPrettier } from "./prettier";
 import { installPackages } from "../core";
 import { fireShell, hasGit } from "../utils";
 import type { ProjectConfig } from "../types";
+import { setupProxy } from "./proxy";
 
 export async function setupDevTools(config: ProjectConfig) {
     const { devTools, targetDir } = config;
@@ -21,6 +22,7 @@ export async function setupDevTools(config: ProjectConfig) {
         }
         if (devTools.includes("docker")) {
             await Promise.all([setupDocker(config), setupOrm(config)]);
+            await setupProxy(config);
         }
 
         await installPackages(config);
