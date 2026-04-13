@@ -11,6 +11,9 @@ export type SQL_ORMS = "prisma" | "drizzle" | "typeorm" | "sequelize";
 export type NO_SQL_DATABASE = "mongodb";
 export type NO_SQL_ORMS = "prisma" | "typeorm" | "mongoose";
 
+export type WEB_SERVER = "nginx" | "caddy";
+export type WEB_SERVER_MODE = "reverse_proxy" | "load_balancing";
+
 export type INTERACTIVE_PROMPTS = {
     label: string;
     emoji: string;
@@ -28,6 +31,8 @@ export type ProjectConfig = {
     databaseType?: DATABASE_TYPE;
     database?: Database;
     databaseOrm?: SQL_ORMS | NO_SQL_ORMS;
+    webServer?: WEB_SERVER;
+    webServerMode?: WEB_SERVER_MODE;
     pkgManager: PackageManager;
     targetDir: string;
     dirName: string;
