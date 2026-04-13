@@ -12,6 +12,8 @@ import {
     promptLanguage,
     promptMode,
     promptPackageManager,
+    promptProxyMode,
+    promptWebServer,
 } from "../cli";
 import {
     validateDirectory,
@@ -34,6 +36,8 @@ export async function getUserInputs() {
     let databaseType: ProjectConfig["databaseType"];
     let database: ProjectConfig["database"];
     let databaseOrm: ProjectConfig["databaseOrm"];
+    let webServer: ProjectConfig["webServer"];
+    let webServerMode: ProjectConfig["webServerMode"];
     let cache: ProjectConfig["cache"];
 
     if (mode === "production") {
@@ -43,6 +47,8 @@ export async function getUserInputs() {
             database = await promptDatabase(databaseType!);
             databaseOrm = await promptDatabaseOrm(databaseType!);
             cache = await promptCache();
+            webServer = await promptWebServer();
+            webServerMode = await promptProxyMode();
         }
     }
 
@@ -56,6 +62,8 @@ export async function getUserInputs() {
         databaseType,
         database,
         databaseOrm,
+        webServer,
+        webServerMode,
         pkgManager,
         targetDir,
         rootDir,

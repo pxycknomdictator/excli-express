@@ -11,6 +11,8 @@ import {
     sql_database,
     sql_orms,
     tools,
+    USES_OF_WEB_SERVER,
+    WEB_SERVERS,
 } from "../config";
 
 export async function promptDirectory(): Promise<string> {
@@ -98,6 +100,30 @@ export async function promptDatabaseOrm(
     if (isCancel(orm)) terminate("Process cancelled ❌");
 
     return orm as ProjectConfig["databaseOrm"];
+}
+
+export async function promptWebServer(): Promise<ProjectConfig["webServer"]> {
+    const webServer = await select({
+        message: "Select your proxy server:",
+        options: generateOptions(WEB_SERVERS),
+    });
+
+    if (isCancel(webServer)) terminate("Process cancelled ❌");
+
+    return webServer as ProjectConfig["webServer"];
+}
+
+export async function promptProxyMode(): Promise<
+    ProjectConfig["webServerMode"]
+> {
+    const webServerMode = await select({
+        message: "Select proxy mode:",
+        options: generateOptions(USES_OF_WEB_SERVER),
+    });
+
+    if (isCancel(webServerMode)) terminate("Process cancelled ❌");
+
+    return webServerMode as ProjectConfig["webServerMode"];
 }
 
 export async function promptCache(): Promise<Cache | undefined> {

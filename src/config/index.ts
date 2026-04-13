@@ -57,6 +57,16 @@ export const no_sql_orms: INTERACTIVE_PROMPTS[] = [
     { label: "Mongoose", emoji: "🦦", value: "mongoose" },
 ];
 
+export const WEB_SERVERS: INTERACTIVE_PROMPTS[] = [
+    { label: "Nginx", emoji: "⚡", value: "nginx" },
+    { label: "Caddy", emoji: "🪄", value: "caddy" },
+];
+
+export const USES_OF_WEB_SERVER: INTERACTIVE_PROMPTS[] = [
+    { label: "Reverse Proxy", emoji: "🚦", value: "reverse_proxy" },
+    { label: "Load Balancing", emoji: "⚖️", value: "load_balancing" },
+];
+
 export const DIRECTORIES: string[] = [
     "config",
     "controllers",
