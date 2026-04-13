@@ -65,6 +65,11 @@ export type DockerParams = Pick<
     "database" | "language" | "pkgManager" | "cache" | "targetDir"
 >;
 
+export type ProxyParams = Pick<
+    ProjectConfig,
+    "webServer" | "webServerMode" | "targetDir"
+>;
+
 export type OrmParams = Pick<
     ProjectConfig,
     "language" | "database" | "databaseOrm" | "pkgManager" | "targetDir"
