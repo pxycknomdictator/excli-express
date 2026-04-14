@@ -18,11 +18,22 @@
     "keywords": [
         "@excli/express",
         "express",
-        "nodejs",
-        "cli",
         "express-generator",
-        "typescript",
-        "server"
+        "express cli",
+        "express generator",
+        "express setup",
+        "express typescript",
+        "express boilerplate",
+        "express starter",
+        "nodejs boilerplate",
+        "express docker",
+        "express generator alternative",
+        "modern express generator",
+        "typescript express",
+        "express scaffold",
+        "backend generator",
+        "production ready express",
+        "nodejs express cli"
     ],
     "bin": {
         "excli": "./dist/index.mjs"
