@@ -1,214 +1,212 @@
-### Express.js CLI Tool
+# @excli/express — Modern Express.js Project Generator
 
-A powerful express generator tool for creating production-ready Express.js applications with TypeScript/JavaScript support, complete with Docker containerization and database management.
+> Generate production-ready Express.js applications in seconds — with TypeScript, Docker, databases, ORMs, reverse proxy (Nginx / Caddy), and best practices built-in. The modern alternative to the outdated `express-generator`.
 
 [![npm version](https://badge.fury.io/js/%40excli%2Fexpress.svg)](https://badge.fury.io/js/%40excli%2Fexpress)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
-[![Node.js](https://img.shields.io/badge/Node.js-20+-green.svg)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+[![Node.js 20+](https://img.shields.io/badge/Node.js-20+-green.svg)](https://nodejs.org/)
+[![TypeScript Ready](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 
 ---
 
-### Why Choose This Generator?
+## What is @excli/express?
 
-Start building features immediately with a complete, production-ready Express.js project using industry best practices.
+`@excli/express` is a CLI scaffolding tool that generates fully configured, production-ready Express.js projects. Unlike the legacy `express-generator`, this tool gives you a modern development environment with TypeScript support, Docker containerization, database integration, ORM configuration, testing setup, and Git hooks — all from a single command.
 
-**Built for modern development:**
-
-- 🚀 TypeScript or JavaScript support
-- 🐳 Docker-ready with one command
-- 🗄️ Pre-configured databases (MySQL, MariaDB, SQLite, PostgreSQL, MongoDB)
-- 💾 Redis for in memory database
-- 🔥 Hot reload for rapid development
-- 📦 Clean, scalable architecture
-- 🧪 Testing with vitest and supertest
-- 🛠️ Admin panels included for database management
-- 🗃️ ORM support (Prisma, Drizzle, TypeORM, Mongoose, Sequelize)
-- 🐶 Husky integration for Git hooks
-- ⚡ Modern Node.js APIs (no deprecated methods)
+No manual configuration. No boilerplate hunting. Just start building.
 
 ---
 
-### Getting Started
+## Why Not Use `express-generator`?
 
-No installation needed! Just run:
+The official `express-generator` was great for its time — but it hasn't kept up with how modern Node.js applications are built.
+
+| Feature             | `express-generator` | `@excli/express`                                 |
+| ------------------- | ------------------- | ------------------------------------------------ |
+| TypeScript support  | ❌                  | ✅ Native TS & JS                                |
+| Docker integration  | ❌                  | ✅ One command                                   |
+| Database setup      | ❌                  | ✅ MySQL, PostgreSQL, MongoDB, SQLite, MariaDB   |
+| ORM support         | ❌                  | ✅ Prisma, Drizzle, TypeORM, Sequelize, Mongoose |
+| Redis / caching     | ❌                  | ✅ Built-in Redis support                        |
+| Hot reload (dev)    | ❌                  | ✅ Included                                      |
+| Testing setup       | ❌                  | ✅ Vitest + Supertest                            |
+| Git hooks (Husky)   | ❌                  | ✅ Pre-commit & pre-push                         |
+| Admin DB panels     | ❌                  | ✅ phpMyAdmin, pgAdmin, Mongo Express            |
+| Reverse proxy setup | ❌                  | ✅ Nginx & Caddy                                 |
+| Load balancing      | ❌                  | ✅ Built-in config                               |
+| Modern Node.js APIs | ❌                  | ✅ No deprecated methods                         |
+| Actively maintained | ❌                  | ✅                                               |
+
+If you need a project that goes beyond a basic Express server and is ready for real-world use, `@excli/express` is the right choice.
+
+---
+
+## Quick Start
+
+No installation required. Just run:
 
 ```bash
 npx @excli/express
 ```
 
-**Or install globally:**
+Or install globally for repeated use:
 
 ```bash
 npm install -g @excli/express
 excli
 ```
 
-#### Requirements
+### Requirements
 
-- Node.js 20 or higher
-- npm, yarn, pnpm or bun
-- Docker (optional - only needed for database features)
+- Node.js **20 or higher**
+- A package manager: `npm`, `yarn`, `pnpm`, or `bun`
+- Docker _(optional — only needed for database features)_
 
 ---
 
-### Usage
+## Interactive Setup
 
-#### Creating Your Project
+The CLI walks you through a short, guided setup:
 
-Run the CLI and answer a few simple questions:
+1. **Project Name** — Name your application
+2. **Language** — Choose TypeScript or JavaScript
+3. **Project Mode** — Development _(lightweight)_ or Production _(full Docker + database stack)_
+4. **Dev Tools** — Select from Git, Prettier, Husky, Vitest, Docker
+5. **Database Type** — SQL or NoSQL
+6. **Database** — MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB
+7. **ORM / ODM** — Choose from Prisma, Drizzle, TypeORM, Sequelize, or Mongoose
+8. **Proxy** _(new)_ — Choose Nginx or Caddy
+9. **Proxy Mode** _(new)_ — Choose Proxy for reverse proxy and load balancing
+10. **Cache** — Enable Redis for in-memory caching
 
-```bash
-npx @excli/express
-```
+---
 
-**You'll be asked about:**
-
-1. **Project Name** - What to call your new application
-2. **Language** - TypeScript or JavaScript
-3. **Project Mode** - Development (basic setup) or Production (includes Docker & databases)
-4. **Development Tools** - Git, Prettier, Docker, Husky, Vitest
-5. **Database type** - SQL, NOSQL
-6. **Database** - Choose MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB (production mode only)
-7. **Cache** - Confirm if you want Redis for in memory cache
-8. **ORM** - Choose your preferred ORM/ODM (production mode only)
-
-### Starting Your Application
-
-After project creation:
+## Running Your Project
 
 ```bash
-# Navigate to your project
+# Navigate into your project
 cd my-project
 
-# Start the server
-pnpm run start
-
-# Open your browser at http://localhost:3000
+# Start the development server
+pnpm run dev
 ```
 
-That's it! Your Express server is running.
+Visit **http://localhost:3000** — your Express server is live.
 
 ---
 
-### What's Included
+## What's Included
 
-#### Husky Integration
+### Git Hooks with Husky
 
-When enabled, Husky automatically sets up Git hooks to maintain code quality:
+When enabled, Husky sets up Git hooks automatically to protect your codebase:
 
-- **Pre-commit hook** - Runs linting and formatting checks before commits
-- **Pre-push hook** - Ensures tests pass before pushing to remote
-- **Commit message validation** - Enforces conventional commit standards
+- **Pre-commit** — Runs linting and formatting before every commit
+- **Pre-push** — Runs your test suite before pushing to remote
+- **Commit message validation** — Enforces the Conventional Commits standard
 
-#### Database Options
+### Database Support
 
-Choose the database that fits your needs:
+All databases come with a pre-configured admin panel accessible at **http://localhost:6969** after running `pnpm run docker:up`.
 
-| Database       | Admin Panel   | Admin Panel Port |
-| -------------- | ------------- | ---------------- |
-| **MySQL**      | phpMyAdmin    | 6969             |
-| **MariaDB**    | phpMyAdmin    | 6969             |
-| **SQLite**     | ---           | ---              |
-| **PostgreSQL** | pgAdmin       | 6969             |
-| **MongoDB**    | Mongo Express | 6969             |
+| Database   | Admin Panel   | Port |
+| ---------- | ------------- | ---- |
+| MySQL      | phpMyAdmin    | 6969 |
+| MariaDB    | phpMyAdmin    | 6969 |
+| PostgreSQL | pgAdmin       | 6969 |
+| MongoDB    | Mongo Express | 6969 |
+| SQLite     | —             | —    |
 
-All admin panels are accessible at `http://localhost:6969` after running `pnpm run docker:up`.
+> **Note:** Admin panels may take a moment to initialize on first startup.
 
-> **Note:** Some admin panels might take a minute to initialize. Please be patient during first startup.
+### ORM / ODM Support
 
-#### ORM Support
+| ORM       | Supported Databases                | TypeScript & JavaScript |
+| --------- | ---------------------------------- | ----------------------- |
+| Prisma    | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
+| Drizzle   | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
+| TypeORM   | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
+| Sequelize | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
+| Mongoose  | MongoDB only                       | ✅                      |
 
-Pick the ORM that matches your database and coding style:
+### Docker Setup
 
-| ORM           | Best For                           | Language Support |
-| ------------- | ---------------------------------- | ---------------- |
-| **Prisma**    | PostgreSQL, MySQL, MariaDB, SQLite | TS & JS          |
-| **Drizzle**   | PostgreSQL, MySQL, MariaDB, SQLite | TS & JS          |
-| **TypeORM**   | PostgreSQL, MySQL, MariaDB, SQLite | TS & JS          |
-| **Sequelize** | PostgreSQL, MySQL, MariaDB, SQLite | TS & JS          |
-| **Mongoose**  | MongoDB                            | TS & JS          |
+Production mode includes a complete Docker configuration:
 
-> **Note:** Mongoose is designed exclusively for MongoDB. For SQL databases (MySQL, MariaDB, SQLite, PostgreSQL), choose Prisma, Drizzle, TypeORM, or Sequelize.
+- **Dockerfile** — Production-optimized container build
+- **compose.yaml** — Multi-service orchestration with correct volume paths
+- **.env files** — Separate environment configs for development and production
 
-### Docker & Environment Files
+### Reverse Proxy Setup _(New)_
 
-Your project includes pre-configured Docker setup:
+When enabled, the CLI generates a ready-to-use reverse proxy configuration alongside your Docker setup — no manual config writing needed.
 
-- **Dockerfile** - Production-ready container configuration
-- **.env files** - Environment variables for different environments
-- **docker-compose.yml** - Multi-service orchestration with proper volume paths
+**Choose between two battle-tested options:**
 
-> **Important:** PostgreSQL volume path has been fixed in the latest version to ensure proper data persistence across container restarts.
+| Feature               | Nginx                      | Caddy                |
+| --------------------- | -------------------------- | -------------------- |
+| Reverse proxy         | ✅                         | ✅                   |
+| Load balancing        | ✅                         | ✅                   |
+| Automatic HTTPS (TLS) | ❌ Manual                  | ✅ Automatic         |
+| Config style          | `nginx.conf`               | `Caddyfile`          |
+| Best for              | Full control, high-traffic | Simplicity, auto SSL |
 
----
-
-### Common Commands
-
-#### Development
+## Common Commands
 
 ```bash
-pnpm run start       # Start the server
-pnpm run format      # Format code with Prettier
-```
+# Start the development server
+pnpm run dev
 
-#### TypeScript Projects
+# Format code with Prettier
+pnpm run format
 
-```bash
-pnpm run build       # Compile TypeScript to JavaScript
-```
+# Compile TypeScript to JavaScript (TS projects only)
+pnpm run build
 
-#### Docker & Databases
+# Start Docker services (database + admin panel + proxy)
+pnpm run docker:up
 
-```bash
-pnpm run docker:up    # Start database and admin panel
-pnpm run docker:down  # Stop all Docker services
+# Stop all Docker services
+pnpm run docker:down
 ```
 
 ---
 
-### Managing Your Database
-
-After running `pnpm run docker:up`, access your database admin panel at **http://localhost:6969**
-
-- **pgAdmin** - Full-featured PostgreSQL management
-- **phpMyAdmin** - Intuitive MySQL & MariaDB interface
-- **Mongo Express** - Simple MongoDB administration
-
----
-
-### Troubleshooting
+## Troubleshooting
 
 **Port already in use?**
-Check if another service is running on port 3000 or 6969, or modify the ports in your `.env` file.
+Another service may be running on port `3000` or `6969`. Update the ports in your `.env` file to resolve the conflict.
 
-**Docker issues?**
+**Docker not starting?**
 Make sure Docker Desktop is running before executing `pnpm run docker:up`.
 
-**Husky hooks not running?**
-Ensure Git is initialized and add a valid script in `.husky/pre-commit` file, then run `pnpm run prepare` to set up hooks.
+**Husky hooks not triggering?**
+Ensure Git is initialized in your project, then run `pnpm run prepare` to register the hooks.
 
-**Need help?**
-Open an issue on GitHub with details about your problem.
-
----
-
-### Contributing
-
-Contributions are welcome! Please read the [Contributing Guide](CONTRIBUTING.md) before opening a PR.
+**Proxy not routing traffic?**
+Make sure your `docker-compose.yml` includes the proxy service and that no other process is bound to port `80`. For Caddy with a real domain, ensure DNS is pointed correctly before starting.
 
 ---
 
-### License
+## Contributing
 
-ISC License - see LICENSE file for details.
-
-### Author
-
-**Noman**  
-📧 [pxycknomdictator@gmail.com](mailto:pxycknomdictator@gmail.com)  
-🐙 [@pxycknomdictator](https://github.com/pxycknomdictator)
+Contributions are welcome. Please read the [Contributing Guide](CONTRIBUTING.md) before opening a pull request.
 
 ---
 
-**Happy coding! Built with ❤️ for developers who value productivity.**
+## License
+
+ISC License — see the [LICENSE](LICENSE) file for details.
+
+---
+
+## Author
+
+**Noman**
+
+- 📧 [pxycknomdictator@gmail.com](mailto:pxycknomdictator@gmail.com)
+- 🐙 [@pxycknomdictator](https://github.com/pxycknomdictator)
+
+---
+
+Built with ❤️ for developers who want to skip the setup and start shipping.
