@@ -60,6 +60,7 @@ export const no_sql_orms: INTERACTIVE_PROMPTS[] = [
 export const WEB_SERVERS: INTERACTIVE_PROMPTS[] = [
     { label: "Nginx", emoji: "⚡", value: "nginx" },
     { label: "Caddy", emoji: "🪄", value: "caddy" },
+    { label: "Traefik", emoji: "🛣️", value: "traefik" },
 ];
 
 export const USES_OF_WEB_SERVER: INTERACTIVE_PROMPTS[] = [
