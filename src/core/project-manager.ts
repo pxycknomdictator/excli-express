@@ -11,11 +11,22 @@ import { installPackages } from "./installer";
 import type { ProjectConfig } from "../types";
 
 async function setupProductionProject(config: ProjectConfig) {
-    await Promise.all([setupProjectDirectories(config), setupDevTools(config)]);
+    try {
+        await Promise.all([
+            setupProjectDirectories(config),
+            setupDevTools(config),
+        ]);
+    } catch (error) {
+        throw new Error(`failed to setup production project: ${error}`);
+    }
 }
 
 async function setupDevelopmentProject(config: ProjectConfig) {
-    await installPackages(config);
+    try {
+        await installPackages(config);
+    } catch (error) {
+        throw new Error(`failed to setup development project: ${error}`);
+    }
 }
 
 export async function createProject(config: ProjectConfig) {
