@@ -26,7 +26,7 @@
 | Testing setup       | ❌                  | ✅ Vitest + Supertest                            |
 | Git hooks (Husky)   | ❌                  | ✅ Pre-commit & pre-push                         |
 | Admin DB panels     | ❌                  | ✅ phpMyAdmin, pgAdmin, Mongo Express            |
-| Reverse proxy setup | ❌                  | ✅ Nginx & Caddy                                 |
+| Reverse proxy setup | ❌                  | ✅ Nginx & Caddy & Traefik                       |
 | Load balancing      | ❌                  | ✅ Built-in config                               |
 | Modern Node.js APIs | ❌                  | ✅ No deprecated methods                         |
 | Actively maintained | ❌                  | ✅                                               |
@@ -67,7 +67,7 @@ The CLI walks you through a short, guided setup:
 5. **Database Type** — SQL or NoSQL
 6. **Database** — MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB
 7. **ORM / ODM** — Choose from Prisma, Drizzle, TypeORM, Sequelize, or Mongoose
-8. **Proxy** _(new)_ — Choose Nginx or Caddy
+8. **Proxy** _(new)_ — Choose Nginx, Caddy or Traefik
 9. **Proxy Mode** _(new)_ — Reverse proxy and load balancing
 10. **Cache** — Enable Redis for in-memory caching
 
@@ -130,13 +130,13 @@ Production mode includes a complete Docker configuration:
 
 Choose between two options:
 
-| Feature               | Nginx                      | Caddy                |
-| --------------------- | -------------------------- | -------------------- |
-| Reverse proxy         | ✅                         | ✅                   |
-| Load balancing        | ✅                         | ✅                   |
-| Automatic HTTPS (TLS) | ❌ Manual                  | ✅ Automatic         |
-| Config style          | `nginx.conf`               | `Caddyfile`          |
-| Best for              | Full control, high-traffic | Simplicity, auto SSL |
+| Feature               | Nginx                      | Caddy                | Traefik              |
+| --------------------- | -------------------------- | -------------------- | -------------------- |
+| Reverse proxy         | ✅                         | ✅                   | ✅                   |
+| Load balancing        | ✅                         | ✅                   | ✅                   |
+| Automatic HTTPS (TLS) | ❌ Manual                  | ✅ Automatic         | ✅                   |
+| Config style          | `nginx.conf`               | `Caddyfile`          | `traefik.yaml`       |
+| Best for              | Full control, high-traffic | Simplicity, auto SSL | Simplicity, auto SSL |
 
 ---
 
