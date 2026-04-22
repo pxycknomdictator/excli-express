@@ -7,6 +7,7 @@ import express from "express";
 import { rateLimit } from "express-rate-limit";
 
 import { globalLimiter } from "./constant.js";
+import { globalErrorWrapper } from "./utils/global.js";
 
 const app = express();
 const limiter = rateLimit(globalLimiter);
@@ -19,6 +20,8 @@ app.use(express.static(staticFiles));
 app.use(express.json({ limit: "20mb" }));
 app.use(cors({ origin: client, credentials: true }));
 app.use(express.urlencoded({ limit: "20mb", extended: true }));
+
+app.use(globalErrorWrapper);
 
 app.get("/", (_, res) => {
     return res.status(200).send("<h1>Thanks for using Express Cli</h1>");
