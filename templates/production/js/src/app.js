@@ -21,10 +21,10 @@ app.use(express.json({ limit: "20mb" }));
 app.use(cors({ origin: client, credentials: true }));
 app.use(express.urlencoded({ limit: "20mb", extended: true }));
 
-app.use(globalErrorWrapper);
+import { healthRouter } from "./routes/health.js";
 
-app.get("/", (_, res) => {
-    return res.status(200).send("<h1>Thanks for using Express Cli</h1>");
-});
+app.use("/", healthRouter);
+
+app.use(globalErrorWrapper);
 
 export { app };
