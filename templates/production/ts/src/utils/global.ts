@@ -8,5 +8,5 @@ export const globalErrorWrapper = (
 ) => {
     const message = error.message || "Something went wrong";
     const stack = process.env.NODE_ENV !== "production" ? error.stack : null;
-    res.status(500).json({ success: false, message, stack });
+    return res.status(500).json({ success: false, message, stack });
 };
