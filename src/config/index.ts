@@ -70,13 +70,9 @@ export const USES_OF_WEB_SERVER: INTERACTIVE_PROMPTS[] = [
 
 export const DIRECTORIES: string[] = [
     "config",
-    "controllers",
-    "routes",
     "middlewares",
     "services",
     "types",
-    "utils",
-    "models",
 ];
 
 export const BASE_PACKAGES = ["express"];
