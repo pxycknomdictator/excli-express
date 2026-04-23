@@ -9,9 +9,9 @@ import {
 import type { ProjectConfig } from "../types";
 
 export function collectPackages(
-    config: Pick<ProjectConfig, "devTools" | "language" | "mode">,
+    config: Pick<ProjectConfig, "devTools" | "language" | "mode" | "cache">,
 ) {
-    const { devTools, language, mode } = config;
+    const { devTools, language, mode, cache } = config;
 
     const packages: string[] = [...BASE_PACKAGES];
     const devPackages: string[] = [];
@@ -32,6 +32,7 @@ export function collectPackages(
         }
     }
 
+    if (cache === "redis") packages.push("ioredis");
     if (devTools.includes("prettier")) devPackages.push("prettier");
     if (devTools.includes("husky")) devPackages.push("husky");
 

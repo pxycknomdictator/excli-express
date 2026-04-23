@@ -3,6 +3,7 @@ import { setupOrm } from "./orms";
 import { hasGit } from "../utils";
 import { setupHusky } from "./husky";
 import { setupProxy } from "./proxy";
+import { setupRedis } from "./redis";
 import { setupDocker } from "./docker";
 import { setupVitest } from "./vitest";
 import { setupPrettier } from "./prettier";
@@ -10,7 +11,7 @@ import { installPackages } from "../core";
 import type { ProjectConfig } from "../types";
 
 export async function setupDevTools(config: ProjectConfig) {
-    const { devTools, targetDir } = config;
+    const { devTools, targetDir, cache } = config;
     try {
         if (devTools.includes("prettier")) await setupPrettier(targetDir);
         if (devTools.includes("vitest")) await setupVitest(config);
@@ -18,6 +19,7 @@ export async function setupDevTools(config: ProjectConfig) {
         if (devTools.includes("docker")) {
             await Promise.all([setupDocker(config), setupOrm(config)]);
             await setupProxy(config);
+            if (cache === "redis") await setupRedis(config);
         }
 
         await installPackages(config);
