@@ -40,7 +40,7 @@ export async function createProject(config: ProjectConfig) {
 
         await Promise.all([
             createDirectoryStructure(config),
-            setupEnv(targetDir),
+            setupEnv(targetDir, mode),
         ]);
 
         if (mode === "production") {

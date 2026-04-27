@@ -58,7 +58,11 @@ export type GenerateFileArgs = {
     fileContent: string;
 };
 
-export type EnvFileReturnType = { envContent: string; exEnvContent: string };
+export type EnvFileReturnType = {
+    envContent: string;
+    exEnvContent: string;
+    prodEnvContent: string;
+};
 
 export type DockerParams = Pick<
     ProjectConfig,
