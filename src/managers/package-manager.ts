@@ -15,7 +15,10 @@ export async function modifyPackageJson(
     pkg.name = dirName;
     pkg.main = `src/main.${language}`;
     pkg.type = "module";
-    pkg.scripts = scripts;
+    pkg.scripts = {
+        ...scripts,
+        ...pkg.scripts,
+    };
 
     await generateFile({
         fileLocation: fullPath,
