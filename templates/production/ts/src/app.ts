@@ -4,12 +4,13 @@ import process from "node:process";
 import cors from "cors";
 import helmet from "helmet";
 import express from "express";
+import type { Express } from "express";
 import { rateLimit } from "express-rate-limit";
 
 import { globalLimiter } from "./constant.js";
 import { globalErrorWrapper } from "./utils/global.js";
 
-const app = express();
+const app: Express = express();
 const limiter = rateLimit(globalLimiter);
 const client = process.env.CLIENT_ORIGIN || "*";
 const staticFiles = path.join(process.cwd(), "public");
