@@ -2,6 +2,7 @@ import { text, select, multiselect, isCancel, confirm } from "@clack/prompts";
 import { generateOptions, terminate } from "../utils";
 import type { Cache, DATABASE_TYPE, ProjectConfig } from "../types";
 import {
+    authLibraries,
     database_types,
     languages,
     modes,
@@ -100,6 +101,17 @@ export async function promptDatabaseOrm(
     if (isCancel(orm)) terminate("Process cancelled ❌");
 
     return orm as ProjectConfig["databaseOrm"];
+}
+
+export async function promptAuthLibraries(): Promise<ProjectConfig["auth"]> {
+    const authLib = await select({
+        message: "Select your Authentication library:",
+        options: generateOptions(authLibraries),
+    });
+
+    if (isCancel(authLib)) terminate("Process cancelled ❌");
+
+    return authLib as ProjectConfig["auth"];
 }
 
 export async function promptWebServer(): Promise<ProjectConfig["webServer"]> {

@@ -1,6 +1,7 @@
 export type Cache = "redis";
 export type Language = "ts" | "js";
 export type Mode = "development" | "production";
+export type Auth = "better-auth";
 export type DevTools = "prettier" | "docker" | "git" | "husky" | "vitest";
 export type PackageManager = "none" | "npm" | "yarn" | "pnpm" | "bun";
 export type Database = "mysql" | "mariadb" | "sqlite" | "postgres" | "mongodb";
@@ -31,6 +32,7 @@ export type ProjectConfig = {
     databaseType?: DATABASE_TYPE;
     database?: Database;
     databaseOrm?: SQL_ORMS | NO_SQL_ORMS;
+    auth?: Auth;
     webServer?: WEB_SERVER;
     webServerMode?: WEB_SERVER_MODE;
     pkgManager: PackageManager;

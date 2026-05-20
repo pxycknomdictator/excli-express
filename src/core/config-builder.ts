@@ -3,6 +3,7 @@ import { basename, join } from "node:path";
 import { copy } from "../utils";
 import { tsconfigJson } from "../config";
 import {
+    promptAuthLibraries,
     promptCache,
     promptDatabase,
     promptDatabaseOrm,
@@ -36,6 +37,7 @@ export async function getUserInputs() {
     let databaseType: ProjectConfig["databaseType"];
     let database: ProjectConfig["database"];
     let databaseOrm: ProjectConfig["databaseOrm"];
+    let auth: ProjectConfig["auth"];
     let webServer: ProjectConfig["webServer"];
     let webServerMode: ProjectConfig["webServerMode"];
     let cache: ProjectConfig["cache"];
@@ -46,6 +48,7 @@ export async function getUserInputs() {
             databaseType = await promptDatabaseType();
             database = await promptDatabase(databaseType!);
             databaseOrm = await promptDatabaseOrm(databaseType!);
+            auth = await promptAuthLibraries();
             cache = await promptCache();
             webServer = await promptWebServer();
             webServerMode = await promptProxyMode();
@@ -68,6 +71,7 @@ export async function getUserInputs() {
         targetDir,
         rootDir,
         cache,
+        auth,
     };
 }
 

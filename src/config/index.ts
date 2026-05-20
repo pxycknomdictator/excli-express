@@ -57,6 +57,10 @@ export const no_sql_orms: INTERACTIVE_PROMPTS[] = [
     { label: "Mongoose", emoji: "🦦", value: "mongoose" },
 ];
 
+export const authLibraries: INTERACTIVE_PROMPTS[] = [
+    { label: "Better Auth", emoji: "🔒", value: "better-auth" },
+];
+
 export const WEB_SERVERS: INTERACTIVE_PROMPTS[] = [
     { label: "Nginx", emoji: "⚡", value: "nginx" },
     { label: "Caddy", emoji: "🪄", value: "caddy" },
