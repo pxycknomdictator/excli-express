@@ -38,10 +38,7 @@ export async function createProject(config: ProjectConfig) {
     try {
         if (!existsSync(targetDir)) await makeDirectory(targetDir);
 
-        await Promise.all([
-            createDirectoryStructure(config),
-            setupEnv(targetDir, mode),
-        ]);
+        await Promise.all([createDirectoryStructure(config), setupEnv(config)]);
 
         if (mode === "production") {
             await setupProductionProject(config);

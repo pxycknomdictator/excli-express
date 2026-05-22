@@ -104,6 +104,8 @@ export const envConfig = {
     NODE_ENV: "development",
     PORT: "3000",
     CLIENT_ORIGIN: "http://localhost:5173",
+    BETTER_AUTH_URL: "http://localhost:3000",
+    BETTER_AUTH_SECRET: "D6XJhKQQAYOc4StRfLV0qibGhN3WMEiP",
 };
 
 export const tsScripts: ScriptConfig = {

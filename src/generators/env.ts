@@ -1,9 +1,13 @@
 import { join } from "node:path";
 import { envConfig } from "../config";
 import { generateFile } from "../utils";
-import type { EnvFileReturnType, GenerateFileArgs, Mode } from "../types";
+import type {
+    EnvFileReturnType,
+    GenerateFileArgs,
+    ProjectConfig,
+} from "../types";
 
-function formatEnvWithComments(): EnvFileReturnType {
+function formatEnvWithComments(auth: ProjectConfig["auth"]): EnvFileReturnType {
     const envLines: string[] = [];
     const exampleEnvLines: string[] = [];
     const prodEnvLines: string[] = [];
@@ -25,6 +29,22 @@ function formatEnvWithComments(): EnvFileReturnType {
     prodEnvLines.push(`PORT=${envConfig.PORT}`);
     prodEnvLines.push(`CLIENT_ORIGIN=${envConfig.CLIENT_ORIGIN}\n`);
 
+    if (auth === "better-auth") {
+        envLines.push("# Better Auth");
+        envLines.push(`BETTER_AUTH_URL=${envConfig.BETTER_AUTH_URL}`);
+        envLines.push(`BETTER_AUTH_SECRET=${envConfig.BETTER_AUTH_SECRET}\n`);
+
+        exampleEnvLines.push("# Better Auth");
+        exampleEnvLines.push("BETTER_AUTH_URL=");
+        exampleEnvLines.push(`BETTER_AUTH_SECRET=\n`);
+
+        prodEnvLines.push("# Better Auth");
+        prodEnvLines.push(`BETTER_AUTH_URL=${envConfig.BETTER_AUTH_URL}`);
+        prodEnvLines.push(
+            `BETTER_AUTH_SECRET=${envConfig.BETTER_AUTH_SECRET}\n`,
+        );
+    }
+
     return {
         envContent: envLines.join("\n"),
         exEnvContent: exampleEnvLines.join("\n"),
@@ -32,9 +52,11 @@ function formatEnvWithComments(): EnvFileReturnType {
     };
 }
 
-export async function setupEnv(targetDir: string, mode: Mode) {
+export async function setupEnv(config: ProjectConfig) {
+    const { targetDir, auth, mode } = config;
+
     const { envContent, exEnvContent, prodEnvContent } =
-        formatEnvWithComments();
+        formatEnvWithComments(auth);
     try {
         const envLocation = join(targetDir, ".env");
         const exEnvLocation = join(targetDir, ".env.example");
