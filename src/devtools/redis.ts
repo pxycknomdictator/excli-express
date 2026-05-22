@@ -1,11 +1,13 @@
 import { join } from "node:path";
-import type { Language, RedisParams } from "../types";
+import type { RedisParams } from "../types";
 import { appendLanguageExtension, generateFile } from "../utils";
 
-function redisConnection(lang: Language) {
+function redisConnection() {
     return `import { Redis } from "ioredis";
 
-export const redis = new Redis(process.env.REDIS_URL${lang === "ts" ? "!" : ""});
+if (!process.env.REDIS_URL) throw new Error("REDIS_URL is not set")
+
+export const redis = new Redis(process.env.REDIS_URL);
 
 export async function redisPing() {
     try {
@@ -19,9 +21,9 @@ export async function redisPing() {
 }
 
 export async function setupRedis({ language, targetDir }: RedisParams) {
-    const redisFile = join(targetDir, "src", "config", "redis");
+    const redisFile = join(targetDir, "src", "lib", "redis");
     const [redisFileLocation] = appendLanguageExtension(language, redisFile);
-    const redisConnectionContent = redisConnection(language);
+    const redisConnectionContent = redisConnection();
 
     await generateFile({
         fileLocation: redisFileLocation as string,
