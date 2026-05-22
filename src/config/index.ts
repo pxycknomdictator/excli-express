@@ -77,6 +77,7 @@ export const DIRECTORIES: string[] = [
     "middlewares",
     "services",
     "types",
+    "lib",
 ];
 
 export const BASE_PACKAGES = ["express"];
