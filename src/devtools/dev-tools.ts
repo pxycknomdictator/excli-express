@@ -1,6 +1,7 @@
 import { setupGit } from "./git";
 import { setupOrm } from "./orms";
 import { hasGit } from "../utils";
+import { setupAuth } from "../auth";
 import { setupHusky } from "./husky";
 import { setupProxy } from "./proxy";
 import { setupRedis } from "./redis";
@@ -11,15 +12,16 @@ import { installPackages } from "../core";
 import type { ProjectConfig } from "../types";
 
 export async function setupDevTools(config: ProjectConfig) {
-    const { devTools, targetDir, cache } = config;
+    const { devTools, targetDir, cache, auth } = config;
     try {
         if (devTools.includes("prettier")) await setupPrettier(targetDir);
         if (devTools.includes("vitest")) await setupVitest(config);
         if (devTools.includes("git") && hasGit()) await setupGit(targetDir);
         if (devTools.includes("docker")) {
             await Promise.all([setupDocker(config), setupOrm(config)]);
-            await setupProxy(config);
+            if (typeof auth !== "undefined") await setupAuth(config);
             if (cache === "redis") await setupRedis(config);
+            await setupProxy(config);
         }
 
         await installPackages(config);

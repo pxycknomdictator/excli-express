@@ -9,9 +9,12 @@ import {
 import type { ProjectConfig } from "../types";
 
 export function collectPackages(
-    config: Pick<ProjectConfig, "devTools" | "language" | "mode" | "cache">,
+    config: Pick<
+        ProjectConfig,
+        "devTools" | "language" | "mode" | "cache" | "auth"
+    >,
 ) {
-    const { devTools, language, mode, cache } = config;
+    const { devTools, language, mode, cache, auth } = config;
 
     const packages: string[] = [...BASE_PACKAGES];
     const devPackages: string[] = [];
@@ -33,6 +36,7 @@ export function collectPackages(
     }
 
     if (cache === "redis") packages.push("ioredis");
+    if (auth === "better-auth") packages.push("better-auth");
     if (devTools.includes("prettier")) devPackages.push("prettier");
     if (devTools.includes("husky")) devPackages.push("husky");
 
