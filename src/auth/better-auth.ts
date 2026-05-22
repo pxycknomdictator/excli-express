@@ -2,7 +2,7 @@ import { join } from "node:path";
 import type { ProjectConfig, SQL_DATABASE } from "../types";
 import { appendLanguageExtension, generateFile } from "../utils";
 
-const betterAuthSQLProvider = {
+const betterAuthDrizzleProvider = {
     mysql: "mysql",
     mariadb: "mysql",
     postgres: "pg",
@@ -11,7 +11,7 @@ const betterAuthSQLProvider = {
 
 function drizzleBetterAuthSQL(config: ProjectConfig) {
     const sqlDatabase = config.database as SQL_DATABASE;
-    const provider = betterAuthSQLProvider[sqlDatabase];
+    const provider = betterAuthDrizzleProvider[sqlDatabase];
 
     return `import { db } from "../db/index.js";
 import { betterAuth } from "better-auth";
