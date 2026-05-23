@@ -1,7 +1,7 @@
 import { cwd } from "node:process";
 import { basename, join } from "node:path";
 import { copy } from "../utils";
-import { tsconfigJson } from "../config";
+import { betterAuthAdapterSupport, tsconfigJson } from "../config";
 import {
     promptAuthLibraries,
     promptCache,
@@ -48,7 +48,9 @@ export async function getUserInputs() {
             databaseType = await promptDatabaseType();
             database = await promptDatabase(databaseType!);
             databaseOrm = await promptDatabaseOrm(databaseType!);
-            auth = await promptAuthLibraries();
+            if (betterAuthAdapterSupport.includes(databaseOrm!)) {
+                auth = await promptAuthLibraries();
+            }
             cache = await promptCache();
             webServer = await promptWebServer();
             webServerMode = await promptProxyMode();
