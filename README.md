@@ -26,6 +26,7 @@
 | Testing setup       | ❌                  | ✅ Vitest + Supertest                            |
 | Git hooks (Husky)   | ❌                  | ✅ Pre-commit & pre-push                         |
 | Admin DB panels     | ❌                  | ✅ phpMyAdmin, pgAdmin, Mongo Express            |
+| Authentication      | ❌                  | ✅ Better Auth (drizzle and prisma only)         |
 | Reverse proxy setup | ❌                  | ✅ Nginx & Caddy & Traefik                       |
 | Load balancing      | ❌                  | ✅ Built-in config                               |
 | Modern Node.js APIs | ❌                  | ✅ No deprecated methods                         |
@@ -67,9 +68,11 @@ The CLI walks you through a short, guided setup:
 5. **Database Type** — SQL or NoSQL
 6. **Database** — MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB
 7. **ORM / ODM** — Choose from Prisma, Drizzle, TypeORM, Sequelize, or Mongoose
-8. **Proxy** _(new)_ — Choose Nginx, Caddy or Traefik
-9. **Proxy Mode** _(new)_ — Reverse proxy and load balancing
-10. **Cache** — Enable Redis for in-memory caching
+8. **Authentication** _(new)_ — Optionally set up Better Auth (available with Prisma & Drizzle)
+9. **Cache** — Enable Redis for in-memory caching
+10. **Proxy** — Choose Nginx, Caddy or Traefik
+11. **Proxy Mode** — Reverse proxy and load balancing
+12. **Package Manager** — npm, yarn, pnpm, bun
 
 ---
 
@@ -118,6 +121,17 @@ All databases come with a pre-configured admin panel at **http://localhost:6969*
 | Sequelize | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
 | Mongoose  | MongoDB only                       | ✅                      |
 
+#### Authentication Support _(New)_
+
+`@excli/express` now includes built-in support for **[Better Auth](https://www.better-auth.com/)** — a modern, framework-agnostic authentication library.
+
+> **Note:** Currently, Better Auth integration is supported with **Prisma** and **Drizzle** adapters only
+
+| Adapter | Status       |
+| ------- | ------------ |
+| Prisma  | ✅ Supported |
+| Drizzle | ✅ Supported |
+
 #### Docker Setup
 
 Production mode includes a complete Docker configuration:
@@ -126,7 +140,7 @@ Production mode includes a complete Docker configuration:
 - **compose.yaml** — Multi-service orchestration with correct volume paths
 - **.env files** — Separate environment configs for development and production
 
-#### Reverse Proxy Setup _(New)_
+#### Reverse Proxy Setup
 
 Choose between two options:
 
@@ -160,7 +174,7 @@ pnpm run docker:down  # Stop all Docker services
 
 **Husky hooks not triggering?** Ensure Git is initialized, then run `pnpm run prepare` to register the hooks.
 
-**Proxy not routing traffic?** Make sure your `docker-compose.yml` includes the proxy service and that no other process is bound to port `80`.
+**Proxy not routing traffic?** Make sure your `compose.yaml` includes the proxy service and that no other process is bound to port `80`.
 
 ---
 
