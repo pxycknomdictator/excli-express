@@ -125,7 +125,7 @@ All databases come with a pre-configured admin panel at **http://localhost:6969*
 
 `@excli/express` now includes built-in support for **[Better Auth](https://www.better-auth.com/)** — a modern, framework-agnostic authentication library.
 
-> **Note:** Currently, Better Auth integration is supported with **Prisma** and **Drizzle** adapters only
+> **Note:** Currently, Better Auth integration is supported with **Prisma** and **Drizzle** adapters only (prisma with mongodb may also contain some clashes because of old prisma mongodb support but still its works)
 
 | Adapter | Status       |
 | ------- | ------------ |
