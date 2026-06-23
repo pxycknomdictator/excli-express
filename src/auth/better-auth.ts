@@ -29,6 +29,7 @@ export const auth = betterAuth({
     appName: "${config.directory}",
     baseURL: process.env.BETTER_AUTH_URL,
     secret: process.env.BETTER_AUTH_SECRET,
+    trustedOrigins: [process.env.CLIENT_ORIGIN as string],
     emailAndPassword: { enabled: true },
     database: drizzleAdapter(db, { provider: "${provider}", usePlural: true }),
 });
