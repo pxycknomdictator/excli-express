@@ -136,4 +136,4 @@ export const dockerScripts: ScriptConfig = {
 
 export const BANNER_FONT = "Standard";
 export const HUSKY_COMMIT_FILE_NAME = "pre-commit";
-export const betterAuthAdapterSupport = ["drizzle", "prisma"];
+export const betterAuthAdapterSupport = ["drizzle", "prisma", "native_driver"];
