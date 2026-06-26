@@ -45,9 +45,10 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 
 export const auth = betterAuth({
-    appName: "${config.directory}",
+    appName: "${config.directory ?? "better-express"}",
     baseURL: process.env.BETTER_AUTH_URL,
     secret: process.env.BETTER_AUTH_SECRET,
+    trustedOrigins: [process.env.CLIENT_ORIGIN ${config.language === "ts" ? "as string" : ""}],
     emailAndPassword: { enabled: true },
     database: prismaAdapter(prisma, { provider: "${provider}", usePlural: true }),
 });
