@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { DIRECTORIES } from "../config";
 import type { ProjectConfig } from "../types";
-import { copy, makeDirectory } from "../utils";
+import { makeDirectory } from "../utils";
 
 export async function setupProjectDirectories(
     config: Pick<ProjectConfig, "language" | "sourceDir">,
@@ -18,5 +18,5 @@ export async function createDirectoryStructure(
     config: Pick<ProjectConfig, "publicDir" | "templatePath" | "targetDir">,
 ): Promise<void> {
     const { publicDir } = config;
-    await Promise.all([makeDirectory(publicDir), copy(config)]);
+    await Promise.all([makeDirectory(publicDir)]);
 }

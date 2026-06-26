@@ -1,4 +1,5 @@
 import { cwd } from "node:process";
+import { cp, copyFile } from "node:fs/promises";
 import { basename, join } from "node:path";
 import { copy } from "../utils";
 import { betterAuthAdapterSupport, tsconfigJson } from "../config";
@@ -21,7 +22,7 @@ import {
     validatePackageManager,
     validateTemplate,
 } from "./validator";
-import type { ProjectConfig } from "../types";
+import type { Language, ProjectConfig } from "../types";
 
 export async function getUserInputs() {
     const directory = await promptDirectory();
@@ -81,7 +82,7 @@ export async function prepareProjectConfig(
     userInputs: Awaited<ReturnType<typeof getUserInputs>>,
     underScoreDirname: string,
 ) {
-    const { language, pkgManager, targetDir, mode } = userInputs;
+    const { language, pkgManager, targetDir, mode, databaseOrm } = userInputs;
 
     const dirName = basename(targetDir) || "container_app";
 
@@ -91,6 +92,8 @@ export async function prepareProjectConfig(
     const templatePath = join(templateBase, mode, language);
 
     validateTemplate(templatePath);
+
+    await copyDynamicFile(templatePath, targetDir, language, databaseOrm);
 
     if (language === "ts") {
         const tsConfigJsonPath = join(templateBase, tsconfigJson);
@@ -113,4 +116,37 @@ export async function prepareProjectConfig(
     };
 
     return config;
+}
+
+async function copyDynamicFile(
+    templatePath: string,
+    targetDir: string,
+    language: Language,
+    databaseOrm: ProjectConfig["databaseOrm"],
+) {
+    const templateSrcPath = join(templatePath, "src");
+    const targetSrcPath = join(targetDir, "src");
+
+    await cp(templatePath, targetDir, {
+        recursive: true,
+        filter: (src) => {
+            const normalizedSrc = src.replace(/\\/g, "/");
+            return (
+                !normalizedSrc.endsWith(`src/app.normal.${language}`) &&
+                !normalizedSrc.endsWith(`src/app.better.auth.${language}`)
+            );
+        },
+    });
+
+    if (betterAuthAdapterSupport.includes(databaseOrm!)) {
+        await copyFile(
+            join(templateSrcPath, `app.better.auth.${language}`),
+            join(targetSrcPath, `app.${language}`),
+        );
+    } else {
+        await copyFile(
+            join(templateSrcPath, `app.normal.${language}`),
+            join(targetSrcPath, `app.${language}`),
+        );
+    }
 }
