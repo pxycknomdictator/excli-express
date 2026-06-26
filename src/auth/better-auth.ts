@@ -55,6 +55,25 @@ export const auth = betterAuth({
 `;
 }
 
+function mongodbBetterAuth(config: ProjectConfig) {
+    return `import { betterAuth } from "better-auth";
+import { database, client } from "../db/index.js";
+import { mongodbAdapter } from "better-auth/adapters/mongodb";
+
+const db = await database();
+const clientConnection = await client();
+
+export const auth = betterAuth({
+    appName: "${config.directory ?? "better-express"}",
+    baseURL: process.env.BETTER_AUTH_URL,
+    secret: process.env.BETTER_AUTH_SECRET,
+    trustedOrigins: [process.env.CLIENT_ORIGIN ${config.language === "ts" ? "as string" : ""}],
+    emailAndPassword: { enabled: true },
+    database: mongodbAdapter(db, { client: clientConnection, usePlural: true }),
+});
+`;
+}
+
 export async function setupBetterAuth(config: ProjectConfig) {
     const authName = join(config.targetDir, "src", "lib", "auth");
     const [authFile] = appendLanguageExtension(config.language, authName);
@@ -66,6 +85,11 @@ export async function setupBetterAuth(config: ProjectConfig) {
 
     if (config.databaseOrm === "prisma") {
         const auth = prismaBetterAuth(config);
+        await generateFile({ fileLocation: authFile!, fileContent: auth });
+    }
+
+    if (config.databaseOrm === "native_driver") {
+        const auth = mongodbBetterAuth(config);
         await generateFile({ fileLocation: authFile!, fileContent: auth });
     }
 }
