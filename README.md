@@ -113,13 +113,14 @@ All databases come with a pre-configured admin panel at **http://localhost:6969*
 
 #### ORM / ODM Support
 
-| ORM       | Supported Databases                | TypeScript & JavaScript |
-| --------- | ---------------------------------- | ----------------------- |
-| Prisma    | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
-| Drizzle   | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
-| TypeORM   | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
-| Sequelize | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
-| Mongoose  | MongoDB only                       | ✅                      |
+| ORM            | Supported Databases                | TypeScript & JavaScript |
+| -------------- | ---------------------------------- | ----------------------- |
+| Prisma         | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
+| Drizzle        | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
+| TypeORM        | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
+| Sequelize      | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
+| Mongoose       | MongoDB only                       | ✅                      |
+| Native Drivers | MongoDB only                       | ✅                      |
 
 #### Authentication Support _(New)_
 
@@ -127,10 +128,11 @@ All databases come with a pre-configured admin panel at **http://localhost:6969*
 
 > **Note:** Currently, Better Auth integration is supported with **Prisma** and **Drizzle** adapters only (prisma with mongodb may also contain some clashes because of old prisma mongodb support but still its works)
 
-| Adapter | Status       |
-| ------- | ------------ |
-| Prisma  | ✅ Supported |
-| Drizzle | ✅ Supported |
+| Adapter                | Status       |
+| ---------------------- | ------------ |
+| Prisma                 | ✅ Supported |
+| Drizzle                | ✅ Supported |
+| Native Mongodb Drivers | ✅ Supported |
 
 #### Docker Setup
 
