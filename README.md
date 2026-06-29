@@ -15,22 +15,22 @@
 
 ### Why Not Use `express-generator`?
 
-| Feature             | `express-generator` | `@excli/express`                                 |
-| ------------------- | ------------------- | ------------------------------------------------ |
-| TypeScript support  | ❌                  | ✅ Native TS & JS                                |
-| Docker integration  | ❌                  | ✅ One command                                   |
-| Database setup      | ❌                  | ✅ MySQL, PostgreSQL, MongoDB, SQLite, MariaDB   |
-| ORM support         | ❌                  | ✅ Prisma, Drizzle, TypeORM, Sequelize, Mongoose |
-| Redis / caching     | ❌                  | ✅ Built-in Redis support                        |
-| Hot reload (dev)    | ❌                  | ✅ Included                                      |
-| Testing setup       | ❌                  | ✅ Vitest + Supertest                            |
-| Git hooks (Husky)   | ❌                  | ✅ Pre-commit & pre-push                         |
-| Admin DB panels     | ❌                  | ✅ phpMyAdmin, pgAdmin, Mongo Express            |
-| Authentication      | ❌                  | ✅ Better Auth (drizzle and prisma only)         |
-| Reverse proxy setup | ❌                  | ✅ Nginx & Caddy & Traefik                       |
-| Load balancing      | ❌                  | ✅ Built-in config                               |
-| Modern Node.js APIs | ❌                  | ✅ No deprecated methods                         |
-| Actively maintained | ❌                  | ✅                                               |
+| Feature             | `express-generator` | `@excli/express`                                                 |
+| ------------------- | ------------------- | ---------------------------------------------------------------- |
+| TypeScript support  | ❌                  | ✅ Native TS & JS                                                |
+| Docker integration  | ❌                  | ✅ One command                                                   |
+| Database setup      | ❌                  | ✅ MySQL, PostgreSQL, MongoDB, SQLite, MariaDB                   |
+| ORM support         | ❌                  | ✅ Prisma, Drizzle, TypeORM, Sequelize, Mongoose                 |
+| Redis / caching     | ❌                  | ✅ Built-in Redis support                                        |
+| Hot reload (dev)    | ❌                  | ✅ Included                                                      |
+| Testing setup       | ❌                  | ✅ Vitest + Supertest                                            |
+| Git hooks (Husky)   | ❌                  | ✅ Pre-commit & pre-push                                         |
+| Admin DB panels     | ❌                  | ✅ phpMyAdmin, pgAdmin, Mongo Express                            |
+| Authentication      | ❌                  | ✅ Better Auth (drizzle, prisma and mongodb native drivers only) |
+| Reverse proxy setup | ❌                  | ✅ Nginx & Caddy & Traefik                                       |
+| Load balancing      | ❌                  | ✅ Built-in config                                               |
+| Modern Node.js APIs | ❌                  | ✅ No deprecated methods                                         |
+| Actively maintained | ❌                  | ✅                                                               |
 
 ---
 
@@ -67,8 +67,8 @@ The CLI walks you through a short, guided setup:
 4. **Dev Tools** — Select from Git, Prettier, Husky, Vitest, Docker
 5. **Database Type** — SQL or NoSQL
 6. **Database** — MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB
-7. **ORM / ODM** — Choose from Prisma, Drizzle, TypeORM, Sequelize, or Mongoose
-8. **Authentication** _(new)_ — Optionally set up Better Auth (available with Prisma & Drizzle)
+7. **ORM / ODM** — Choose from Prisma, Drizzle, TypeORM, Sequelize, Mongoose or Native Mongodb drivers
+8. **Authentication** _(new)_ — Optionally set up Better Auth (available with Prisma, Drizzle and Native mongodb drivers)
 9. **Cache** — Enable Redis for in-memory caching
 10. **Proxy** — Choose Nginx, Caddy or Traefik
 11. **Proxy Mode** — Reverse proxy and load balancing
