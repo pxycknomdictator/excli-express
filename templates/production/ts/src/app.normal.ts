@@ -22,7 +22,7 @@ app.use(express.static(staticAssets));
 app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ limit: "20mb", extended: true }));
 
-import { healthRouter } from "./routes/health.js";
+import { healthRouter } from "./routes/health.route.js";
 
 app.use("/", healthRouter);
 
