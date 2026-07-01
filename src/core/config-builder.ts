@@ -95,6 +95,8 @@ export async function prepareProjectConfig(
 
     if (mode === "production") {
         await copyDynamicFile(templatePath, targetDir, language, databaseOrm);
+    } else {
+        await copy({ targetDir, templatePath });
     }
 
     if (language === "ts") {
