@@ -93,7 +93,9 @@ export async function prepareProjectConfig(
 
     validateTemplate(templatePath);
 
-    await copyDynamicFile(templatePath, targetDir, language, databaseOrm);
+    if (mode === "production") {
+        await copyDynamicFile(templatePath, targetDir, language, databaseOrm);
+    }
 
     if (language === "ts") {
         const tsConfigJsonPath = join(templateBase, tsconfigJson);
