@@ -15,22 +15,22 @@
 
 ### Why Not Use `express-generator`?
 
-| Feature             | `express-generator` | `@excli/express`                                                 |
-| ------------------- | ------------------- | ---------------------------------------------------------------- |
-| TypeScript support  | ❌                  | ✅ Native TS & JS                                                |
-| Docker integration  | ❌                  | ✅ One command                                                   |
-| Database setup      | ❌                  | ✅ MySQL, PostgreSQL, MongoDB, SQLite, MariaDB                   |
-| ORM support         | ❌                  | ✅ Prisma, Drizzle, TypeORM, Sequelize, Mongoose                 |
-| Redis / caching     | ❌                  | ✅ Built-in Redis support                                        |
-| Hot reload (dev)    | ❌                  | ✅ Included                                                      |
-| Testing setup       | ❌                  | ✅ Vitest + Supertest                                            |
-| Git hooks (Husky)   | ❌                  | ✅ Pre-commit & pre-push                                         |
-| Admin DB panels     | ❌                  | ✅ phpMyAdmin, pgAdmin, Mongo Express                            |
-| Authentication      | ❌                  | ✅ Better Auth (drizzle, prisma and mongodb native drivers only) |
-| Reverse proxy setup | ❌                  | ✅ Nginx & Caddy & Traefik                                       |
-| Load balancing      | ❌                  | ✅ Built-in config                                               |
-| Modern Node.js APIs | ❌                  | ✅ No deprecated methods                                         |
-| Actively maintained | ❌                  | ✅                                                               |
+| Feature             | `express-generator` | `@excli/express`                                                  |
+| ------------------- | ------------------- | ----------------------------------------------------------------- |
+| TypeScript support  | ❌                  | ✅ Native TS & JS                                                 |
+| Docker integration  | ❌                  | ✅ One command                                                    |
+| Database setup      | ❌                  | ✅ MySQL, PostgreSQL, MongoDB, SQLite, MariaDB                    |
+| ORM support         | ❌                  | ✅ Prisma, Drizzle, TypeORM, Sequelize, Mongoose, Mongodb drivers |
+| Redis / caching     | ❌                  | ✅ Built-in Redis support                                         |
+| Hot reload (dev)    | ❌                  | ✅ Included                                                       |
+| Testing setup       | ❌                  | ✅ Vitest + Supertest                                             |
+| Git hooks (Husky)   | ❌                  | ✅ Pre-commit & pre-push                                          |
+| Admin DB panels     | ❌                  | ✅ phpMyAdmin, pgAdmin, Mongo Express                             |
+| Authentication      | ❌                  | ✅ Better Auth (drizzle, prisma and mongodb native drivers only)  |
+| Reverse proxy setup | ❌                  | ✅ Nginx & Caddy & Traefik                                        |
+| Load balancing      | ❌                  | ✅ Built-in config                                                |
+| Modern Node.js APIs | ❌                  | ✅ No deprecated methods                                          |
+| Actively maintained | ❌                  | ✅                                                                |
 
 ---
 
