@@ -60,6 +60,7 @@ export const no_sql_orms: INTERACTIVE_PROMPTS[] = [
 
 export const authLibraries: INTERACTIVE_PROMPTS[] = [
     { label: "Better Auth", emoji: "🔒", value: "better-auth" },
+    { label: "Clerk", emoji: "🔑", value: "clerk" },
 ];
 
 export const WEB_SERVERS: INTERACTIVE_PROMPTS[] = [
@@ -106,6 +107,8 @@ export const envConfig = {
     CLIENT_ORIGIN: "http://localhost:5173",
     BETTER_AUTH_URL: "http://localhost:3000",
     BETTER_AUTH_SECRET: "D6XJhKQQAYOc4StRfLV0qibGhN3WMEiP",
+    CLERK_PUBLISHABLE_KEY: "<clerk-publishable-key>",
+    CLERK_SECRET_KEY: "<clerk-secret-key>",
 };
 
 export const tsScripts: ScriptConfig = {

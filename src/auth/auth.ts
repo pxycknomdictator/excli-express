@@ -1,8 +1,10 @@
 import type { Auth, ProjectConfig } from "../types";
+import { setupClerk } from "./clerk";
 import { setupBetterAuth } from "./better-auth";
 
 const authList = {
     "better-auth": setupBetterAuth,
+    clerk: setupClerk,
 };
 
 export async function setupAuth(config: ProjectConfig) {

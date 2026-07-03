@@ -5,6 +5,7 @@ import type {
     Language,
     ProjectConfig,
 } from "../types";
+import { betterAuthAdapterSupport } from "../config";
 
 export async function makeDirectory(directoryPath: string) {
     try {
@@ -35,9 +36,11 @@ export async function generateFile(fileArgs: GenerateFileArgs) {
 }
 
 export function generateOptions(options: INTERACTIVE_PROMPTS[]) {
-    return options.map(({ label, emoji, value }: INTERACTIVE_PROMPTS) => ({
+    return options.map(({ label, emoji, value, disabled, hint }) => ({
         label: `${label} ${emoji}`,
-        value: value,
+        value,
+        disabled,
+        hint,
     }));
 }
 
@@ -45,4 +48,24 @@ export function appendLanguageExtension(lang: Language, ...paths: string[]) {
     const extension = lang === "ts" ? ".ts" : ".js";
     const files = paths.map((file) => file.concat(extension));
     return files;
+}
+
+export function getAuthLibraryOptions(
+    databaseOrm?: string,
+): INTERACTIVE_PROMPTS[] {
+    return [
+        {
+            label: "Better Auth",
+            emoji: "🔒",
+            value: "better-auth",
+            disabled: !betterAuthAdapterSupport.includes(databaseOrm ?? ""),
+            hint: "Better auth Works only with supported ORMs (Drizzle, Prisma, mongodb native driver)",
+        },
+        {
+            label: "Clerk",
+            emoji: "🔑",
+            value: "clerk",
+            disabled: false,
+        },
+    ];
 }

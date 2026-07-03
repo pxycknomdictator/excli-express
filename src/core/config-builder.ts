@@ -2,7 +2,7 @@ import { cwd } from "node:process";
 import { cp, copyFile } from "node:fs/promises";
 import { basename, join } from "node:path";
 import { copy } from "../utils";
-import { betterAuthAdapterSupport, tsconfigJson } from "../config";
+import { tsconfigJson } from "../config";
 import {
     promptAuthLibraries,
     promptCache,
@@ -22,7 +22,7 @@ import {
     validatePackageManager,
     validateTemplate,
 } from "./validator";
-import type { Language, ProjectConfig } from "../types";
+import type { Auth, Language, ProjectConfig } from "../types";
 
 export async function getUserInputs() {
     const directory = await promptDirectory();
@@ -49,9 +49,7 @@ export async function getUserInputs() {
             databaseType = await promptDatabaseType();
             database = await promptDatabase(databaseType!);
             databaseOrm = await promptDatabaseOrm(databaseType!);
-            if (betterAuthAdapterSupport.includes(databaseOrm!)) {
-                auth = await promptAuthLibraries();
-            }
+            auth = await promptAuthLibraries(databaseOrm!);
             cache = await promptCache();
             webServer = await promptWebServer();
             webServerMode = await promptProxyMode();
@@ -82,7 +80,7 @@ export async function prepareProjectConfig(
     userInputs: Awaited<ReturnType<typeof getUserInputs>>,
     underScoreDirname: string,
 ) {
-    const { language, pkgManager, targetDir, mode, databaseOrm } = userInputs;
+    const { language, pkgManager, targetDir, mode, auth } = userInputs;
 
     const dirName = basename(targetDir) || "container_app";
 
@@ -94,7 +92,7 @@ export async function prepareProjectConfig(
     validateTemplate(templatePath);
 
     if (mode === "production") {
-        await copyDynamicFile(templatePath, targetDir, language, databaseOrm);
+        await copyDynamicFile(templatePath, targetDir, language, auth!);
     } else {
         await copy({ targetDir, templatePath });
     }
@@ -126,7 +124,7 @@ async function copyDynamicFile(
     templatePath: string,
     targetDir: string,
     language: Language,
-    databaseOrm: ProjectConfig["databaseOrm"],
+    auth: Auth,
 ) {
     const templateSrcPath = join(templatePath, "src");
     const targetSrcPath = join(targetDir, "src");
@@ -137,12 +135,18 @@ async function copyDynamicFile(
             const normalizedSrc = src.replace(/\\/g, "/");
             return (
                 !normalizedSrc.endsWith(`src/app.normal.${language}`) &&
-                !normalizedSrc.endsWith(`src/app.better.auth.${language}`)
+                !normalizedSrc.endsWith(`src/app.better.auth.${language}`) &&
+                !normalizedSrc.endsWith(`src/app.clerk.${language}`)
             );
         },
     });
 
-    if (betterAuthAdapterSupport.includes(databaseOrm!)) {
+    if (auth === "clerk") {
+        await copyFile(
+            join(templateSrcPath, `app.clerk.${language}`),
+            join(targetSrcPath, `app.${language}`),
+        );
+    } else if (auth === "better-auth") {
         await copyFile(
             join(templateSrcPath, `app.better.auth.${language}`),
             join(targetSrcPath, `app.${language}`),

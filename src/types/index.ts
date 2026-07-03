@@ -1,7 +1,7 @@
 export type Cache = "redis";
 export type Language = "ts" | "js";
 export type Mode = "development" | "production";
-export type Auth = "better-auth";
+export type Auth = "better-auth" | "clerk";
 export type DevTools = "prettier" | "docker" | "git" | "husky" | "vitest";
 export type PackageManager = "none" | "npm" | "yarn" | "pnpm" | "bun";
 export type Database = "mysql" | "mariadb" | "sqlite" | "postgres" | "mongodb";
@@ -19,6 +19,8 @@ export type INTERACTIVE_PROMPTS = {
     label: string;
     emoji: string;
     value: string;
+    hint?: string;
+    disabled?: boolean;
 };
 
 export type ProjectConfig = {

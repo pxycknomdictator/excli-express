@@ -45,6 +45,24 @@ function formatEnvWithComments(auth: ProjectConfig["auth"]): EnvFileReturnType {
         );
     }
 
+    if (auth === "clerk") {
+        envLines.push("# Clerk");
+        envLines.push(
+            `CLERK_PUBLISHABLE_KEY=${envConfig.CLERK_PUBLISHABLE_KEY}`,
+        );
+        envLines.push(`CLERK_SECRET_KEY=${envConfig.CLERK_SECRET_KEY}\n`);
+
+        exampleEnvLines.push("# Clerk");
+        exampleEnvLines.push("CLERK_PUBLISHABLE_KEY=");
+        exampleEnvLines.push(`CLERK_SECRET_KEY=\n`);
+
+        prodEnvLines.push("# Clerk");
+        prodEnvLines.push(
+            `CLERK_PUBLISHABLE_KEY=${envConfig.CLERK_PUBLISHABLE_KEY}`,
+        );
+        prodEnvLines.push(`CLERK_SECRET_KEY=${envConfig.CLERK_SECRET_KEY}\n`);
+    }
+
     return {
         envContent: envLines.join("\n"),
         exEnvContent: exampleEnvLines.join("\n"),

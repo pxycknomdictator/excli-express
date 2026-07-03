@@ -1,8 +1,14 @@
-import { text, select, multiselect, isCancel, confirm } from "@clack/prompts";
-import { generateOptions, terminate } from "../utils";
+import {
+    text,
+    select,
+    multiselect,
+    isCancel,
+    confirm,
+    note,
+} from "@clack/prompts";
+import { generateOptions, getAuthLibraryOptions, terminate } from "../utils";
 import type { Cache, DATABASE_TYPE, ProjectConfig } from "../types";
 import {
-    authLibraries,
     database_types,
     languages,
     modes,
@@ -103,15 +109,31 @@ export async function promptDatabaseOrm(
     return orm as ProjectConfig["databaseOrm"];
 }
 
-export async function promptAuthLibraries(): Promise<ProjectConfig["auth"]> {
-    const authLib = await select({
-        message: "Select your Authentication library:",
-        options: generateOptions(authLibraries),
-    });
+export async function promptAuthLibraries(
+    databaseOrm: string,
+): Promise<ProjectConfig["auth"]> {
+    const options = generateOptions(getAuthLibraryOptions(databaseOrm));
 
-    if (isCancel(authLib)) terminate("Process cancelled ❌");
+    while (true) {
+        const authLib = await select({
+            message: "Select your Authentication library:",
+            options,
+        });
 
-    return authLib as ProjectConfig["auth"];
+        if (isCancel(authLib)) terminate("Process cancelled ❌");
+
+        const selected = options.find((o) => o.value === authLib);
+
+        if (selected?.disabled) {
+            note(
+                "Better auth Works only with supported ORMs (Drizzle, Prisma, mongodb native driver)",
+                "Invalid selection",
+            );
+            continue;
+        }
+
+        return authLib as ProjectConfig["auth"];
+    }
 }
 
 export async function promptWebServer(): Promise<ProjectConfig["webServer"]> {
