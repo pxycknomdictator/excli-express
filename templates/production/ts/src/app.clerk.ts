@@ -1,0 +1,33 @@
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+import cors from "cors";
+import helmet from "helmet";
+import express from "express";
+import type { Express } from "express";
+import { rateLimit } from "express-rate-limit";
+
+import { clerkMiddleware } from "@clerk/express";
+import { corsOptions, globalLimiter } from "./constant.js";
+import { globalErrorWrapper } from "./utils/global.js";
+
+const app: Express = express();
+const limiter = rateLimit(globalLimiter);
+const fileRoute = dirname(fileURLToPath(import.meta.url));
+const staticAssets = join(fileRoute, "..", "public");
+
+app.use(cors(corsOptions));
+app.use(limiter);
+app.use(helmet());
+app.use(express.static(staticAssets));
+app.use(express.json({ limit: "20mb" }));
+app.use(express.urlencoded({ limit: "20mb", extended: true }));
+app.use(clerkMiddleware());
+
+import { healthRouter } from "./routes/health.route.js";
+
+app.use("/", healthRouter);
+
+app.use(globalErrorWrapper);
+
+export { app };
