@@ -12,6 +12,7 @@ import {
     promptDevTools,
     promptDirectory,
     promptLanguage,
+    promptLogger,
     promptMode,
     promptPackageManager,
     promptProxyMode,
@@ -42,9 +43,11 @@ export async function getUserInputs() {
     let webServer: ProjectConfig["webServer"];
     let webServerMode: ProjectConfig["webServerMode"];
     let cache: ProjectConfig["cache"];
+    let logger: ProjectConfig["logger"];
 
     if (mode === "production") {
         devTools = await promptDevTools();
+        logger = await promptLogger();
         if (devTools.includes("docker")) {
             databaseType = await promptDatabaseType();
             database = await promptDatabase(databaseType!);
@@ -72,6 +75,7 @@ export async function getUserInputs() {
         targetDir,
         rootDir,
         cache,
+        logger,
         auth,
     };
 }

@@ -33,6 +33,7 @@ export type ProjectConfig = {
     sourceDir: string;
     publicDir: string;
     databaseType?: DATABASE_TYPE;
+    logger?: Logger;
     database?: Database;
     databaseOrm?: SQL_ORMS | NO_SQL_ORMS;
     auth?: Auth;

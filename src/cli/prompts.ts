@@ -11,6 +11,7 @@ import type { Cache, DATABASE_TYPE, ProjectConfig } from "../types";
 import {
     database_types,
     languages,
+    loggers,
     modes,
     no_sql_database,
     no_sql_orms,
@@ -64,6 +65,17 @@ export async function promptDevTools(): Promise<ProjectConfig["devTools"]> {
     if (isCancel(devTools)) terminate("Process cancelled ❌");
 
     return devTools as ProjectConfig["devTools"];
+}
+
+export async function promptLogger(): Promise<ProjectConfig["logger"]> {
+    const logger = await select({
+        message: "Select your logging solution:",
+        options: generateOptions(loggers),
+    });
+
+    if (isCancel(logger)) terminate("Process cancelled ❌");
+
+    return logger as ProjectConfig["logger"];
 }
 
 export async function promptDatabaseType(): Promise<
