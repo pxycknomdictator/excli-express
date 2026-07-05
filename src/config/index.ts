@@ -41,6 +41,12 @@ export const tools: INTERACTIVE_PROMPTS[] = [
         hint: "Ends formatting wars",
     },
     {
+        label: "Logger",
+        emoji: "🪵",
+        value: "logger",
+        hint: "Structured app logging",
+    },
+    {
         label: "Vitest",
         emoji: "🧪",
         value: "vitest",
@@ -56,7 +62,6 @@ export const tools: INTERACTIVE_PROMPTS[] = [
 ];
 
 export const loggers: INTERACTIVE_PROMPTS[] = [
-    { label: "None", emoji: "🚫", value: "none", hint: "No logging setup" },
     {
         label: "Winston",
         emoji: "🪵",

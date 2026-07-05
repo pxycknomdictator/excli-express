@@ -47,7 +47,7 @@ export async function getUserInputs() {
 
     if (mode === "production") {
         devTools = await promptDevTools();
-        logger = await promptLogger();
+        if (devTools.includes("logger")) logger = await promptLogger();
         if (devTools.includes("docker")) {
             databaseType = await promptDatabaseType();
             database = await promptDatabase(databaseType!);
