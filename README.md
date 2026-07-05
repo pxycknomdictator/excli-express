@@ -1,42 +1,14 @@
-## @excli/express — Modern Express.js Project Generator
+## @excli/express
 
-[![npm version](https://badge.fury.io/js/%40excli%2Fexpress.svg)](https://badge.fury.io/js/%40excli%2Fexpress)
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
-[![Node.js 20+](https://img.shields.io/badge/Node.js-20+-green.svg)](https://nodejs.org/)
-[![TypeScript Ready](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+A CLI tool that scaffolds production-ready Express.js projects with TypeScript, Docker, database integration, ORM, testing, and Git hooks — all pre-configured.
 
----
+### 🚀 Why @excli/express
 
-### What is @excli/express?
+Most generators leave you to wire up TypeScript, Docker, databases, ORMs, and tooling by hand. `@excli/express` handles all of it upfront, so you can start building instead of configuring.
 
-`@excli/express` is a CLI tool that scaffolds production-ready Express.js projects in seconds — with TypeScript, Docker, database integration, ORM, testing, and Git hooks included. No boilerplate. No manual config. Just start building.
+### ⚡ Quick Start
 
----
-
-### Why Not Use `express-generator`?
-
-| Feature             | `express-generator` | `@excli/express`                                                  |
-| ------------------- | ------------------- | ----------------------------------------------------------------- |
-| TypeScript support  | ❌                  | ✅ Native TS & JS                                                 |
-| Docker integration  | ❌                  | ✅ One command                                                    |
-| Database setup      | ❌                  | ✅ MySQL, PostgreSQL, MongoDB, SQLite, MariaDB                    |
-| ORM support         | ❌                  | ✅ Prisma, Drizzle, TypeORM, Sequelize, Mongoose, Mongodb drivers |
-| Redis / caching     | ❌                  | ✅ Built-in Redis support                                         |
-| Hot reload (dev)    | ❌                  | ✅ Included                                                       |
-| Testing setup       | ❌                  | ✅ Vitest + Supertest                                             |
-| Git hooks (Husky)   | ❌                  | ✅ Pre-commit & pre-push                                          |
-| Admin DB panels     | ❌                  | ✅ phpMyAdmin, pgAdmin, Mongo Express                             |
-| Authentication      | ❌                  | ✅ Better Auth (drizzle, prisma and mongodb native drivers only)  |
-| Reverse proxy setup | ❌                  | ✅ Nginx & Caddy & Traefik                                        |
-| Load balancing      | ❌                  | ✅ Built-in config                                                |
-| Modern Node.js APIs | ❌                  | ✅ No deprecated methods                                          |
-| Actively maintained | ❌                  | ✅                                                                |
-
----
-
-### Quick Start
-
-No installation required. Just run:
+No installation required:
 
 ```bash
 npx @excli/express
@@ -51,112 +23,74 @@ excli
 
 #### Requirements
 
-- Node.js **20 or higher**
-- A package manager: `npm`, `yarn`, `pnpm`, or `bun`
-- Docker _(optional — only needed for database features)_
+- Node.js 20 or higher
+- A package manager: npm, yarn, pnpm, or bun
+- Docker (optional — only needed for database features)
 
----
+### 🧭 Interactive Setup
 
-### Interactive Setup
+The CLI walks you through a guided setup:
 
-The CLI walks you through a short, guided setup:
+1. Project name
+2. Language — TypeScript or JavaScript
+3. Project mode — Development or Production
+4. Dev tools — Git, Prettier, Husky, Vitest, Docker
+5. Database type — SQL or NoSQL
+6. Database — MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB
+7. ORM / ODM — Prisma, Drizzle, TypeORM, Sequelize, Mongoose, or native MongoDB driver
+8. Authentication (optional) — Better Auth or Clerk. Better Auth is available with Prisma, Drizzle, and native MongoDB driver
+9. Cache — optional Redis support
+10. Proxy — Nginx, Caddy, or Traefik
+11. Proxy mode — reverse proxy or load balancing
+12. Package manager — npm, yarn, pnpm, or bun
 
-1. **Project Name** — Name your application
-2. **Language** — Choose TypeScript or JavaScript
-3. **Project Mode** — Development _(lightweight)_ or Production _(full Docker + database stack)_
-4. **Dev Tools** — Select from Git, Prettier, Husky, Vitest, Docker
-5. **Database Type** — SQL or NoSQL
-6. **Database** — MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB
-7. **ORM / ODM** — Choose from Prisma, Drizzle, TypeORM, Sequelize, Mongoose or Native Mongodb drivers
-8. **Authentication** _(new)_ — Optionally set up Better Auth (available with Prisma, Drizzle and Native mongodb drivers)
-9. **Cache** — Enable Redis for in-memory caching
-10. **Proxy** — Choose Nginx, Caddy or Traefik
-11. **Proxy Mode** — Reverse proxy and load balancing
-12. **Package Manager** — npm, yarn, pnpm, bun
-
----
-
-### Running Your Project
+### ▶️ Running Your Project
 
 ```bash
 cd my-project
-pnpm run dev
+npm run dev
 ```
 
-Visit **http://localhost:3000** — your Express server is live.
+Visit `http://localhost:3000` — your Express server is live.
 
----
+### 📦 What's Included
 
-### What's Included
-
-#### Git Hooks with Husky
+#### 🐶 Git Hooks (Husky)
 
 When enabled, Husky sets up Git hooks automatically:
 
-- **Pre-commit** — Runs linting and formatting before every commit
-- **Pre-push** — Runs your test suite before pushing to remote
-- **Commit message validation** — Enforces the Conventional Commits standard
+- Pre-commit — runs linting and formatting before every commit
+- Pre-push — runs your test suite before pushing to remote
+- Commit message validation — enforces the Conventional Commits standard
 
-#### Database Support
+#### 🗄️ Database Support
 
-All databases come with a pre-configured admin panel at **http://localhost:6969** after running `pnpm run docker:up`.
+Supported databases: MySQL, MariaDB, PostgreSQL, MongoDB, and SQLite. Each comes with a pre-configured admin panel (phpMyAdmin for MySQL/MariaDB, pgAdmin for PostgreSQL, Mongo Express for MongoDB) available at `http://localhost:6969` after running `pnpm run docker:up`. SQLite requires no admin panel. Admin panels may take a moment to initialize on first startup.
 
-| Database   | Admin Panel   | Port |
-| ---------- | ------------- | ---- |
-| MySQL      | phpMyAdmin    | 6969 |
-| MariaDB    | phpMyAdmin    | 6969 |
-| PostgreSQL | pgAdmin       | 6969 |
-| MongoDB    | Mongo Express | 6969 |
-| SQLite     | —             | —    |
+#### 🔗 ORM / ODM Support
 
-> **Note:** Admin panels may take a moment to initialize on first startup.
+Prisma, Drizzle, TypeORM, and Sequelize are supported across PostgreSQL, MySQL, MariaDB, and SQLite, with full TypeScript and JavaScript support. Mongoose and native MongoDB drivers are supported for MongoDB only.
 
-#### ORM / ODM Support
+#### 🔐 Authentication
 
-| ORM            | Supported Databases                | TypeScript & JavaScript |
-| -------------- | ---------------------------------- | ----------------------- |
-| Prisma         | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
-| Drizzle        | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
-| TypeORM        | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
-| Sequelize      | PostgreSQL, MySQL, MariaDB, SQLite | ✅                      |
-| Mongoose       | MongoDB only                       | ✅                      |
-| Native Drivers | MongoDB only                       | ✅                      |
+Built-in support for two authentication options:
 
-#### Authentication Support _(New)_
+- **[Better Auth](https://www.better-auth.com/)** — a modern, framework-agnostic authentication library. Currently supported with Prisma, Drizzle, and native MongoDB driver adapters. Prisma with MongoDB may have occasional compatibility issues due to limited upstream support, but generally works.
+- **[Clerk](https://clerk.com/)** — a drop-in authentication solution with minimal setup, works independently of your chosen ORM.
 
-`@excli/express` now includes built-in support for **[Better Auth](https://www.better-auth.com/)** — a modern, framework-agnostic authentication library.
-
-> **Note:** Currently, Better Auth integration is supported with **Prisma** and **Drizzle** adapters only (prisma with mongodb may also contain some clashes because of old prisma mongodb support but still its works)
-
-| Adapter                | Status       |
-| ---------------------- | ------------ |
-| Prisma                 | ✅ Supported |
-| Drizzle                | ✅ Supported |
-| Native Mongodb Drivers | ✅ Supported |
-
-#### Docker Setup
+#### 🐳 Docker Setup
 
 Production mode includes a complete Docker configuration:
 
-- **Dockerfile** — Production-optimized container build
-- **compose.yaml** — Multi-service orchestration with correct volume paths
-- **.env files** — Separate environment configs for development and production
+- Dockerfile — production-optimized container build
+- compose.yaml — multi-service orchestration with correct volume paths
+- Separate `.env` files for development and production
 
-#### Reverse Proxy Setup
+#### 🌐 Reverse Proxy Setup
 
-Choose between two options:
+Choose between Nginx, Caddy, or Traefik. All three support reverse proxying and load balancing. Caddy and Traefik provide automatic HTTPS; Nginx requires manual TLS configuration. Nginx suits full control and high-traffic setups, while Caddy and Traefik prioritize simplicity and automatic SSL.
 
-| Feature               | Nginx                      | Caddy                | Traefik              |
-| --------------------- | -------------------------- | -------------------- | -------------------- |
-| Reverse proxy         | ✅                         | ✅                   | ✅                   |
-| Load balancing        | ✅                         | ✅                   | ✅                   |
-| Automatic HTTPS (TLS) | ❌ Manual                  | ✅ Automatic         | ✅                   |
-| Config style          | `nginx.conf`               | `Caddyfile`          | `traefik.yaml`       |
-| Best for              | Full control, high-traffic | Simplicity, auto SSL | Simplicity, auto SSL |
-
----
-
-### Common Commands
+### 🛠️ Common Commands
 
 ```bash
 pnpm run dev          # Start development server
@@ -166,9 +100,7 @@ pnpm run docker:up    # Start Docker services
 pnpm run docker:down  # Stop all Docker services
 ```
 
----
-
-### Troubleshooting
+### 🩹 Troubleshooting
 
 **Port already in use?** Update the ports in your `.env` file to resolve the conflict.
 
@@ -176,29 +108,19 @@ pnpm run docker:down  # Stop all Docker services
 
 **Husky hooks not triggering?** Ensure Git is initialized, then run `pnpm run prepare` to register the hooks.
 
-**Proxy not routing traffic?** Make sure your `compose.yaml` includes the proxy service and that no other process is bound to port `80`.
+**Proxy not routing traffic?** Make sure your `compose.yaml` includes the proxy service and that no other process is bound to port 80.
 
----
-
-### Contributing
+### 🤝 Contributing
 
 Contributions are welcome. Please read the [Contributing Guide](CONTRIBUTING.md) before opening a pull request.
 
----
-
-### License
+### 📄 License
 
 ISC License — see the [LICENSE](LICENSE) file for details.
 
----
-
-### Author
+### ✍️ Author
 
 **Noman**
 
-- 📧 [pxycknomdictator@gmail.com](mailto:pxycknomdictator@gmail.com)
-- 🐙 [@pxycknomdictator](https://github.com/pxycknomdictator)
-
----
-
-Built with ❤️ for developers who want to skip the setup and start shipping.
+- Email: [pxycknomdictator@gmail.com](mailto:pxycknomdictator@gmail.com)
+- GitHub: [@pxycknomdictator](https://github.com/pxycknomdictator)
