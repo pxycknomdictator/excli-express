@@ -10,6 +10,7 @@ import { setupVitest } from "./vitest";
 import { setupPrettier } from "./prettier";
 import { installPackages } from "../core";
 import type { ProjectConfig } from "../types";
+import { setupLogger } from "./logger";
 
 export async function setupDevTools(config: ProjectConfig) {
     const { devTools, targetDir, cache, auth } = config;
@@ -17,6 +18,7 @@ export async function setupDevTools(config: ProjectConfig) {
         if (devTools.includes("prettier")) await setupPrettier(targetDir);
         if (devTools.includes("vitest")) await setupVitest(config);
         if (devTools.includes("git") && hasGit()) await setupGit(targetDir);
+        if (devTools.includes("logger")) await setupLogger(config);
         if (devTools.includes("docker")) {
             await Promise.all([setupDocker(config), setupOrm(config)]);
             if (typeof auth !== "undefined") await setupAuth(config);

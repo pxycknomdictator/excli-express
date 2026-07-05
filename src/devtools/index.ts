@@ -8,3 +8,4 @@ export * from "./orms";
 export * from "./vitest";
 export * from "./proxy";
 export * from "./redis";
+export * from "./logger";

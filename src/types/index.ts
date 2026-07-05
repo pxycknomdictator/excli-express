@@ -93,3 +93,7 @@ export type OrmParams = Pick<
 
 export type VitestParams = Pick<ProjectConfig, "language" | "targetDir">;
 export type RedisParams = Pick<ProjectConfig, "language" | "targetDir">;
+export type LoggerParams = Pick<
+    ProjectConfig,
+    "language" | "targetDir" | "logger"
+>;
