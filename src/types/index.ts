@@ -3,6 +3,7 @@ export type Language = "ts" | "js";
 export type Mode = "development" | "production";
 export type Auth = "better-auth" | "clerk";
 export type DevTools = "prettier" | "docker" | "git" | "husky" | "vitest";
+export type Logger = "none" | "winston" | "pino" | "bunyan";
 export type PackageManager = "none" | "npm" | "yarn" | "pnpm" | "bun";
 export type Database = "mysql" | "mariadb" | "sqlite" | "postgres" | "mongodb";
 

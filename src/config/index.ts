@@ -55,6 +55,28 @@ export const tools: INTERACTIVE_PROMPTS[] = [
     { label: "Husky", emoji: "🐶", value: "husky", hint: "Blocks bad commits" },
 ];
 
+export const loggers: INTERACTIVE_PROMPTS[] = [
+    { label: "None", emoji: "🚫", value: "none", hint: "No logging setup" },
+    {
+        label: "Winston",
+        emoji: "🪵",
+        value: "winston",
+        hint: "Flexible and widely used",
+    },
+    {
+        label: "Pino",
+        emoji: "🌲",
+        value: "pino",
+        hint: "Blazing fast, low overhead",
+    },
+    {
+        label: "Bunyan",
+        emoji: "🐒",
+        value: "bunyan",
+        hint: "Structured JSON logging",
+    },
+];
+
 export const database_types: INTERACTIVE_PROMPTS[] = [
     {
         label: "SQL",
