@@ -59,13 +59,14 @@ export function getAuthLibraryOptions(
             emoji: "🔒",
             value: "better-auth",
             disabled: !betterAuthAdapterSupport.includes(databaseOrm ?? ""),
-            hint: "Better auth Works only with supported ORMs (Drizzle, Prisma, mongodb native driver)",
+            hint: "Drizzle, Prisma, Mongo native only",
         },
         {
             label: "Clerk",
             emoji: "🔑",
             value: "clerk",
             disabled: false,
+            hint: "Drop-in auth, zero hassle",
         },
     ];
 }

@@ -3,75 +3,235 @@ import type { ScriptConfig, INTERACTIVE_PROMPTS } from "../types";
 export const tsconfigJson = "tsconfig.json";
 
 export const languages: INTERACTIVE_PROMPTS[] = [
-    { label: "JavaScript", emoji: "🟡", value: "js" },
-    { label: "TypeScript", emoji: "🔵", value: "ts" },
+    {
+        label: "JavaScript",
+        emoji: "🟡",
+        value: "js",
+        hint: "Flexible and forgiving",
+    },
+    {
+        label: "TypeScript",
+        emoji: "🔵",
+        value: "ts",
+        hint: "JavaScript with trust issues",
+    },
 ];
 
 export const modes: INTERACTIVE_PROMPTS[] = [
-    { label: "Development", emoji: "🛠️", value: "development" },
-    { label: "Production", emoji: "🚀", value: "production" },
+    {
+        label: "Development",
+        emoji: "🛠️",
+        value: "development",
+        hint: "Break things freely",
+    },
+    {
+        label: "Production",
+        emoji: "🚀",
+        value: "production",
+        hint: "No room for mistakes",
+    },
 ];
 
 export const tools: INTERACTIVE_PROMPTS[] = [
-    { label: "Git", emoji: "🐙", value: "git" },
-    { label: "Prettier", emoji: "✨", value: "prettier" },
-    { label: "Vitest", emoji: "🧪", value: "vitest" },
-    { label: "Docker", emoji: "🐳", value: "docker" },
-    { label: "Husky", emoji: "🐶", value: "husky" },
+    { label: "Git", emoji: "🐙", value: "git", hint: "Real version control" },
+    {
+        label: "Prettier",
+        emoji: "✨",
+        value: "prettier",
+        hint: "Ends formatting wars",
+    },
+    {
+        label: "Vitest",
+        emoji: "🧪",
+        value: "vitest",
+        hint: "Fast, modern testing",
+    },
+    {
+        label: "Docker",
+        emoji: "🐳",
+        value: "docker",
+        hint: "Works everywhere, promise",
+    },
+    { label: "Husky", emoji: "🐶", value: "husky", hint: "Blocks bad commits" },
 ];
 
 export const database_types: INTERACTIVE_PROMPTS[] = [
-    { label: "SQL", emoji: "🗃️", value: "sql" },
-    { label: "NoSQL", emoji: "🌿", value: "no_sql" },
+    {
+        label: "SQL",
+        emoji: "🗃️",
+        value: "sql",
+        hint: "Structured and relational",
+    },
+    {
+        label: "NoSQL",
+        emoji: "🌿",
+        value: "no_sql",
+        hint: "Flexible schemas",
+    },
 ];
 
 export const pkg_managers: INTERACTIVE_PROMPTS[] = [
-    { label: "None", emoji: "🚫", value: "none" },
-    { label: "npm", emoji: "📦", value: "npm" },
-    { label: "yarn", emoji: "🧶", value: "yarn" },
-    { label: "pnpm", emoji: "🚀", value: "pnpm" },
-    { label: "bun", emoji: "🥟", value: "bun" },
+    { label: "None", emoji: "🚫", value: "none", hint: "Living dangerously" },
+    { label: "npm", emoji: "📦", value: "npm", hint: "The default choice" },
+    {
+        label: "yarn",
+        emoji: "🧶",
+        value: "yarn",
+        hint: "Deterministic lockfiles",
+    },
+    {
+        label: "pnpm",
+        emoji: "🚀",
+        value: "pnpm",
+        hint: "Fast and disk-friendly",
+    },
+    {
+        label: "bun",
+        emoji: "🥟",
+        value: "bun",
+        hint: "Runtime and manager in one",
+    },
 ];
 
 export const sql_database: INTERACTIVE_PROMPTS[] = [
-    { label: "MySQL", emoji: "🐬", value: "mysql" },
-    { label: "MariaDB", emoji: "🦭", value: "mariadb" },
-    { label: "SQLite", emoji: "🪶", value: "sqlite" },
-    { label: "PostgreSQL", emoji: "🐘", value: "postgres" },
+    {
+        label: "MySQL",
+        emoji: "🐬",
+        value: "mysql",
+        hint: "Industry standard",
+    },
+    {
+        label: "MariaDB",
+        emoji: "🦭",
+        value: "mariadb",
+        hint: "MySQL's open-source cousin",
+    },
+    {
+        label: "SQLite",
+        emoji: "🪶",
+        value: "sqlite",
+        hint: "Zero-config, file-based",
+    },
+    {
+        label: "PostgreSQL",
+        emoji: "🐘",
+        value: "postgres",
+        hint: "Developer favorite",
+    },
 ];
 
 export const no_sql_database: INTERACTIVE_PROMPTS[] = [
-    { label: "MongoDB", emoji: "🍃", value: "mongodb" },
+    {
+        label: "MongoDB",
+        emoji: "🍃",
+        value: "mongodb",
+        hint: "Document-based storage",
+    },
 ];
 
 export const sql_orms: INTERACTIVE_PROMPTS[] = [
-    { label: "Prisma", emoji: "📐", value: "prisma" },
-    { label: "Drizzle", emoji: "⚡", value: "drizzle" },
-    { label: "TypeORM", emoji: "🏗️", value: "typeorm" },
-    { label: "Sequelize", emoji: "🐚", value: "sequelize" },
+    {
+        label: "Prisma",
+        emoji: "📐",
+        value: "prisma",
+        hint: "Type-safe and intuitive",
+    },
+    {
+        label: "Drizzle",
+        emoji: "⚡",
+        value: "drizzle",
+        hint: "Lightweight, SQL-first",
+    },
+    {
+        label: "TypeORM",
+        emoji: "🏗️",
+        value: "typeorm",
+        hint: "Classic decorator-based ORM",
+    },
+    {
+        label: "Sequelize",
+        emoji: "🐚",
+        value: "sequelize",
+        hint: "Battle-tested for Node.js",
+    },
 ];
 
 export const no_sql_orms: INTERACTIVE_PROMPTS[] = [
-    { label: "Prisma", emoji: "📐", value: "prisma" },
-    { label: "TypeORM", emoji: "🏗️", value: "typeorm" },
-    { label: "Mongoose", emoji: "🦦", value: "mongoose" },
-    { label: "Native Driver", emoji: "🌱", value: "native_driver" },
+    {
+        label: "Prisma",
+        emoji: "📐",
+        value: "prisma",
+        hint: "Type-safe and intuitive",
+    },
+    {
+        label: "TypeORM",
+        emoji: "🏗️",
+        value: "typeorm",
+        hint: "Classic decorator-based ORM",
+    },
+    {
+        label: "Mongoose",
+        emoji: "🦦",
+        value: "mongoose",
+        hint: "Schema-based modeling",
+    },
+    {
+        label: "Native Driver",
+        emoji: "🌱",
+        value: "native_driver",
+        hint: "Raw, direct access",
+    },
 ];
 
 export const authLibraries: INTERACTIVE_PROMPTS[] = [
-    { label: "Better Auth", emoji: "🔒", value: "better-auth" },
-    { label: "Clerk", emoji: "🔑", value: "clerk" },
+    {
+        label: "Better Auth",
+        emoji: "🔒",
+        value: "better-auth",
+        hint: "Drizzle, Prisma, Mongo native only",
+    },
+    {
+        label: "Clerk",
+        emoji: "🔑",
+        value: "clerk",
+        hint: "Drop-in auth, zero hassle",
+    },
 ];
 
 export const WEB_SERVERS: INTERACTIVE_PROMPTS[] = [
-    { label: "Nginx", emoji: "⚡", value: "nginx" },
-    { label: "Caddy", emoji: "🪄", value: "caddy" },
-    { label: "Traefik", emoji: "🛣️", value: "traefik" },
+    {
+        label: "Nginx",
+        emoji: "⚡",
+        value: "nginx",
+        hint: "Battle-tested go-to",
+    },
+    {
+        label: "Caddy",
+        emoji: "🪄",
+        value: "caddy",
+        hint: "Automatic HTTPS",
+    },
+    {
+        label: "Traefik",
+        emoji: "🛣️",
+        value: "traefik",
+        hint: "Built for containers",
+    },
 ];
 
 export const USES_OF_WEB_SERVER: INTERACTIVE_PROMPTS[] = [
-    { label: "Reverse Proxy", emoji: "🚦", value: "reverse_proxy" },
-    { label: "Load Balancing", emoji: "⚖️", value: "load_balancing" },
+    {
+        label: "Reverse Proxy",
+        emoji: "🚦",
+        value: "reverse_proxy",
+        hint: "Route to the right service",
+    },
+    {
+        label: "Load Balancing",
+        emoji: "⚖️",
+        value: "load_balancing",
+        hint: "Spread the load",
+    },
 ];
 
 export const DIRECTORIES: string[] = [

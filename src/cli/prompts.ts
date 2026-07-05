@@ -126,7 +126,7 @@ export async function promptAuthLibraries(
 
         if (selected?.disabled) {
             note(
-                "Better auth Works only with supported ORMs (Drizzle, Prisma, mongodb native driver)",
+                "Better Auth supports Drizzle, Prisma, and MongoDB native drivers",
                 "Invalid selection",
             );
             continue;
