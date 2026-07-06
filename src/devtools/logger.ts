@@ -1,34 +1,46 @@
 import { join } from "node:path";
-import type {
-    GenerateFileArgs,
-    Language,
-    Logger,
-    LoggerParams,
-} from "../types";
+import type { GenerateFileArgs, Logger, LoggerParams } from "../types";
 import { appendLanguageExtension, generateFile } from "../utils";
 
-function winstonLogger(language: Language) {
-    console.log(language);
+function winstonLogger() {
+    return `import winston from "winston";
 
-    return `console.log("Hello from winston")`;
+const { combine, timestamp, printf, colorize, errors } = winston.format;
+
+export const logger = winston.createLogger({
+    level: process.env.LOG_LEVEL || "info",
+    format: combine(
+        colorize(),
+        timestamp(),
+        errors({ stack: true }),
+        printf(({ level, message, timestamp, ...meta }) => {
+            const metaString = Object.keys(meta).length
+                ? \` \${JSON.stringify(meta)}\`
+                : "";
+            return \`\${timestamp} [\${level}]: \${message}\${metaString}\`;
+        }),
+    ),
+    transports: [new winston.transports.Console()],
+});
+`;
 }
 
-function pinoLogger(language: Language) {
-    console.log(language);
+function pinoLogger() {
+    return `import pino from "pino";
 
-    return `console.log("Hello from pino")`;
-}
-
-function bunyanLogger(language: Language) {
-    console.log(language);
-
-    return `console.log("Hello from bunyan")`;
+export const logger = pino({
+    level: process.env.LOG_LEVEL || "info",
+    timestamp: pino.stdTimeFunctions.isoTime,
+    transport: {
+        pipeline: [{ target: "pino-pretty", options: { colorize: true } }],
+    },
+});
+`;
 }
 
 const loggerList = {
     winston: winstonLogger,
     pino: pinoLogger,
-    bunyan: bunyanLogger,
 };
 
 export async function setupLogger({
@@ -47,7 +59,7 @@ export async function setupLogger({
         const loggerContent = loggerList[logger as Logger];
 
         const files: GenerateFileArgs[] = [
-            { fileLocation: loggerPath, fileContent: loggerContent(language) },
+            { fileLocation: loggerPath, fileContent: loggerContent() },
         ];
 
         await Promise.all(files.map((file) => generateFile({ ...file })));

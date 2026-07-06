@@ -74,12 +74,6 @@ export const loggers: INTERACTIVE_PROMPTS[] = [
         value: "pino",
         hint: "Blazing fast, low overhead",
     },
-    {
-        label: "Bunyan",
-        emoji: "🐒",
-        value: "bunyan",
-        hint: "Structured JSON logging",
-    },
 ];
 
 export const database_types: INTERACTIVE_PROMPTS[] = [

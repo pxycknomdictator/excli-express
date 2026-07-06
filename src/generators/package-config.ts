@@ -6,15 +6,10 @@ import {
     DEV_DEPENDENCIES,
     TS_DEV_DEPENDENCIES,
 } from "../config";
-import type { ProjectConfig } from "../types";
+import type { CollectPackagesParams } from "../types";
 
-export function collectPackages(
-    config: Pick<
-        ProjectConfig,
-        "devTools" | "language" | "mode" | "cache" | "auth"
-    >,
-) {
-    const { devTools, language, mode, cache, auth } = config;
+export function collectPackages(config: CollectPackagesParams) {
+    const { devTools, language, mode, cache, auth, logger } = config;
 
     const packages: string[] = [...BASE_PACKAGES];
     const devPackages: string[] = [];
@@ -40,6 +35,10 @@ export function collectPackages(
     if (auth === "clerk") packages.push("@clerk/express");
     if (devTools.includes("prettier")) devPackages.push("prettier");
     if (devTools.includes("husky")) devPackages.push("husky");
+    if (devTools.includes("logger")) {
+        if (logger === "winston") packages.push("winston");
+        if (logger === "pino") packages.push("pino", "pino-pretty");
+    }
 
     return { packages, devPackages };
 }

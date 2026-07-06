@@ -9,7 +9,7 @@ export type DevTools =
     | "husky"
     | "vitest"
     | "logger";
-export type Logger = "winston" | "pino" | "bunyan";
+export type Logger = "winston" | "pino";
 export type PackageManager = "none" | "npm" | "yarn" | "pnpm" | "bun";
 export type Database = "mysql" | "mariadb" | "sqlite" | "postgres" | "mongodb";
 
@@ -96,4 +96,8 @@ export type RedisParams = Pick<ProjectConfig, "language" | "targetDir">;
 export type LoggerParams = Pick<
     ProjectConfig,
     "language" | "targetDir" | "logger"
+>;
+export type CollectPackagesParams = Pick<
+    ProjectConfig,
+    "devTools" | "language" | "mode" | "cache" | "auth" | "logger"
 >;
