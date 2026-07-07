@@ -34,15 +34,16 @@ The CLI walks you through a guided setup:
 1. Project name
 2. Language — TypeScript or JavaScript
 3. Project mode — Development or Production
-4. Dev tools — Git, Prettier, Husky, Vitest, Docker
-5. Database type — SQL or NoSQL
-6. Database — MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB
-7. ORM / ODM — Prisma, Drizzle, TypeORM, Sequelize, Mongoose, or native MongoDB driver
-8. Authentication (optional) — Better Auth or Clerk. Better Auth is available with Prisma, Drizzle, and native MongoDB driver
-9. Cache — optional Redis support
-10. Proxy — Nginx, Caddy, or Traefik
-11. Proxy mode — reverse proxy or load balancing
-12. Package manager — npm, yarn, pnpm, or bun
+4. Dev tools — Git, Prettier, Husky, Vitest, Docker, Logger
+5. Logger - Winston, Pino
+6. Database type — SQL or NoSQL
+7. Database — MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB
+8. ORM / ODM — Prisma, Drizzle, TypeORM, Sequelize, Mongoose, or native MongoDB driver
+9. Authentication (optional) — Better Auth or Clerk. Better Auth is available with Prisma, Drizzle, and native MongoDB driver
+10. Cache — optional Redis support
+11. Proxy — Nginx, Caddy, or Traefik
+12. Proxy mode — reverse proxy or load balancing
+13. Package manager — npm, yarn, pnpm, or bun
 
 ### ▶️ Running Your Project
 
