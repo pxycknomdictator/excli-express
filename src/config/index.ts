@@ -314,8 +314,16 @@ export const vitestScripts: ScriptConfig = {
 };
 
 export const dockerScripts: ScriptConfig = {
-    "docker:up": "docker compose up -d",
-    "docker:down": "docker compose down",
+    "docker:dev": "docker compose -f compose.yaml -f compose.dev.yaml up -d",
+    "docker:dev:down":
+        "docker compose -f compose.yaml -f compose.dev.yaml down",
+    "docker:prod": "docker compose -f compose.yaml -f compose.prod.yaml up -d",
+    "docker:prod:down":
+        "docker compose -f compose.yaml -f compose.prod.yaml down",
+    "docker:prod:build":
+        "docker compose -f compose.yaml -f compose.prod.yaml up -d --build",
+    "docker:prod:scale":
+        "docker compose -f compose.yaml -f compose.prod.yaml up -d --scale server=3",
 };
 
 export const BANNER_FONT = "Standard";
