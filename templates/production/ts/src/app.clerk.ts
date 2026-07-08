@@ -16,6 +16,7 @@ const limiter = rateLimit(globalLimiter);
 const fileRoute = dirname(fileURLToPath(import.meta.url));
 const staticAssets = join(fileRoute, "..", "public");
 
+app.set("trust proxy", 1);
 app.use(cors(corsOptions));
 app.use(limiter);
 app.use(helmet());
