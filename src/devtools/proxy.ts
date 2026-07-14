@@ -6,7 +6,7 @@ export async function setupProxy(config: ProxyParams): Promise<void> {
         const { webServer, webServerMode, targetDir } = config;
         const modifyFormat = webServerMode?.replace("_", "-");
         await fireShell(
-            `npx @excli/proxy --${webServer} --${modifyFormat}`,
+            `npx -y @excli/proxy --${webServer} --${modifyFormat}`,
             targetDir,
         );
     } catch (error) {

@@ -5,7 +5,7 @@ export async function setupDocker(config: DockerParams): Promise<void> {
     try {
         const { database, language, pkgManager, cache, targetDir } = config;
         await fireShell(
-            `npx @excli/docker --${language} --${database} --${pkgManager} --${cache}`,
+            `npx -y @excli/docker --${language} --${database} --${pkgManager} --${cache}`,
             targetDir,
         );
     } catch (error) {

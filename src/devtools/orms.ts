@@ -12,7 +12,7 @@ export async function setupOrm(config: OrmParams): Promise<void> {
                 : databaseOrm;
 
         await fireShell(
-            `npx @excli/orm-init --${language} --${pkgManager} --${database} --${modifyORM}`,
+            `npx -y @excli/orm-init --${language} --${pkgManager} --${database} --${modifyORM}`,
             targetDir,
         );
     } catch (error) {

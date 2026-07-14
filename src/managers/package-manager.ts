@@ -1,4 +1,6 @@
 import { join } from "node:path";
+import { promisify } from "node:util";
+import { execFile } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { formatPackageVersions, generateFile } from "../utils";
 import type { Language, ScriptConfig } from "../types";
@@ -9,21 +11,22 @@ export async function modifyPackageJson(
     dirName: string,
     scripts: ScriptConfig,
 ) {
-    const fullPath = join(targetDir, "package.json");
-    const pkg = JSON.parse(await readFile(fullPath, { encoding: "utf-8" }));
+    const execFileAsync = promisify(execFile);
 
-    pkg.name = dirName;
-    pkg.main = `src/main.${language}`;
-    pkg.type = "module";
-    pkg.scripts = {
-        ...scripts,
-        ...pkg.scripts,
-    };
+    const args = [
+        "pkg",
+        "set",
+        `name=${dirName}`,
+        `main=src/main.${language}`,
+        `type=module`,
+        `--prefix=${targetDir}`,
+    ];
 
-    await generateFile({
-        fileLocation: fullPath,
-        fileContent: JSON.stringify(pkg, null, 2),
-    });
+    for (const [key, value] of Object.entries(scripts)) {
+        args.push(`scripts.${key}=${value}`);
+    }
+
+    await execFileAsync("npm", args);
 }
 
 export async function addPackagesToJson(
