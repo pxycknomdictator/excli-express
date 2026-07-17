@@ -8,18 +8,13 @@ import { app } from "../src/app.js";
 import { describe, it, expect } from "vitest";
 
 describe("GET /", () => {
-    it("should return the correct JSON structure and message", async () => {
+    it("should return the status of app", async () => {
         const response = await request(app).get("/");
         expect(response.status).toBe(200);
         expect(response.headers["content-type"]).toMatch(/json/);
         expect(response.body).toStrictEqual({
-            success: true,
-            message: "Thanks for using @excli/express",
+            status: "OK"
         });
-    });
-    it("should contain the expected success flag", async () => {
-        const response = await request(app).get("/");
-        expect(response.body.success).toBe(true);
     });
 });
 `;
