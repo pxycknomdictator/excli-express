@@ -30,7 +30,16 @@ async function setupDevelopmentProject(config: ProjectConfig) {
 }
 
 export async function createProject(config: ProjectConfig) {
-    const { targetDir, mode, dirName, language, pkgManager } = config;
+    const {
+        targetDir,
+        mode,
+        dirName,
+        language,
+        pkgManager,
+        databaseOrm,
+        auth,
+        databaseType,
+    } = config;
 
     const s = spinner();
     s.start("Creating project...");
@@ -44,6 +53,17 @@ export async function createProject(config: ProjectConfig) {
             await setupProductionProject(config);
         } else {
             await setupDevelopmentProject(config);
+        }
+
+        if (
+            auth === "better-auth" &&
+            databaseType === "sql" &&
+            databaseOrm === "drizzle"
+        ) {
+            await fireShell(
+                `npx auth@latest generate --config src/lib/auth.${language} --output src/db/schemas.${language} --yes`,
+                targetDir,
+            );
         }
 
         await fireShell("npx prettier --write . --tab-width 4", targetDir);
