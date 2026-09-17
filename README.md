@@ -94,11 +94,11 @@ Choose between Nginx, Caddy, or Traefik. All three support reverse proxying and 
 ### 🛠️ Common Commands
 
 ```bash
-pnpm run dev          # Start development server
-pnpm run format       # Format code with Prettier
-pnpm run build        # Compile TypeScript (TS projects only)
-pnpm run docker:up    # Start Docker services
-pnpm run docker:down  # Stop all Docker services
+npm run dev          # Start development server
+npm run format       # Format code with Prettier
+npm run build        # Compile TypeScript (TS projects only)
+npm run docker:up    # Start Docker services
+npm run docker:down  # Stop all Docker services
 ```
 
 ### 🩹 Troubleshooting
