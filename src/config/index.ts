@@ -1,6 +1,7 @@
 import type { ScriptConfig, INTERACTIVE_PROMPTS } from "../types";
 
 export const tsconfigJson = "tsconfig.json";
+export const pnpmWorkSpaceYaml = "pnpm-workspace.yaml";
 
 export const languages: INTERACTIVE_PROMPTS[] = [
     {

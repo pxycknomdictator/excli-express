@@ -2,7 +2,7 @@ import { cwd } from "node:process";
 import { cp, copyFile } from "node:fs/promises";
 import { basename, join } from "node:path";
 import { copy } from "../utils";
-import { tsconfigJson } from "../config";
+import { pnpmWorkSpaceYaml, tsconfigJson } from "../config";
 import {
     promptAuthLibraries,
     promptCache,
@@ -107,6 +107,15 @@ export async function prepareProjectConfig(
         await copy({
             templatePath: tsConfigJsonPath,
             targetDir: tsConfigJsonDestination,
+        });
+    }
+
+    if (pkgManager === "pnpm") {
+        const pnpmWorkSpaceYamlPath = join(templateBase, pnpmWorkSpaceYaml);
+        const pnpmWorkSpaceYamlDestination = join(targetDir, pnpmWorkSpaceYaml);
+        await copy({
+            templatePath: pnpmWorkSpaceYamlPath,
+            targetDir: pnpmWorkSpaceYamlDestination,
         });
     }
 
