@@ -48,10 +48,10 @@ export const tools: INTERACTIVE_PROMPTS[] = [
         hint: "Structured app logging",
     },
     {
-        label: "Vitest",
-        emoji: "🧪",
-        value: "vitest",
-        hint: "Fast, modern testing",
+        label: "Vite+",
+        emoji: "⚡",
+        value: "vite_plus",
+        hint: "Unified build, lint, format, native hooks & testing",
     },
     {
         label: "Docker",
@@ -59,7 +59,6 @@ export const tools: INTERACTIVE_PROMPTS[] = [
         value: "docker",
         hint: "Works everywhere, promise",
     },
-    { label: "Husky", emoji: "🐶", value: "husky", hint: "Blocks bad commits" },
 ];
 
 export const loggers: INTERACTIVE_PROMPTS[] = [
@@ -264,7 +263,7 @@ export const DIRECTORIES: string[] = [
 ];
 
 export const BASE_PACKAGES = ["express"];
-export const DEV_DEPENDENCIES = ["vitest", "supertest"];
+export const DEV_DEPENDENCIES = ["vite-plus", "supertest"];
 export const ADDITION_PACKAGES = ["cors", "helmet", "express-rate-limit"];
 
 export const TS_DEV_PACKAGES = [
@@ -310,8 +309,11 @@ export const prettierScripts: ScriptConfig = {
     format: "prettier --write .",
 };
 
-export const vitestScripts: ScriptConfig = {
-    test: "vitest",
+export const vitePlusScripts: ScriptConfig = {
+    test: "vp test",
+    check: "vp check",
+    format: "vp fmt",
+    "check:fix": "vp check --fix",
 };
 
 export const dockerScripts: ScriptConfig = {
@@ -328,5 +330,5 @@ export const dockerScripts: ScriptConfig = {
 };
 
 export const BANNER_FONT = "Standard";
-export const HUSKY_COMMIT_FILE_NAME = "pre-commit";
+export const VITE_PLUS_COMMIT_FILE_NAME = "pre-commit";
 export const betterAuthAdapterSupport = ["drizzle", "prisma", "native_driver"];

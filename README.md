@@ -34,7 +34,7 @@ The CLI walks you through a guided setup:
 1. Project name
 2. Language — TypeScript or JavaScript
 3. Project mode — Development or Production
-4. Dev tools — Git, Prettier, Husky, Vitest, Docker, Logger
+4. Dev tools — Git, Prettier, Husky, Vite_Plus, Docker, Logger
 5. Logger - Winston, Pino
 6. Database type — SQL or NoSQL
 7. Database — MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB

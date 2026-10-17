@@ -16,7 +16,8 @@ export function collectPackages(config: CollectPackagesParams) {
 
     if (mode === "production") {
         packages.push(...ADDITION_PACKAGES);
-        if (devTools.includes("vitest")) devPackages.push(...DEV_DEPENDENCIES);
+        if (devTools.includes("vite_plus"))
+            devPackages.push(...DEV_DEPENDENCIES);
     }
 
     if (language === "ts") {
@@ -25,7 +26,7 @@ export function collectPackages(config: CollectPackagesParams) {
 
     if (language === "ts" && mode === "production") {
         devPackages.push(...TS_ADDITIONAL_PACKAGES);
-        if (devTools.includes("vitest")) {
+        if (devTools.includes("vite_plus")) {
             devPackages.push(...TS_DEV_DEPENDENCIES);
         }
     }

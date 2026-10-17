@@ -1,18 +1,19 @@
 import { join } from "node:path";
-import { fireShell, generateFile } from "../utils";
-import { HUSKY_COMMIT_FILE_NAME } from "../config";
+import { generateFile, makeDirectory } from "../utils";
+import { VITE_PLUS_COMMIT_FILE_NAME } from "../config";
 
-export async function setupHusky(targetDir: string): Promise<void> {
+export async function setupHooks(targetDir: string): Promise<void> {
     try {
-        await fireShell("npx husky init", targetDir);
-        const huskyFileLocation = join(
+        const hooksDirectory = join(targetDir, ".vite-hooks");
+        await makeDirectory(hooksDirectory);
+        const vitePlusFileLocation = join(
             targetDir,
-            ".husky",
-            HUSKY_COMMIT_FILE_NAME,
+            ".vite-hooks",
+            VITE_PLUS_COMMIT_FILE_NAME,
         );
         await generateFile({
-            fileLocation: huskyFileLocation,
-            fileContent: "",
+            fileLocation: vitePlusFileLocation,
+            fileContent: "vp staged",
         });
     } catch (error) {
         throw new Error(`failed to setup husky: ${error}`);

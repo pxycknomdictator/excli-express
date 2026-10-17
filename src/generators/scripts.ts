@@ -3,7 +3,7 @@ import {
     jsScripts,
     prettierScripts,
     tsScripts,
-    vitestScripts,
+    vitePlusScripts,
 } from "../config";
 import type { ScriptConfig, Language, DevTools } from "../types";
 
@@ -14,12 +14,12 @@ export function generateScripts(
     const baseScripts = language === "ts" ? tsScripts : jsScripts;
     const isPrettier = devTools.includes("prettier");
     const isDocker = devTools.includes("docker");
-    const isVitest = devTools.includes("vitest");
+    const isVitePlus = devTools.includes("vite_plus");
 
     return {
-        ...(isVitest ? vitestScripts : {}),
         ...baseScripts,
         ...(isPrettier ? prettierScripts : {}),
+        ...(isVitePlus ? vitePlusScripts : {}),
         ...(isDocker ? dockerScripts : {}),
     };
 }

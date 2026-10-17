@@ -7,8 +7,8 @@ export type DevTools =
     | "docker"
     | "git"
     | "husky"
-    | "vitest"
-    | "logger";
+    | "logger"
+    | "vite_plus";
 export type Logger = "winston" | "pino";
 export type PackageManager = "none" | "npm" | "yarn" | "pnpm" | "bun";
 export type Database = "mysql" | "mariadb" | "sqlite" | "postgres" | "mongodb";
@@ -91,7 +91,7 @@ export type OrmParams = Pick<
     "language" | "database" | "databaseOrm" | "pkgManager" | "targetDir"
 >;
 
-export type VitestParams = Pick<ProjectConfig, "language" | "targetDir">;
+export type VitePlusParams = Pick<ProjectConfig, "language" | "targetDir">;
 export type RedisParams = Pick<ProjectConfig, "language" | "targetDir">;
 export type LoggerParams = Pick<
     ProjectConfig,

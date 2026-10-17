@@ -45,6 +45,7 @@ If you experience or witness behavior that violates this Code of Conduct, please
 📧 **[pxycknomdictator@gmail.com](mailto:pxycknomdictator@gmail.com)**
 
 Please include in your report:
+
 - A description of what happened
 - Where it happened (link to the issue, PR, or comment if possible)
 - Any relevant context or screenshots
@@ -61,12 +62,12 @@ Maintainers have the right and responsibility to remove, edit, or reject any con
 
 Consequences for violations are determined based on severity and context:
 
-| Level | Behavior | Consequence |
-|-------|----------|-------------|
-| 1 | Minor violation, likely unintentional | Private warning with explanation |
-| 2 | Repeated minor violations or a single serious one | Formal warning with conditions |
-| 3 | Serious violation or continued behavior after warning | Temporary suspension from the project |
-| 4 | Severe violation or pattern of harmful behavior | Permanent ban from all project spaces |
+| Level | Behavior                                              | Consequence                           |
+| ----- | ----------------------------------------------------- | ------------------------------------- |
+| 1     | Minor violation, likely unintentional                 | Private warning with explanation      |
+| 2     | Repeated minor violations or a single serious one     | Formal warning with conditions        |
+| 3     | Serious violation or continued behavior after warning | Temporary suspension from the project |
+| 4     | Severe violation or pattern of harmful behavior       | Permanent ban from all project spaces |
 
 ---
 

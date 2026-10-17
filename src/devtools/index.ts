@@ -5,7 +5,7 @@ export * from "./prettier";
 export * from "./dev-tools";
 export * from "./directories";
 export * from "./orms";
-export * from "./vitest";
+export * from "./vite-plus";
 export * from "./proxy";
 export * from "./redis";
 export * from "./logger";

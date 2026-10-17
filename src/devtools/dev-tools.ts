@@ -2,11 +2,11 @@ import { setupGit } from "./git";
 import { setupOrm } from "./orms";
 import { hasGit } from "../utils";
 import { setupAuth } from "../auth";
-import { setupHusky } from "./husky";
+import { setupHooks } from "./husky";
 import { setupProxy } from "./proxy";
 import { setupRedis } from "./redis";
 import { setupDocker } from "./docker";
-import { setupVitest } from "./vitest";
+import { setupVitePlus } from "./vite-plus";
 import { setupPrettier } from "./prettier";
 import { installPackages } from "../core";
 import type { ProjectConfig } from "../types";
@@ -16,7 +16,6 @@ export async function setupDevTools(config: ProjectConfig) {
     const { devTools, targetDir, cache, auth } = config;
     try {
         if (devTools.includes("prettier")) await setupPrettier(targetDir);
-        if (devTools.includes("vitest")) await setupVitest(config);
         if (devTools.includes("git") && hasGit()) await setupGit(targetDir);
         if (devTools.includes("logger")) await setupLogger(config);
         if (devTools.includes("docker")) {
@@ -27,7 +26,10 @@ export async function setupDevTools(config: ProjectConfig) {
         }
 
         await installPackages(config);
-        if (devTools.includes("husky")) await setupHusky(targetDir);
+        if (devTools.includes("vite_plus")) {
+            await setupVitePlus(config);
+            await setupHooks(targetDir);
+        }
     } catch (error) {
         throw new Error(`failed to setup devTools: ${error}`);
     }
