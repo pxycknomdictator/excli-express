@@ -1,7 +1,6 @@
 import {
     dockerScripts,
     jsScripts,
-    prettierScripts,
     tsScripts,
     vitePlusScripts,
 } from "../config";
@@ -12,13 +11,11 @@ export function generateScripts(
     devTools: DevTools[],
 ): ScriptConfig {
     const baseScripts = language === "ts" ? tsScripts : jsScripts;
-    const isPrettier = devTools.includes("prettier");
     const isDocker = devTools.includes("docker");
     const isVitePlus = devTools.includes("vite_plus");
 
     return {
         ...baseScripts,
-        ...(isPrettier ? prettierScripts : {}),
         ...(isVitePlus ? vitePlusScripts : {}),
         ...(isDocker ? dockerScripts : {}),
     };

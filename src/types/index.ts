@@ -2,13 +2,7 @@ export type Cache = "redis";
 export type Language = "ts" | "js";
 export type Mode = "development" | "production";
 export type Auth = "better-auth" | "clerk";
-export type DevTools =
-    | "prettier"
-    | "docker"
-    | "git"
-    | "husky"
-    | "logger"
-    | "vite_plus";
+export type DevTools = "docker" | "git" | "husky" | "logger" | "vite_plus";
 export type Logger = "winston" | "pino";
 export type PackageManager = "none" | "npm" | "yarn" | "pnpm" | "bun";
 export type Database = "mysql" | "mariadb" | "sqlite" | "postgres" | "mongodb";

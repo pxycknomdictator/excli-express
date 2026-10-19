@@ -34,7 +34,7 @@ The CLI walks you through a guided setup:
 1. Project name
 2. Language — TypeScript or JavaScript
 3. Project mode — Development or Production
-4. Dev tools — Git, Prettier, Husky, Vite_Plus, Docker, Logger
+4. Dev tools — Git, Husky, Vite+, Docker, Logger
 5. Logger - Winston, Pino
 6. Database type — SQL or NoSQL
 7. Database — MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB
@@ -55,14 +55,6 @@ npm run dev
 Visit `http://localhost:3000` — your Express server is live.
 
 ### 📦 What's Included
-
-#### 🐶 Git Hooks (Husky)
-
-When enabled, Husky sets up Git hooks automatically:
-
-- Pre-commit — runs linting and formatting before every commit
-- Pre-push — runs your test suite before pushing to remote
-- Commit message validation — enforces the Conventional Commits standard
 
 #### 🗄️ Database Support
 
@@ -95,7 +87,7 @@ Choose between Nginx, Caddy, or Traefik. All three support reverse proxying and 
 
 ```bash
 npm run dev          # Start development server
-npm run format       # Format code with Prettier
+npm run format       # Format code with vite+
 npm run build        # Compile TypeScript (TS projects only)
 npm run docker:up    # Start Docker services
 npm run docker:down  # Stop all Docker services

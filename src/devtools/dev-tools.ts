@@ -7,7 +7,6 @@ import { setupProxy } from "./proxy";
 import { setupRedis } from "./redis";
 import { setupDocker } from "./docker";
 import { setupVitePlus } from "./vite-plus";
-import { setupPrettier } from "./prettier";
 import { installPackages } from "../core";
 import type { ProjectConfig } from "../types";
 import { setupLogger } from "./logger";
@@ -15,7 +14,6 @@ import { setupLogger } from "./logger";
 export async function setupDevTools(config: ProjectConfig) {
     const { devTools, targetDir, cache, auth } = config;
     try {
-        if (devTools.includes("prettier")) await setupPrettier(targetDir);
         if (devTools.includes("git") && hasGit()) await setupGit(targetDir);
         if (devTools.includes("logger")) await setupLogger(config);
         if (devTools.includes("docker")) {

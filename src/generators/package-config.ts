@@ -34,7 +34,6 @@ export function collectPackages(config: CollectPackagesParams) {
     if (cache === "redis") packages.push("ioredis");
     if (auth === "better-auth") packages.push("better-auth");
     if (auth === "clerk") packages.push("@clerk/express");
-    if (devTools.includes("prettier")) devPackages.push("prettier");
     if (devTools.includes("husky")) devPackages.push("husky");
     if (devTools.includes("logger")) {
         if (logger === "winston") packages.push("winston");

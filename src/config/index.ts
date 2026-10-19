@@ -36,12 +36,6 @@ export const modes: INTERACTIVE_PROMPTS[] = [
 export const tools: INTERACTIVE_PROMPTS[] = [
     { label: "Git", emoji: "🐙", value: "git", hint: "Real version control" },
     {
-        label: "Prettier",
-        emoji: "✨",
-        value: "prettier",
-        hint: "Ends formatting wars",
-    },
-    {
         label: "Logger",
         emoji: "🪵",
         value: "logger",
@@ -303,10 +297,6 @@ export const tsScripts: ScriptConfig = {
 export const jsScripts: ScriptConfig = {
     dev: "node --watch --env-file=.env src/main.js",
     start: "node --env-file=.env src/main.js",
-};
-
-export const prettierScripts: ScriptConfig = {
-    format: "prettier --write .",
 };
 
 export const vitePlusScripts: ScriptConfig = {
