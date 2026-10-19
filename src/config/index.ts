@@ -257,17 +257,17 @@ export const DIRECTORIES: string[] = [
 ];
 
 export const BASE_PACKAGES = ["express"];
-export const DEV_DEPENDENCIES = ["vite-plus", "supertest"];
-export const ADDITION_PACKAGES = ["cors", "helmet", "express-rate-limit"];
+export const DEV_DEPENDENCIES = ["vite-plus", "supertest", "dotenv"];
+export const ADDITIONAL_PACKAGES = ["cors", "helmet", "express-rate-limit"];
 
+export const TS_DEV_DEPENDENCIES = ["@types/supertest"];
+export const TS_ADDITIONAL_PACKAGES = ["@types/cors"];
 export const TS_DEV_PACKAGES = [
     "@types/node",
     "@types/express",
     "typescript",
     "concurrently",
 ];
-export const TS_DEV_DEPENDENCIES = ["@types/supertest"];
-export const TS_ADDITIONAL_PACKAGES = ["@types/cors"];
 
 export const installCmdMap: Record<string, string> = {
     npm: "install",

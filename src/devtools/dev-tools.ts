@@ -2,7 +2,6 @@ import { setupGit } from "./git";
 import { setupOrm } from "./orms";
 import { hasGit } from "../utils";
 import { setupAuth } from "../auth";
-import { setupHooks } from "./husky";
 import { setupProxy } from "./proxy";
 import { setupRedis } from "./redis";
 import { setupDocker } from "./docker";
@@ -24,10 +23,7 @@ export async function setupDevTools(config: ProjectConfig) {
         }
 
         await installPackages(config);
-        if (devTools.includes("vite_plus")) {
-            await setupVitePlus(config);
-            await setupHooks(targetDir);
-        }
+        if (devTools.includes("vite_plus")) await setupVitePlus(config);
     } catch (error) {
         throw new Error(`failed to setup devTools: ${error}`);
     }

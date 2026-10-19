@@ -34,7 +34,7 @@ The CLI walks you through a guided setup:
 1. Project name
 2. Language — TypeScript or JavaScript
 3. Project mode — Development or Production
-4. Dev tools — Git, Husky, Vite+, Docker, Logger
+4. Dev tools — Git, Vite+, Docker, Logger
 5. Logger - Winston, Pino
 6. Database type — SQL or NoSQL
 7. Database — MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB
@@ -98,8 +98,6 @@ npm run docker:down  # Stop all Docker services
 **Port already in use?** Update the ports in your `.env` file to resolve the conflict.
 
 **Docker not starting?** Make sure Docker Desktop is running before executing `pnpm run docker:up`.
-
-**Husky hooks not triggering?** Ensure Git is initialized, then run `pnpm run prepare` to register the hooks.
 
 **Proxy not routing traffic?** Make sure your `compose.yaml` includes the proxy service and that no other process is bound to port 80.
 

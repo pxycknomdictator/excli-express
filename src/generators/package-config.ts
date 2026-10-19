@@ -1,7 +1,7 @@
 import {
     BASE_PACKAGES,
     TS_DEV_PACKAGES,
-    ADDITION_PACKAGES,
+    ADDITIONAL_PACKAGES,
     TS_ADDITIONAL_PACKAGES,
     DEV_DEPENDENCIES,
     TS_DEV_DEPENDENCIES,
@@ -15,9 +15,10 @@ export function collectPackages(config: CollectPackagesParams) {
     const devPackages: string[] = [];
 
     if (mode === "production") {
-        packages.push(...ADDITION_PACKAGES);
-        if (devTools.includes("vite_plus"))
+        packages.push(...ADDITIONAL_PACKAGES);
+        if (devTools.includes("vite_plus")) {
             devPackages.push(...DEV_DEPENDENCIES);
+        }
     }
 
     if (language === "ts") {
@@ -34,7 +35,6 @@ export function collectPackages(config: CollectPackagesParams) {
     if (cache === "redis") packages.push("ioredis");
     if (auth === "better-auth") packages.push("better-auth");
     if (auth === "clerk") packages.push("@clerk/express");
-    if (devTools.includes("husky")) devPackages.push("husky");
     if (devTools.includes("logger")) {
         if (logger === "winston") packages.push("winston");
         if (logger === "pino") packages.push("pino", "pino-pretty");
