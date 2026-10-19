@@ -27,7 +27,9 @@ function vitePlusConfig(language: ProjectConfig["language"]) {
 
 const config = defineConfig({
     staged: { "*": "vp check --fix" },
-    test: { dir: "test" },
+    test: {
+        include: ["test/**/*.{test,spec}.{js,ts,mjs,mts,cjs,cts,jsx,tsx}"],
+    },
     fmt: { semi: true, singleQuote: false, tabWidth: 4 },
     lint: {
         jsPlugins: [
@@ -57,7 +59,7 @@ export async function setupVitePlus({ language, targetDir }: VitePlusParams) {
             "app.spec",
             "vite.config",
         );
-        const testDirectory = join(targetDir, "tests");
+        const testDirectory = join(targetDir, "test");
         const appPath = join(testDirectory, vitePlusLang[0] as string);
         const vitePlusPath = join(targetDir, vitePlusLang[1] as string);
 
