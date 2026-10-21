@@ -267,7 +267,6 @@ export const TS_DEV_PACKAGES = [
     "@types/node",
     "@types/express",
     "typescript",
-    "concurrently",
 ];
 
 export const installCmdMap: Record<string, string> = {
@@ -288,11 +287,9 @@ export const envConfig = {
 };
 
 export const tsScripts: ScriptConfig = {
-    build: "tsc",
-    "build:watch": "tsc --watch",
+    build: "tsc && tsc-alias",
     start: "node --env-file=.env dist/main.js",
-    "start:watch": "node --watch --env-file=.env dist/main.js",
-    dev: 'concurrently "npm run build:watch" "npm run start:watch"',
+    dev: "tsc --watch && tsc-alias -w & node --watch --env-file=.env dist/main.js",
 };
 
 export const jsScripts: ScriptConfig = {
