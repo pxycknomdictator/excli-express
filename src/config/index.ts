@@ -321,5 +321,4 @@ export const dockerScripts: ScriptConfig = {
 };
 
 export const BANNER_FONT = "Standard";
-export const VITE_PLUS_COMMIT_FILE_NAME = "pre-commit";
 export const betterAuthAdapterSupport = ["drizzle", "prisma", "native_driver"];
