@@ -35,7 +35,6 @@ export async function createProject(config: ProjectConfig) {
         mode,
         dirName,
         language,
-        pkgManager,
         databaseOrm,
         auth,
         databaseType,
@@ -67,10 +66,6 @@ export async function createProject(config: ProjectConfig) {
         }
 
         await fireShell("npx prettier --write . --tab-width 4", targetDir);
-
-        if (language === "ts" && pkgManager !== "none") {
-            await fireShell("node --run build", targetDir);
-        }
 
         s.stop(`Successfully created project \x1b[32m${dirName}\x1b[0m`);
         log.success(`Scaffolding project in ${targetDir}...`);

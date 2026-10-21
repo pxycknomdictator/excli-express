@@ -267,6 +267,7 @@ export const TS_DEV_PACKAGES = [
     "@types/node",
     "@types/express",
     "typescript",
+    "concurrently",
 ];
 
 export const installCmdMap: Record<string, string> = {
