@@ -7,9 +7,9 @@ import express from "express";
 import type { Express } from "express";
 import { rateLimit } from "express-rate-limit";
 
-import { auth } from "./lib/auth.js";
-import { corsOptions, globalLimiter } from "./constant.js";
-import { globalErrorWrapper } from "./utils/global.js";
+import { auth } from "@/lib/auth";
+import { corsOptions, globalLimiter } from "@/constant";
+import { globalErrorWrapper } from "@/utils/global";
 import { toNodeHandler } from "better-auth/node";
 
 const app: Express = express();
@@ -26,7 +26,7 @@ app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ limit: "20mb", extended: true }));
 app.all("/api/auth/*splat", toNodeHandler(auth));
 
-import { healthRouter } from "./routes/health.route.js";
+import { healthRouter } from "@/routes/health.route";
 
 app.use("/", healthRouter);
 

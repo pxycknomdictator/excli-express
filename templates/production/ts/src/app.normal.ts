@@ -7,8 +7,8 @@ import express from "express";
 import type { Express } from "express";
 import { rateLimit } from "express-rate-limit";
 
-import { corsOptions, globalLimiter } from "./constant.js";
-import { globalErrorWrapper } from "./utils/global.js";
+import { corsOptions, globalLimiter } from "@/constant";
+import { globalErrorWrapper } from "@/utils/global";
 
 const app: Express = express();
 const limiter = rateLimit(globalLimiter);
@@ -23,7 +23,7 @@ app.use(express.static(staticAssets));
 app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ limit: "20mb", extended: true }));
 
-import { healthRouter } from "./routes/health.route.js";
+import { healthRouter } from "@/routes/health.route";
 
 app.use("/", healthRouter);
 
