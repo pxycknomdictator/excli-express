@@ -2,9 +2,9 @@
     "compilerOptions": {
         "rootDir": "./src",
         "outDir": "./dist",
-        "module": "nodenext",
-        "moduleResolution": "nodenext",
-        "target": "esnext",
+        "module": "es2022",
+        "moduleResolution": "bundler",
+        "target": "es2022",
         "esModuleInterop": true,
         "types": ["node"],
         "sourceMap": true,
@@ -14,7 +14,10 @@
         "skipLibCheck": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "strictPropertyInitialization": false
+        "strictPropertyInitialization": false,
+        "paths": {
+            "@/*": ["./src/*"]
+        }
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules", "dist"]
