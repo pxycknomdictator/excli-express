@@ -263,6 +263,7 @@ export const ADDITIONAL_PACKAGES = ["cors", "helmet", "express-rate-limit"];
 export const TS_DEV_DEPENDENCIES = ["@types/supertest"];
 export const TS_ADDITIONAL_PACKAGES = ["@types/cors"];
 export const TS_DEV_PACKAGES = [
+    "tsc-alias",
     "@types/node",
     "@types/express",
     "typescript",
