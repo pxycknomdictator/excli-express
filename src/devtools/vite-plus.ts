@@ -29,7 +29,6 @@ loadEnv({ path: ".env" });
 import { defineConfig } from "vite-plus";
 
 const config = defineConfig({
-    staged: { "*": "vp check --fix" },
     test: {
         include: ["test/**/*.{test,spec}.{js,ts,mjs,mts,cjs,cts,jsx,tsx}"],
     },
