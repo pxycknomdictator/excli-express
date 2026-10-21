@@ -289,8 +289,10 @@ export const envConfig = {
 
 export const tsScripts: ScriptConfig = {
     build: "tsc && tsc-alias",
+    "build:watch": 'concurrently "tsc --watch" "tsc-alias -w"',
     start: "node --env-file=.env dist/main.js",
-    dev: "tsc --watch && tsc-alias -w & node --watch --env-file=.env dist/main.js",
+    "start:watch": "node --watch --env-file=.env dist/main.js",
+    dev: 'concurrently -k "npm:build:watch" "npm:start:watch"',
 };
 
 export const jsScripts: ScriptConfig = {
