@@ -25,9 +25,9 @@ app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ limit: "20mb", extended: true }));
 app.all("/api/auth/*splat", toNodeHandler(auth));
 
-import { healthRouter } from "./routes/health.route.js";
+import { apiRouter } from "./features/route.js";
 
-app.use("/", healthRouter);
+app.use("/", apiRouter);
 
 app.use(globalErrorWrapper);
 

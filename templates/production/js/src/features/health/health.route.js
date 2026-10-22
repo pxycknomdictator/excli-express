@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { asyncWrapper } from "../utils/wrapper.js";
-import { healthStatus } from "../controllers/health.controller.js";
+import { asyncWrapper } from "../../utils/wrapper.js";
+import { healthStatus } from "./health.controller.js";
 
 const healthRouter = Router();
 
