@@ -126,6 +126,7 @@ export async function prepareProjectConfig(
         ...userInputs,
         sourceDir,
         publicDir,
+        templateBase,
         templatePath,
         dirName,
     };
