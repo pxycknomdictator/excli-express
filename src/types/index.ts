@@ -30,7 +30,6 @@ export type ProjectConfig = {
     mode: Mode;
     devTools: DevTools[];
     templatePath: string;
-    templateBase: string;
     sourceDir: string;
     publicDir: string;
     databaseType?: DATABASE_TYPE;

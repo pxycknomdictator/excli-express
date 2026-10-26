@@ -11,10 +11,9 @@ import type { ProjectConfig } from "../types";
 import { setupLogger } from "./logger";
 
 export async function setupDevTools(config: ProjectConfig) {
-    const { devTools, targetDir, cache, auth, templateBase } = config;
+    const { devTools, targetDir, cache, auth } = config;
     try {
-        if (devTools.includes("git") && hasGit())
-            await setupGit(targetDir, templateBase);
+        if (devTools.includes("git") && hasGit()) await setupGit(targetDir);
         if (devTools.includes("logger")) await setupLogger(config);
         if (devTools.includes("docker")) {
             await Promise.all([setupDocker(config), setupOrm(config)]);
