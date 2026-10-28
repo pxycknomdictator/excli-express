@@ -86,7 +86,6 @@ export const database_types: INTERACTIVE_PROMPTS[] = [
 ];
 
 export const pkg_managers: INTERACTIVE_PROMPTS[] = [
-    { label: "None", emoji: "🚫", value: "none", hint: "Living dangerously" },
     { label: "npm", emoji: "📦", value: "npm", hint: "The default choice" },
     {
         label: "yarn",

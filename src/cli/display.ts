@@ -3,46 +3,23 @@ import type { ProjectConfig } from "../types";
 
 export function showCompletionMessage(config: ProjectConfig) {
     const { pkgManager, directory, language } = config;
-    const hasDirectory = typeof directory === "string" && directory.length > 0;
 
-    if (pkgManager === "none" && !hasDirectory) {
-        note(
-            `
-Install dependencies:
-  npm install
+    const commands: string[] = [];
 
-Start development:
-  npm run dev`,
-            "📦 Setup Complete",
-        );
-    } else if (pkgManager === "none" && hasDirectory) {
-        note(
-            `
-To get started:
-  cd ${directory}
+    if (directory) {
+        commands.push(`cd ${directory}`);
+    }
 
-Install dependencies:
-  npm install
+    if (language === "ts") {
+        commands.push(`${pkgManager} run build`);
+    }
 
-Start development:
-  npm run dev`,
-            "📦 Setup Complete",
-        );
-    } else if (pkgManager !== "none" && hasDirectory && language !== "ts") {
-        note(
-            `cd ${directory}
-${pkgManager} run dev`,
-            "🚀 Ready to start",
-        );
-    } else if (pkgManager !== "none" && hasDirectory && language === "ts") {
-        note(
-            `cd ${directory}
-${pkgManager} run build
-${pkgManager} run dev`,
-            "🚀 Ready to start",
-        );
-    } else {
-        note(`${pkgManager} run dev`, "🚀 Ready to start");
+    if (language === "js" || language === "ts") {
+        commands.push(`${pkgManager} run dev`);
+    }
+
+    if (commands.length > 0) {
+        note(commands.join("\n"), "🚀 Ready to start");
     }
 
     outro("Happy coding! ✨");

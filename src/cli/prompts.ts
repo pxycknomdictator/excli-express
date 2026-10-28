@@ -182,19 +182,12 @@ export async function promptCache(): Promise<Cache | undefined> {
     return shouldUseRedisCache ? "redis" : undefined;
 }
 
-export async function promptPackageManager(
-    mode: ProjectConfig["mode"],
-): Promise<ProjectConfig["pkgManager"]> {
-    const withoutNoneManagers = pkg_managers.filter(
-        (manager) => manager.value !== "none",
-    );
-
-    const managers =
-        mode === "development" ? pkg_managers : withoutNoneManagers;
-
+export async function promptPackageManager(): Promise<
+    ProjectConfig["pkgManager"]
+> {
     const pkgManager = await select({
         message: "Select your package manager:",
-        options: generateOptions(managers),
+        options: generateOptions(pkg_managers),
     });
 
     if (isCancel(pkgManager)) terminate("Process cancelled ❌");

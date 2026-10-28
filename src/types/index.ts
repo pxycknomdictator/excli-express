@@ -4,7 +4,7 @@ export type Mode = "development" | "production";
 export type Auth = "better-auth" | "clerk";
 export type DevTools = "docker" | "git" | "logger" | "vite_plus";
 export type Logger = "winston" | "pino";
-export type PackageManager = "none" | "npm" | "yarn" | "pnpm" | "bun";
+export type PackageManager = "npm" | "yarn" | "pnpm" | "bun";
 export type Database = "mysql" | "mariadb" | "sqlite" | "postgres" | "mongodb";
 
 export type DATABASE_TYPE = "sql" | "no_sql";

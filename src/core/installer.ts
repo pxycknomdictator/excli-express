@@ -1,7 +1,7 @@
 import { fireShell } from "../utils";
 import { installCmdMap } from "../config";
 import { collectPackages, generateScripts } from "../generators";
-import { addPackagesToJson, modifyPackageJson } from "../managers";
+import { modifyPackageJson } from "../managers";
 import type { PackageManager, ProjectConfig } from "../types";
 
 export async function installPackages(config: ProjectConfig) {
@@ -12,11 +12,6 @@ export async function installPackages(config: ProjectConfig) {
     await initializeNodeProject(targetDir);
     const scripts = generateScripts(language, devTools);
     await modifyPackageJson(targetDir, language, dirName, scripts);
-
-    if (pkgManager === "none") {
-        await addPackagesToJson(targetDir, packages, devPackages);
-        return;
-    }
 
     await installPackagesWithManager(
         pkgManager,

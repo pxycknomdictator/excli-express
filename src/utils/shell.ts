@@ -3,7 +3,6 @@ import { spawnSync, spawn } from "node:child_process";
 import type { PackageManager } from "../types";
 
 export function hasPkManager(pkgM: PackageManager): boolean {
-    if (pkgM === "none") return true;
     const command = platform !== "win32" ? "which" : "where";
     const result = spawnSync(command, [pkgM], { encoding: "utf-8" });
     return result.status === 0;
