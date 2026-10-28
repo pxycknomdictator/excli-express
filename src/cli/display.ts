@@ -2,7 +2,7 @@ import { note, outro } from "@clack/prompts";
 import type { ProjectConfig } from "../types";
 
 export function showCompletionMessage(config: ProjectConfig) {
-    const { pkgManager, directory } = config;
+    const { pkgManager, directory, language } = config;
     const hasDirectory = typeof directory === "string" && directory.length > 0;
 
     if (pkgManager === "none" && !hasDirectory) {
@@ -28,9 +28,16 @@ Start development:
   npm run dev`,
             "📦 Setup Complete",
         );
-    } else if (pkgManager !== "none" && hasDirectory) {
+    } else if (pkgManager !== "none" && hasDirectory && language !== "ts") {
         note(
             `cd ${directory}
+${pkgManager} run dev`,
+            "🚀 Ready to start",
+        );
+    } else if (pkgManager !== "none" && hasDirectory && language === "ts") {
+        note(
+            `cd ${directory}
+${pkgManager} run build
 ${pkgManager} run dev`,
             "🚀 Ready to start",
         );
