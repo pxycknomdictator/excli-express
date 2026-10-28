@@ -1,4 +1,8 @@
-import type { ScriptConfig, INTERACTIVE_PROMPTS } from "../types";
+import type {
+    ScriptConfig,
+    INTERACTIVE_PROMPTS,
+    ProjectConfig,
+} from "../types";
 
 export const tsconfigJson = "tsconfig.json";
 export const pnpmWorkSpaceYaml = "pnpm-workspace.yaml";
@@ -306,18 +310,24 @@ export const vitePlusScripts: ScriptConfig = {
     "check:fix": "vp check --fix",
 };
 
-export const dockerScripts: ScriptConfig = {
-    "docker:dev": "docker compose -f compose.yaml -f compose.dev.yaml up -d",
-    "docker:dev:down":
-        "docker compose -f compose.yaml -f compose.dev.yaml down",
-    "docker:prod": "docker compose -f compose.yaml -f compose.prod.yaml up -d",
-    "docker:prod:down":
-        "docker compose -f compose.yaml -f compose.prod.yaml down",
-    "docker:prod:build":
-        "docker compose -f compose.yaml -f compose.prod.yaml up -d --build",
-    "docker:prod:scale":
-        "docker compose -f compose.yaml -f compose.prod.yaml up -d --scale server=3",
-};
+export function getDockerScripts(
+    config: Pick<ProjectConfig, "cache" | "mode" | "webServer" | "database">,
+): ScriptConfig {
+    if (config.database === "sqlite") return {};
+
+    const services = ["database", "admin"];
+    const productionServices = ["database", "admin", "server"];
+
+    if (config.cache === "redis") services.push("redis");
+    if (config.webServer) productionServices.push(config.webServer);
+
+    return {
+        "db:up": `docker compose up -d ${services.join(" ")}`,
+        "db:down": `docker compose down ${services.join(" ")}`,
+        "db:prod:up": `docker compose up -d ${productionServices.join(" ")}`,
+        "db:prod:down": `docker compose down ${productionServices.join(" ")}`,
+    };
+}
 
 export const BANNER_FONT = "Standard";
 export const betterAuthAdapterSupport = ["drizzle", "prisma", "native_driver"];

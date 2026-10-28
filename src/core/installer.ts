@@ -5,12 +5,12 @@ import { modifyPackageJson } from "../managers";
 import type { PackageManager, ProjectConfig } from "../types";
 
 export async function installPackages(config: ProjectConfig) {
-    const { targetDir, language, devTools, dirName, pkgManager } = config;
+    const { targetDir, language, dirName, pkgManager } = config;
 
     const { packages, devPackages } = collectPackages(config);
 
     await initializeNodeProject(targetDir);
-    const scripts = generateScripts(language, devTools);
+    const scripts = generateScripts(config);
     await modifyPackageJson(targetDir, language, dirName, scripts);
 
     await installPackagesWithManager(

@@ -1,22 +1,24 @@
 import {
-    dockerScripts,
+    getDockerScripts,
     jsScripts,
     tsScripts,
     vitePlusScripts,
 } from "../config";
-import type { ScriptConfig, Language, DevTools } from "../types";
+import type { ScriptConfig, ProjectConfig } from "../types";
 
 export function generateScripts(
-    language: Language,
-    devTools: DevTools[],
+    config: Pick<
+        ProjectConfig,
+        "language" | "devTools" | "cache" | "mode" | "webServer"
+    >,
 ): ScriptConfig {
-    const baseScripts = language === "ts" ? tsScripts : jsScripts;
-    const isDocker = devTools.includes("docker");
-    const isVitePlus = devTools.includes("vite_plus");
+    const baseScripts = config.language === "ts" ? tsScripts : jsScripts;
+    const isDocker = config.devTools.includes("docker");
+    const isVitePlus = config.devTools.includes("vite_plus");
 
     return {
         ...baseScripts,
         ...(isVitePlus ? vitePlusScripts : {}),
-        ...(isDocker ? dockerScripts : {}),
+        ...(isDocker ? getDockerScripts(config) : {}),
     };
 }
