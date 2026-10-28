@@ -66,7 +66,6 @@ export type GenerateFileArgs = {
 
 export type EnvFileReturnType = {
     envContent: string;
-    exEnvContent: string;
     prodEnvContent: string;
 };
 

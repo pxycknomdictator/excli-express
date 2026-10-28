@@ -9,18 +9,12 @@ import type {
 
 function formatEnvWithComments(auth: ProjectConfig["auth"]): EnvFileReturnType {
     const envLines: string[] = [];
-    const exampleEnvLines: string[] = [];
     const prodEnvLines: string[] = [];
 
     envLines.push("# Application Configuration");
     envLines.push(`NODE_ENV=${envConfig.NODE_ENV}`);
     envLines.push(`PORT=${envConfig.PORT}`);
     envLines.push(`CLIENT_ORIGIN=${envConfig.CLIENT_ORIGIN}\n`);
-
-    exampleEnvLines.push("# Application Configuration");
-    exampleEnvLines.push("NODE_ENV=");
-    exampleEnvLines.push("PORT=");
-    exampleEnvLines.push(`CLIENT_ORIGIN=\n`);
 
     prodEnvLines.push("# Application Configuration");
     prodEnvLines.push(
@@ -33,10 +27,6 @@ function formatEnvWithComments(auth: ProjectConfig["auth"]): EnvFileReturnType {
         envLines.push("# Better Auth");
         envLines.push(`BETTER_AUTH_URL=${envConfig.BETTER_AUTH_URL}`);
         envLines.push(`BETTER_AUTH_SECRET=${envConfig.BETTER_AUTH_SECRET}\n`);
-
-        exampleEnvLines.push("# Better Auth");
-        exampleEnvLines.push("BETTER_AUTH_URL=");
-        exampleEnvLines.push(`BETTER_AUTH_SECRET=\n`);
 
         prodEnvLines.push("# Better Auth");
         prodEnvLines.push(`BETTER_AUTH_URL=${envConfig.BETTER_AUTH_URL}`);
@@ -52,10 +42,6 @@ function formatEnvWithComments(auth: ProjectConfig["auth"]): EnvFileReturnType {
         );
         envLines.push(`CLERK_SECRET_KEY=${envConfig.CLERK_SECRET_KEY}\n`);
 
-        exampleEnvLines.push("# Clerk");
-        exampleEnvLines.push("CLERK_PUBLISHABLE_KEY=");
-        exampleEnvLines.push(`CLERK_SECRET_KEY=\n`);
-
         prodEnvLines.push("# Clerk");
         prodEnvLines.push(
             `CLERK_PUBLISHABLE_KEY=${envConfig.CLERK_PUBLISHABLE_KEY}`,
@@ -65,7 +51,6 @@ function formatEnvWithComments(auth: ProjectConfig["auth"]): EnvFileReturnType {
 
     return {
         envContent: envLines.join("\n"),
-        exEnvContent: exampleEnvLines.join("\n"),
         prodEnvContent: prodEnvLines.join("\n"),
     };
 }
@@ -73,16 +58,13 @@ function formatEnvWithComments(auth: ProjectConfig["auth"]): EnvFileReturnType {
 export async function setupEnv(config: ProjectConfig) {
     const { targetDir, auth, mode } = config;
 
-    const { envContent, exEnvContent, prodEnvContent } =
-        formatEnvWithComments(auth);
+    const { envContent, prodEnvContent } = formatEnvWithComments(auth);
     try {
         const envLocation = join(targetDir, ".env");
-        const exEnvLocation = join(targetDir, ".env.example");
         const prodEnvLocation = join(targetDir, ".env.production");
 
         const envs: GenerateFileArgs[] = [
             { fileLocation: envLocation, fileContent: envContent },
-            { fileLocation: exEnvLocation, fileContent: exEnvContent },
         ];
 
         if (mode === "production") {
