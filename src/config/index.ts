@@ -345,7 +345,7 @@ export function getDockerScripts(
         };
     }
 
-    if (config.database === "sqlite" && !config.cache) {
+    if (config.database === "sqlite" && config.cache !== "redis") {
         return {
             ...(config.databaseOrm === "drizzle" ? drizzleScripts : {}),
             ...(config.databaseOrm === "prisma" ? prismaScripts : {}),
