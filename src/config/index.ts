@@ -310,8 +310,29 @@ export const vitePlusScripts: ScriptConfig = {
     "check:fix": "vp check --fix",
 };
 
+export const drizzleScripts: ScriptConfig = {
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "db:migrate": "drizzle-kit migrate",
+    "db:generate": "drizzle-kit generate",
+};
+
+export const prismaScripts: ScriptConfig = {
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "db:format": "prisma format",
+    "db:dev": "prisma migrate dev",
+    "db:generate": "prisma generate",
+    "db:reset": "prisma migrate reset",
+    "db:deploy": "prisma migrate deploy",
+    "db:status": "prisma migrate status",
+};
+
 export function getDockerScripts(
-    config: Pick<ProjectConfig, "cache" | "mode" | "webServer" | "database">,
+    config: Pick<
+        ProjectConfig,
+        "cache" | "mode" | "webServer" | "database" | "databaseOrm"
+    >,
 ): ScriptConfig {
     if (config.database === "sqlite") return {};
 
@@ -322,6 +343,8 @@ export function getDockerScripts(
     if (config.webServer) productionServices.push(config.webServer);
 
     return {
+        ...(config.databaseOrm === "drizzle" ? drizzleScripts : {}),
+        ...(config.databaseOrm === "prisma" ? prismaScripts : {}),
         "db:up": `docker compose up -d ${services.join(" ")}`,
         "db:down": `docker compose down ${services.join(" ")}`,
         "db:prod:up": `docker compose up -d ${productionServices.join(" ")}`,
