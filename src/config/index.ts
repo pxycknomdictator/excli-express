@@ -334,7 +334,25 @@ export function getDockerScripts(
         "cache" | "mode" | "webServer" | "database" | "databaseOrm"
     >,
 ): ScriptConfig {
-    if (config.database === "sqlite") return {};
+    if (config.database === "sqlite" && config.cache === "redis") {
+        return {
+            ...(config.databaseOrm === "drizzle" ? drizzleScripts : {}),
+            ...(config.databaseOrm === "prisma" ? prismaScripts : {}),
+            "db:up": `docker compose up -d redis`,
+            "db:down": `docker compose down redis`,
+            "db:prod:up": `docker compose up -d redis ${config.webServer} server`,
+            "db:prod:down": `docker compose down redis ${config.webServer} server`,
+        };
+    }
+
+    if (config.database === "sqlite" && !config.cache) {
+        return {
+            ...(config.databaseOrm === "drizzle" ? drizzleScripts : {}),
+            ...(config.databaseOrm === "prisma" ? prismaScripts : {}),
+            "db:prod:up": `docker compose up -d ${config.webServer} server`,
+            "db:prod:down": `docker compose down ${config.webServer} server`,
+        };
+    }
 
     const services = ["database", "admin"];
     const productionServices = ["database", "admin", "server"];
