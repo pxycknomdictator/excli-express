@@ -24,11 +24,13 @@ function vitePlusConfig(language: ProjectConfig["language"]) {
     const entryFile = language === "ts" ? "src/main.ts" : "src/main.js";
 
     return `import { config as loadEnv } from "dotenv";
+import path from "node:path";
 loadEnv({ path: ".env" });
     
 import { defineConfig } from "vite-plus";
 
 const config = defineConfig({
+    resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
     test: {
         include: ["test/**/*.{test,spec}.{js,ts,mjs,mts,cjs,cts,jsx,tsx}"],
     },
