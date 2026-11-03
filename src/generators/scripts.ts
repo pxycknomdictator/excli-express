@@ -1,4 +1,5 @@
 import {
+    getBetterAuthScripts,
     getDockerScripts,
     jsScripts,
     tsScripts,
@@ -9,16 +10,26 @@ import type { ScriptConfig, ProjectConfig } from "../types";
 export function generateScripts(
     config: Pick<
         ProjectConfig,
-        "language" | "devTools" | "cache" | "mode" | "webServer"
+        | "language"
+        | "devTools"
+        | "cache"
+        | "mode"
+        | "webServer"
+        | "auth"
+        | "databaseOrm"
     >,
 ): ScriptConfig {
     const baseScripts = config.language === "ts" ? tsScripts : jsScripts;
-    const isDocker = config.devTools.includes("docker");
-    const isVitePlus = config.devTools.includes("vite_plus");
+    const hasDocker = config.devTools.includes("docker");
+    const hasVitePlus = config.devTools.includes("vite_plus");
+    const hasBetterAuth =
+        config.auth === "better-auth" &&
+        (config.databaseOrm === "drizzle" || config.databaseOrm === "prisma");
 
     return {
         ...baseScripts,
-        ...(isVitePlus ? vitePlusScripts : {}),
-        ...(isDocker ? getDockerScripts(config) : {}),
+        ...(hasVitePlus ? vitePlusScripts : {}),
+        ...(hasDocker ? getDockerScripts(config) : {}),
+        ...(hasBetterAuth ? getBetterAuthScripts(config) : {}),
     };
 }

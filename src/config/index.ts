@@ -328,6 +328,14 @@ export const prismaScripts: ScriptConfig = {
     "db:status": "prisma migrate status",
 };
 
+export function getBetterAuthScripts(
+    config: Pick<ProjectConfig, "language">,
+): ScriptConfig {
+    return {
+        "auth:generate": `auth generate --config src/lib/auth.${config.language} --output src/db/schemas.${config.language} --yes`,
+    };
+}
+
 export function getDockerScripts(
     config: Pick<
         ProjectConfig,
