@@ -1,117 +1,132 @@
-## @excli/express
+## Express Generator
 
-A CLI tool that scaffolds production-ready Express.js projects with TypeScript, Docker, database integration, ORM, testing, and Git hooks — all pre-configured.
+A CLI tool that scaffolds production-ready Express.js projects with TypeScript, Docker, database integration, ORM, and authentication, all pre-configured.
 
-### 🚀 Why @excli/express
+[![npm version](https://badge.fury.io/js/%40excli%2Fexpress.svg)](https://badge.fury.io/js/%40excli%2Fexpress)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+[![Node.js](https://img.shields.io/badge/Node.js-20+-green.svg)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 
-Most generators leave you to wire up TypeScript, Docker, databases, ORMs, and tooling by hand. `@excli/express` handles all of it upfront, so you can start building instead of configuring.
-
-### ⚡ Quick Start
-
-No installation required:
+## Quick Start
 
 ```bash
 npx @excli/express
 ```
 
-Or install globally for repeated use:
+Or install globally:
 
 ```bash
 npm install -g @excli/express
 excli
 ```
 
-#### Requirements
+### Requirements
 
 - Node.js 20 or higher
-- A package manager: npm, yarn, pnpm, or bun
-- Docker (optional — only needed for database features)
+- npm, yarn, pnpm, or bun
+- Docker (optional, only needed for database features)
 
-### 🧭 Interactive Setup
+## Interactive Setup
 
-The CLI walks you through a guided setup:
+The CLI walks you through these choices:
 
 1. Project name
-2. Language — TypeScript or JavaScript
-3. Project mode — Development or Production
-4. Dev tools — Git, Vite+, Docker, Logger
-5. Logger - Winston, Pino
-6. Database type — SQL or NoSQL
-7. Database — MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB
-8. ORM / ODM — Prisma, Drizzle, TypeORM, Sequelize, Mongoose, or native MongoDB driver
-9. Authentication (optional) — Better Auth or Clerk. Better Auth is available with Prisma, Drizzle, and native MongoDB driver
-10. Cache — optional Redis support
-11. Proxy — Nginx, Caddy, or Traefik
-12. Proxy mode — reverse proxy or load balancing
-13. Package manager — npm, yarn, pnpm, or bun
+2. Language: TypeScript or JavaScript
+3. Project mode: Development or Production
+4. Dev tools: Git, Vite+, Docker, Logger
+5. Logger: Winston or Pino
+6. Database type: SQL or NoSQL
+7. Database: MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB
+8. ORM / ODM: Prisma, Drizzle, TypeORM, Sequelize, Mongoose, or the native MongoDB driver
+9. Authentication (optional): Better Auth or Clerk
+10. Cache (optional): Redis
+11. Proxy: Nginx, Caddy, or Traefik
+12. Proxy mode: reverse proxy or load balancing
+13. Package manager: npm, yarn, pnpm, or bun
 
-### ▶️ Running Your Project
+## Running Your Project
 
 ```bash
 cd my-project
 npm run dev
 ```
 
-Visit `http://localhost:3000` — your Express server is live.
+Your server will be live at `http://localhost:3000`.
 
-### 📦 What's Included
+## Features
 
-#### 🗄️ Database Support
+### Databases
 
-Supported databases: MySQL, MariaDB, PostgreSQL, MongoDB, and SQLite. Each comes with a pre-configured admin panel (phpMyAdmin for MySQL/MariaDB, pgAdmin for PostgreSQL, Mongo Express for MongoDB) available at `http://localhost:6969` after running `pnpm run docker:up`. SQLite requires no admin panel. Admin panels may take a moment to initialize on first startup.
+MySQL, MariaDB, PostgreSQL, MongoDB, and SQLite are supported. Each has a pre-configured admin panel at `http://localhost:6969` after you run `npm run db:up`:
 
-#### 🔗 ORM / ODM Support
+| Database        | Admin Panel   |
+| --------------- | ------------- |
+| MySQL / MariaDB | phpMyAdmin    |
+| PostgreSQL      | pgAdmin       |
+| MongoDB         | Mongo Express |
+| SQLite          | None needed   |
 
-Prisma, Drizzle, TypeORM, and Sequelize are supported across PostgreSQL, MySQL, MariaDB, and SQLite, with full TypeScript and JavaScript support. Mongoose and native MongoDB drivers are supported for MongoDB only.
+Admin panels may take a moment to initialize on first startup.
 
-#### 🔐 Authentication
+### ORM / ODM
 
-Built-in support for two authentication options:
+| Tool                                | Databases                          |
+| ----------------------------------- | ---------------------------------- |
+| Prisma, Drizzle, TypeORM, Sequelize | PostgreSQL, MySQL, MariaDB, SQLite |
+| Mongoose, native MongoDB driver     | MongoDB only                       |
 
-- **[Better Auth](https://www.better-auth.com/)** — a modern, framework-agnostic authentication library. Currently supported with Prisma, Drizzle, and native MongoDB driver adapters. Prisma with MongoDB may have occasional compatibility issues due to limited upstream support, but generally works.
-- **[Clerk](https://clerk.com/)** — a drop-in authentication solution with minimal setup, works independently of your chosen ORM.
+### Authentication
 
-#### 🐳 Docker Setup
+- **[Better Auth](https://www.better-auth.com/)**: available with Prisma, Drizzle, and the native MongoDB driver. Prisma with MongoDB may have occasional compatibility issues due to limited upstream support.
+- **[Clerk](https://clerk.com/)**: works independently of your chosen ORM.
 
-Production mode includes a complete Docker configuration:
+### Docker
 
-- Dockerfile — production-optimized container build
-- compose.yaml — multi-service orchestration with correct volume paths
-- Separate `.env` files for development and production
+Production mode generates:
 
-#### 🌐 Reverse Proxy Setup
+- `Dockerfile`: production-optimized build
+- `compose.yaml`: multi-service setup
+- `.env`: development environment variables
+- `.env.production`: production environment variables (created in production mode)
 
-Choose between Nginx, Caddy, or Traefik. All three support reverse proxying and load balancing. Caddy and Traefik provide automatic HTTPS; Nginx requires manual TLS configuration. Nginx suits full control and high-traffic setups, while Caddy and Traefik prioritize simplicity and automatic SSL.
+### Reverse Proxy
 
-### 🛠️ Common Commands
+Nginx, Caddy, and Traefik all support reverse proxying and load balancing. Caddy and Traefik provide automatic HTTPS, while Nginx requires manual TLS configuration but gives you more control.
+
+## Commands
 
 ```bash
-npm run dev          # Start development server
-npm run format       # Format code with vite+
-npm run build        # Compile TypeScript (TS projects only)
-npm run docker:up    # Start Docker services
-npm run docker:down  # Stop all Docker services
+npm run dev           # Start development server
+npm run format        # Format code with Vite+
+npm run build         # Compile TypeScript (TS projects only)
+npm run db:up         # Start database services (development)
+npm run db:down       # Stop database services (development)
+npm run db:prod:up    # Start database services (production)
+npm run db:prod:down  # Stop database services (production)
 ```
 
-### 🩹 Troubleshooting
+Use the equivalent command for your chosen package manager.
 
-**Port already in use?** Update the ports in your `.env` file to resolve the conflict.
+## Troubleshooting
 
-**Docker not starting?** Make sure Docker Desktop is running before executing `pnpm run docker:up`.
+**Port already in use?**
+Change the ports in your `.env` file.
 
-**Proxy not routing traffic?** Make sure your `compose.yaml` includes the proxy service and that no other process is bound to port 80.
+**Docker not starting?**
+Make sure Docker Desktop is running before `npm run db:up`.
 
-### 🤝 Contributing
+**Proxy not routing traffic?**
+Check that `compose.yaml` includes the proxy service and that nothing else is bound to port 80.
+
+## Contributing
 
 Contributions are welcome. Please read the [Contributing Guide](CONTRIBUTING.md) before opening a pull request.
 
-### 📄 License
+## License
 
-ISC License — see the [LICENSE](LICENSE) file for details.
+ISC. See the [LICENSE](LICENSE) file for details.
 
-### ✍️ Author
+## Author
 
 **Noman**
-
-- Email: [pxycknomdictator@gmail.com](mailto:pxycknomdictator@gmail.com)
-- GitHub: [@pxycknomdictator](https://github.com/pxycknomdictator)
+[pxycknomdictator@gmail.com](mailto:pxycknomdictator@gmail.com) | [@pxycknomdictator](https://github.com/pxycknomdictator)
