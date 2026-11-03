@@ -84,7 +84,8 @@ export async function prepareProjectConfig(
     userInputs: Awaited<ReturnType<typeof getUserInputs>>,
     underScoreDirname: string,
 ) {
-    const { language, pkgManager, targetDir, mode, auth } = userInputs;
+    const { language, pkgManager, targetDir, mode, auth, databaseOrm } =
+        userInputs;
 
     const dirName = basename(targetDir) || "container_app";
 
@@ -96,7 +97,13 @@ export async function prepareProjectConfig(
     validateTemplate(templatePath);
 
     if (mode === "production") {
-        await copyDynamicFile(templatePath, targetDir, language, auth!);
+        await copyDynamicFile(
+            templatePath,
+            targetDir,
+            language,
+            auth!,
+            databaseOrm,
+        );
     } else {
         await copy({ targetDir, templatePath });
     }
@@ -138,6 +145,7 @@ async function copyDynamicFile(
     targetDir: string,
     language: Language,
     auth: Auth,
+    databaseOrm: ProjectConfig["databaseOrm"],
 ) {
     const templateSrcPath = join(templatePath, "src");
     const targetSrcPath = join(targetDir, "src");
@@ -149,7 +157,9 @@ async function copyDynamicFile(
             return (
                 !normalizedSrc.endsWith(`src/app.normal.${language}`) &&
                 !normalizedSrc.endsWith(`src/app.better.auth.${language}`) &&
-                !normalizedSrc.endsWith(`src/app.clerk.${language}`)
+                !normalizedSrc.endsWith(`src/app.clerk.${language}`) &&
+                !normalizedSrc.endsWith(`src/main.${language}`) &&
+                !normalizedSrc.endsWith(`src/main.db.${language}`)
             );
         },
     });
@@ -168,6 +178,20 @@ async function copyDynamicFile(
         await copyFile(
             join(templateSrcPath, `app.normal.${language}`),
             join(targetSrcPath, `app.${language}`),
+        );
+    }
+
+    const databaseOrms = ["typeorm", "sequelize", "mongoose", "native_driver"];
+
+    if (databaseOrms.includes(databaseOrm ?? "")) {
+        await copyFile(
+            join(templateSrcPath, `main.db.${language}`),
+            join(targetSrcPath, `main.${language}`),
+        );
+    } else {
+        await copyFile(
+            join(templateSrcPath, `main.${language}`),
+            join(targetSrcPath, `main.${language}`),
         );
     }
 }
