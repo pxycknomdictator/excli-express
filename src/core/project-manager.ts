@@ -65,7 +65,9 @@ export async function createProject(config: ProjectConfig) {
             );
         }
 
-        await fireShell("npx prettier --write . --tab-width 4", targetDir);
+        if (config.devTools.includes("vite_plus")) {
+            await fireShell(`${config.pkgManager} run format`, targetDir);
+        }
 
         s.stop(`Successfully created project \x1b[32m${dirName}\x1b[0m`);
         log.success(`Scaffolding project in ${targetDir}...`);
