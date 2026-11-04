@@ -41,6 +41,7 @@ const config = defineConfig({
         ],
         rules: { "vite-plus/prefer-vite-plus-imports": "error" },
         options: { typeAware: true, typeCheck: true },
+        ignorePatterns: ["dist/**", "node_modules/**", "test/**"]
     },
     run: { cache: true },
     build: {

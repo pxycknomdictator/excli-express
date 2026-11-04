@@ -292,6 +292,7 @@ export const jsScripts: ScriptConfig = {
 
 export const vitePlusScripts: ScriptConfig = {
     test: "vp test",
+    lint: "vp lint",
     check: "vp check",
     format: "vp fmt",
     "check:fix": "vp check --fix",
