@@ -37,7 +37,7 @@ The CLI walks you through these choices:
 5. Logger: Winston or Pino
 6. Database type: SQL or NoSQL
 7. Database: MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB
-8. ORM / ODM: Prisma, Drizzle, TypeORM, Sequelize, Mongoose, or the native MongoDB driver
+8. ORM / ODM: Drizzle, TypeORM, Sequelize, Mongoose, or the native MongoDB driver
 9. Authentication (optional): Better Auth or Clerk
 10. Cache (optional): Redis
 11. Proxy: Nginx, Caddy, or Traefik
@@ -70,14 +70,14 @@ Admin panels may take a moment to initialize on first startup.
 
 ### ORM / ODM
 
-| Tool                                | Databases                          |
-| ----------------------------------- | ---------------------------------- |
-| Prisma, Drizzle, TypeORM, Sequelize | PostgreSQL, MySQL, MariaDB, SQLite |
-| Mongoose, native MongoDB driver     | MongoDB only                       |
+| Tool                            | Databases                          |
+| ------------------------------- | ---------------------------------- |
+| Drizzle, TypeORM, Sequelize     | PostgreSQL, MySQL, MariaDB, SQLite |
+| Mongoose, native MongoDB driver | MongoDB only                       |
 
 ### Authentication
 
-- **[Better Auth](https://www.better-auth.com/)**: available with Prisma, Drizzle, and the native MongoDB driver. Prisma with MongoDB may have occasional compatibility issues due to limited upstream support.
+- **[Better Auth](https://www.better-auth.com/)**: available with Drizzle and the native MongoDB driver.
 - **[Clerk](https://clerk.com/)**: works independently of your chosen ORM.
 
 ### Docker

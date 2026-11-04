@@ -195,19 +195,19 @@ pnpm run start
 
 The CLI prompts are sequential and conditional. Some prompts only appear based on previous answers:
 
-| Step | Prompt       | Options                                       | Condition                   |
-| ---- | ------------ | --------------------------------------------- | --------------------------- |
-| 1    | Project Name | _(any name)_                                  | Always shown                |
-| 2    | Language     | TypeScript, JavaScript                        | Always shown                |
-| 3    | Mode         | Development, Production                       | Always shown                |
-| 4    | Docker       | Yes, No                                       | Only in **Production** mode |
-| 5    | Database     | MySQL, MariaDB, PostgreSQL, MongoDB           | Only if **Docker = Yes**    |
-| 6    | Redis        | Yes, No                                       | Only if **Docker = Yes**    |
-| 7    | ORM          | Prisma, Drizzle, TypeORM, Mongoose, Sequelize | Only if **Docker = Yes**    |
+| Step | Prompt       | Options                               | Condition                   |
+| ---- | ------------ | ------------------------------------- | --------------------------- |
+| 1    | Project Name | _(any name)_                          | Always shown                |
+| 2    | Language     | TypeScript, JavaScript                | Always shown                |
+| 3    | Mode         | Development, Production               | Always shown                |
+| 4    | Docker       | Yes, No                               | Only in **Production** mode |
+| 5    | Database     | MySQL, MariaDB, PostgreSQL, MongoDB   | Only if **Docker = Yes**    |
+| 6    | Redis        | Yes, No                               | Only if **Docker = Yes**    |
+| 7    | ORM          | Drizzle, TypeORM, Mongoose, Sequelize | Only if **Docker = Yes**    |
 
 > **Database, Redis, and ORM prompts only appear when Docker is selected in Production mode.** You must reach step 4 and choose Yes to see them.
 >
-> **ORM compatibility note:** Mongoose is intended for MongoDB. Prisma, Drizzle, TypeORM, and Sequelize work with MySQL, MariaDB, and PostgreSQL. When testing, make sure the selected ORM matches the selected database.
+> **ORM compatibility note:** Mongoose is intended for MongoDB. Drizzle, TypeORM, and Sequelize work with MySQL, MariaDB, and PostgreSQL. When testing, make sure the selected ORM matches the selected database.
 
 ### Minimum test matrix
 
@@ -215,7 +215,7 @@ The CLI prompts are sequential and conditional. Some prompts only appear based o
 | ---------- | ----------- | ------ | ---------- | --------- | ------------------------------------------------- |
 | TypeScript | Development | No     | —          | —         | Basic TS scaffold generates correctly             |
 | JavaScript | Development | No     | —          | —         | Basic JS scaffold generates correctly             |
-| TypeScript | Production  | Yes    | PostgreSQL | Prisma    | TS + Dockerfile + pgAdmin + Prisma config         |
+| TypeScript | Production  | Yes    | PostgreSQL | Drizzle   | TS + Dockerfile + pgAdmin + Drizzle config        |
 | TypeScript | Production  | Yes    | PostgreSQL | Drizzle   | TS + Dockerfile + pgAdmin + Drizzle config        |
 | TypeScript | Production  | Yes    | PostgreSQL | TypeORM   | TS + Dockerfile + pgAdmin + TypeORM config        |
 | JavaScript | Production  | Yes    | MongoDB    | Mongoose  | JS + Dockerfile + Mongo Express + Mongoose config |

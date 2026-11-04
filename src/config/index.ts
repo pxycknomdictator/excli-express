@@ -149,12 +149,6 @@ export const no_sql_database: INTERACTIVE_PROMPTS[] = [
 
 export const sql_orms: INTERACTIVE_PROMPTS[] = [
     {
-        label: "Prisma",
-        emoji: "📐",
-        value: "prisma",
-        hint: "Type-safe and intuitive",
-    },
-    {
         label: "Drizzle",
         emoji: "⚡",
         value: "drizzle",
@@ -175,12 +169,6 @@ export const sql_orms: INTERACTIVE_PROMPTS[] = [
 ];
 
 export const no_sql_orms: INTERACTIVE_PROMPTS[] = [
-    {
-        label: "Prisma",
-        emoji: "📐",
-        value: "prisma",
-        hint: "Type-safe and intuitive",
-    },
     {
         label: "TypeORM",
         emoji: "🏗️",
@@ -206,7 +194,7 @@ export const authLibraries: INTERACTIVE_PROMPTS[] = [
         label: "Better Auth",
         emoji: "🔒",
         value: "better-auth",
-        hint: "Drizzle, Prisma, Mongo native only",
+        hint: "Drizzle, Mongo native only",
     },
     {
         label: "Clerk",
@@ -317,17 +305,6 @@ export const drizzleScripts: ScriptConfig = {
     "db:generate": "drizzle-kit generate",
 };
 
-export const prismaScripts: ScriptConfig = {
-    "db:push": "prisma db push",
-    "db:studio": "prisma studio",
-    "db:format": "prisma format",
-    "db:dev": "prisma migrate dev",
-    "db:generate": "prisma generate",
-    "db:reset": "prisma migrate reset",
-    "db:deploy": "prisma migrate deploy",
-    "db:status": "prisma migrate status",
-};
-
 export function getBetterAuthScripts(
     config: Pick<ProjectConfig, "language">,
 ): ScriptConfig {
@@ -345,7 +322,6 @@ export function getDockerScripts(
     if (config.database === "sqlite" && config.cache === "redis") {
         return {
             ...(config.databaseOrm === "drizzle" ? drizzleScripts : {}),
-            ...(config.databaseOrm === "prisma" ? prismaScripts : {}),
             "db:up": `docker compose up -d redis`,
             "db:down": `docker compose down redis`,
             "db:prod:up": `docker compose up -d redis ${config.webServer} server`,
@@ -356,7 +332,6 @@ export function getDockerScripts(
     if (config.database === "sqlite" && config.cache !== "redis") {
         return {
             ...(config.databaseOrm === "drizzle" ? drizzleScripts : {}),
-            ...(config.databaseOrm === "prisma" ? prismaScripts : {}),
             "db:prod:up": `docker compose up -d ${config.webServer} server`,
             "db:prod:down": `docker compose down ${config.webServer} server`,
         };
@@ -370,7 +345,6 @@ export function getDockerScripts(
 
     return {
         ...(config.databaseOrm === "drizzle" ? drizzleScripts : {}),
-        ...(config.databaseOrm === "prisma" ? prismaScripts : {}),
         "db:up": `docker compose up -d ${services.join(" ")}`,
         "db:down": `docker compose down ${services.join(" ")}`,
         "db:prod:up": `docker compose up -d ${productionServices.join(" ")}`,
@@ -379,4 +353,4 @@ export function getDockerScripts(
 }
 
 export const BANNER_FONT = "Standard";
-export const betterAuthAdapterSupport = ["drizzle", "prisma", "native_driver"];
+export const betterAuthAdapterSupport = ["drizzle", "native_driver"];

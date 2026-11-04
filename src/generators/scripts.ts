@@ -23,8 +23,7 @@ export function generateScripts(
     const hasDocker = config.devTools.includes("docker");
     const hasVitePlus = config.devTools.includes("vite_plus");
     const hasBetterAuth =
-        config.auth === "better-auth" &&
-        (config.databaseOrm === "drizzle" || config.databaseOrm === "prisma");
+        config.auth === "better-auth" && config.databaseOrm === "drizzle";
 
     return {
         ...baseScripts,

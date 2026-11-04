@@ -59,7 +59,7 @@ export function getAuthLibraryOptions(
             emoji: "🔒",
             value: "better-auth",
             disabled: !betterAuthAdapterSupport.includes(databaseOrm ?? ""),
-            hint: "Drizzle, Prisma, Mongo native only",
+            hint: "Drizzle, Mongo native only",
         },
         {
             label: "Clerk",

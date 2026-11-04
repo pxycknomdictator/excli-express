@@ -10,7 +10,7 @@ export function showCompletionMessage(config: ProjectConfig) {
         commands.push(`cd ${directory}`);
     }
 
-    if (databaseOrm === "drizzle" || databaseOrm === "prisma") {
+    if (databaseOrm === "drizzle") {
         if (database !== "sqlite") {
             commands.push(`${pkgManager} run db:up`);
         }
@@ -36,12 +36,6 @@ export function showCompletionMessage(config: ProjectConfig) {
     if (databaseOrm === "drizzle") {
         addonSteps.push(
             `drizzle:\n  - Run ${pkgManager} run db:up to start the docker container\n  - Run ${pkgManager} run db:push to update your database schema`,
-        );
-    }
-
-    if (databaseOrm === "prisma") {
-        addonSteps.push(
-            `prisma:\n  - Run ${pkgManager} run db:generate to generate the Prisma client\n  - Run ${pkgManager} run db:push to update your database schema`,
         );
     }
 
