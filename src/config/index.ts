@@ -5,7 +5,6 @@ import type {
 } from "../types";
 
 export const tsconfigJson = "tsconfig.json";
-export const pnpmWorkSpaceYaml = "pnpm-workspace.yaml";
 
 export const languages: INTERACTIVE_PROMPTS[] = [
     {
@@ -263,7 +262,7 @@ export const TS_DEV_PACKAGES = [
 
 export const installCmdMap: Record<string, string> = {
     npm: "install",
-    pnpm: "add",
+    pnpm: "add --ignore-workspace --config.dangerously-allow-all-builds=true",
     yarn: "add",
     bun: "add",
 };
