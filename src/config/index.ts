@@ -315,15 +315,23 @@ export function getBetterAuthScripts(
 export function getDockerScripts(
     config: Pick<
         ProjectConfig,
-        "cache" | "mode" | "webServer" | "database" | "databaseOrm"
+        | "cache"
+        | "mode"
+        | "webServer"
+        | "webServerMode"
+        | "database"
+        | "databaseOrm"
     >,
 ): ScriptConfig {
+    const productionScale =
+        config.webServerMode === "load_balancing" ? "--scale server=4 " : "";
+
     if (config.database === "sqlite" && config.cache === "redis") {
         return {
             ...(config.databaseOrm === "drizzle" ? drizzleScripts : {}),
             "db:up": `docker compose up -d redis`,
             "db:down": `docker compose down redis`,
-            "db:prod:up": `docker compose up -d redis ${config.webServer} server`,
+            "db:prod:up": `docker compose up -d ${productionScale}redis ${config.webServer} server`,
             "db:prod:down": `docker compose down redis ${config.webServer} server`,
         };
     }
@@ -331,7 +339,7 @@ export function getDockerScripts(
     if (config.database === "sqlite" && config.cache !== "redis") {
         return {
             ...(config.databaseOrm === "drizzle" ? drizzleScripts : {}),
-            "db:prod:up": `docker compose up -d ${config.webServer} server`,
+            "db:prod:up": `docker compose up -d ${productionScale}${config.webServer} server`,
             "db:prod:down": `docker compose down ${config.webServer} server`,
         };
     }
@@ -346,7 +354,7 @@ export function getDockerScripts(
         ...(config.databaseOrm === "drizzle" ? drizzleScripts : {}),
         "db:up": `docker compose up -d ${services.join(" ")}`,
         "db:down": `docker compose down ${services.join(" ")}`,
-        "db:prod:up": `docker compose up -d ${productionServices.join(" ")}`,
+        "db:prod:up": `docker compose up -d ${productionScale}${productionServices.join(" ")}`,
         "db:prod:down": `docker compose down ${productionServices.join(" ")}`,
     };
 }
