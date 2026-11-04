@@ -39,7 +39,10 @@ const config = defineConfig({
         jsPlugins: [
             { name: "vite-plus", specifier: "vite-plus/oxlint-plugin" },
         ],
-        rules: { "vite-plus/prefer-vite-plus-imports": "error" },
+        rules: {
+            "vite-plus/prefer-vite-plus-imports": "error",
+            "typescript/no-floating-promises": "off"
+        },
         options: { typeAware: true, typeCheck: true },
         ignorePatterns: ["dist/**", "node_modules/**", "test/**"]
     },

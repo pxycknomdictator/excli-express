@@ -17,7 +17,7 @@ export const logger = winston.createLogger({
             const metaString = Object.keys(meta).length
                 ? \` \${JSON.stringify(meta)}\`
                 : "";
-            return \`\${timestamp} [\${level}]: \${message}\${metaString}\`;
+            return \`\${String(timestamp)} [\${String(level)}]: \${String(message)}\${metaString}\`;
         }),
     ),
     transports: [new winston.transports.Console()],
