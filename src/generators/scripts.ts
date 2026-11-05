@@ -1,6 +1,7 @@
 import {
     getBetterAuthScripts,
     getDockerScripts,
+    getKyselyScripts,
     jsScripts,
     tsScripts,
     vitePlusScripts,
@@ -24,11 +25,13 @@ export function generateScripts(
     const hasVitePlus = config.devTools.includes("vite_plus");
     const hasBetterAuth =
         config.auth === "better-auth" && config.databaseOrm === "drizzle";
+    const hasKysely = config.databaseOrm === "kysely";
 
     return {
         ...baseScripts,
         ...(hasVitePlus ? vitePlusScripts : {}),
         ...(hasDocker ? getDockerScripts(config) : {}),
+        ...(hasKysely ? getKyselyScripts(config.language) : {}),
         ...(hasBetterAuth ? getBetterAuthScripts(config) : {}),
     };
 }

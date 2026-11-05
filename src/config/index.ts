@@ -1,6 +1,7 @@
 import type {
     ScriptConfig,
     INTERACTIVE_PROMPTS,
+    Language,
     ProjectConfig,
 } from "../types";
 
@@ -328,6 +329,15 @@ export const drizzleScripts: ScriptConfig = {
     "db:migrate": "drizzle-kit migrate",
     "db:generate": "drizzle-kit generate",
 };
+
+export function getKyselyScripts(language: Language): ScriptConfig {
+    const migrationPath =
+        language === "ts" ? "dist/db/migrate.js" : "src/db/migrate.js";
+
+    return {
+        "db:migrate": `node --env-file=.env ${migrationPath}`,
+    };
+}
 
 export function getBetterAuthScripts(
     config: Pick<ProjectConfig, "language">,
