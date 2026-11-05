@@ -2,7 +2,8 @@ import { note, outro } from "@clack/prompts";
 import type { ProjectConfig } from "../types";
 
 export function showCompletionMessage(config: ProjectConfig) {
-    const { pkgManager, directory, language, database, databaseOrm } = config;
+    const { pkgManager, directory, language, database, databaseOrm, auth } =
+        config;
 
     const commands: string[] = [];
 
@@ -39,9 +40,15 @@ export function showCompletionMessage(config: ProjectConfig) {
         );
     }
 
-    if (database) {
+    if (auth === "better-auth") {
         addonSteps.push(
             `better-auth:\n  - Run ${pkgManager} run auth:schema to generate the auth schema\n  - Run ${pkgManager} run db:push to update your database\n  - Check ORIGIN & BETTER_AUTH_SECRET in .env and adjust it to your needs\n  - Visit /demo/better-auth route to view the demo`,
+        );
+    }
+
+    if (auth === "clerk") {
+        addonSteps.push(
+            `clerk:\n  - Set CLERK_PUBLISHABLE_KEY and CLERK_SECRET_KEY in .env\n  - Protect routes with the generated auth middleware`,
         );
     }
 
