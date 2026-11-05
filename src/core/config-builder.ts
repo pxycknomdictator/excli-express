@@ -7,7 +7,8 @@ import {
     promptAuthLibraries,
     promptCache,
     promptDatabase,
-    promptDatabaseOrm,
+    promptDatabaseLibrary,
+    promptDatabaseLibraryCategory,
     promptDatabaseType,
     promptDevTools,
     promptDirectory,
@@ -51,7 +52,14 @@ export async function getUserInputs() {
         if (devTools.includes("docker")) {
             databaseType = await promptDatabaseType();
             database = await promptDatabase(databaseType!);
-            databaseOrm = await promptDatabaseOrm(databaseType!);
+            const libraryCategory =
+                databaseType === "sql"
+                    ? await promptDatabaseLibraryCategory()
+                    : "orm";
+            databaseOrm = await promptDatabaseLibrary(
+                databaseType!,
+                libraryCategory,
+            );
             auth = await promptAuthLibraries(databaseOrm!);
             cache = await promptCache();
             webServer = await promptWebServer();

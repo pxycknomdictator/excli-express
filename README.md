@@ -37,12 +37,13 @@ The CLI walks you through these choices:
 5. Logger: Winston or Pino
 6. Database type: SQL or NoSQL
 7. Database: MySQL, MariaDB, SQLite, PostgreSQL, or MongoDB
-8. ORM / ODM: Drizzle, TypeORM, Sequelize, Mongoose, or the native MongoDB driver
-9. Authentication (optional): Better Auth or Clerk
-10. Cache (optional): Redis
-11. Proxy: Nginx, Caddy, or Traefik
-12. Proxy mode: reverse proxy or load balancing
-13. Package manager: npm, yarn, pnpm, or bun
+8. Database library category: ORM / ODM or Query Builder
+9. ORM / ODM or Query Builder: Drizzle, TypeORM, Sequelize, Kysely, Mongoose, or the native MongoDB driver
+10. Authentication (optional): Better Auth or Clerk
+11. Cache (optional): Redis
+12. Proxy: Nginx, Caddy, or Traefik
+13. Proxy mode: reverse proxy or load balancing
+14. Package manager: npm, yarn, pnpm, or bun
 
 ## Running Your Project
 
@@ -74,6 +75,12 @@ Admin panels may take a moment to initialize on first startup.
 | ------------------------------- | ---------------------------------- |
 | Drizzle, TypeORM, Sequelize     | PostgreSQL, MySQL, MariaDB, SQLite |
 | Mongoose, native MongoDB driver | MongoDB only                       |
+
+### Query Builder
+
+| Tool   | Databases                          |
+| ------ | ---------------------------------- |
+| Kysely | PostgreSQL, MySQL, MariaDB, SQLite |
 
 ### Authentication
 

@@ -10,6 +10,9 @@ export type Database = "mysql" | "mariadb" | "sqlite" | "postgres" | "mongodb";
 export type DATABASE_TYPE = "sql" | "no_sql";
 export type SQL_DATABASE = "mysql" | "mariadb" | "postgres" | "sqlite";
 export type SQL_ORMS = "drizzle" | "typeorm" | "sequelize";
+export type DATABASE_LIBRARY_CATEGORY = "orm" | "query_builder";
+export type SQL_QUERY_BUILDERS = "kysely";
+export type SQL_LIBRARIES = SQL_ORMS | SQL_QUERY_BUILDERS;
 export type NO_SQL_DATABASE = "mongodb";
 export type NO_SQL_ORMS = "typeorm" | "mongoose" | "native_driver";
 
@@ -35,7 +38,7 @@ export type ProjectConfig = {
     databaseType?: DATABASE_TYPE;
     logger?: Logger;
     database?: Database;
-    databaseOrm?: SQL_ORMS | NO_SQL_ORMS;
+    databaseOrm?: SQL_LIBRARIES | NO_SQL_ORMS;
     auth?: Auth;
     webServer?: WEB_SERVER;
     webServerMode?: WEB_SERVER_MODE;

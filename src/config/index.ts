@@ -146,6 +146,21 @@ export const no_sql_database: INTERACTIVE_PROMPTS[] = [
     },
 ];
 
+export const sql_library_categories: INTERACTIVE_PROMPTS[] = [
+    {
+        label: "ORM / ODM",
+        emoji: "🏗️",
+        value: "orm",
+        hint: "Object-relational or document mapping",
+    },
+    {
+        label: "Query Builder",
+        emoji: "🧱",
+        value: "query_builder",
+        hint: "Type-safe SQL queries",
+    },
+];
+
 export const sql_orms: INTERACTIVE_PROMPTS[] = [
     {
         label: "Drizzle",
@@ -164,6 +179,15 @@ export const sql_orms: INTERACTIVE_PROMPTS[] = [
         emoji: "🐚",
         value: "sequelize",
         hint: "Battle-tested for Node.js",
+    },
+];
+
+export const sql_query_builders: INTERACTIVE_PROMPTS[] = [
+    {
+        label: "Kysely",
+        emoji: "🧩",
+        value: "kysely",
+        hint: "Type-safe SQL query builder",
     },
 ];
 
