@@ -11,15 +11,6 @@ export function showCompletionMessage(config: ProjectConfig) {
         commands.push(`cd ${directory}`);
     }
 
-    if (databaseOrm === "drizzle") {
-        if (database !== "sqlite") {
-            commands.push(`${pkgManager} run db:up`);
-        }
-
-        commands.push(`${pkgManager} run db:generate`);
-        commands.push(`${pkgManager} run db:push`);
-    }
-
     if (language === "ts") {
         commands.push(`${pkgManager} run build`);
     }
@@ -35,9 +26,20 @@ export function showCompletionMessage(config: ProjectConfig) {
     const addonSteps: string[] = [];
 
     if (databaseOrm === "drizzle") {
-        addonSteps.push(
-            `drizzle:\n  - Run ${pkgManager} run db:up to start the docker container\n  - Run ${pkgManager} run db:push to update your database schema`,
+        const drizzleSteps = [];
+
+        if (database !== "sqlite") {
+            drizzleSteps.push(
+                `  - Run ${pkgManager} run db:up to start the docker container`,
+            );
+        }
+
+        drizzleSteps.push(
+            `  - Run ${pkgManager} run db:generate to generate migrations`,
+            `  - Run ${pkgManager} run db:push to update your database schema`,
         );
+
+        addonSteps.push(`drizzle:\n${drizzleSteps.join("\n")}`);
     }
 
     if (auth === "better-auth") {
