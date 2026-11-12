@@ -12,41 +12,41 @@ function formatEnvWithComments(auth: ProjectConfig["auth"]): EnvFileReturnType {
     const prodEnvLines: string[] = [];
 
     envLines.push("# Application Configuration");
-    envLines.push(`NODE_ENV=${envConfig.NODE_ENV}`);
-    envLines.push(`PORT=${envConfig.PORT}`);
-    envLines.push(`CLIENT_ORIGIN=${envConfig.CLIENT_ORIGIN}\n`);
+    envLines.push(`NODE_ENV="${envConfig.NODE_ENV}"`);
+    envLines.push(`PORT="${envConfig.PORT}"`);
+    envLines.push(`CLIENT_ORIGIN="${envConfig.CLIENT_ORIGIN}"\n`);
 
     prodEnvLines.push("# Application Configuration");
     prodEnvLines.push(
-        `NODE_ENV=${envConfig.NODE_ENV.replace("development", "production")}`,
+        `NODE_ENV="${envConfig.NODE_ENV.replace("development", "production")}"`,
     );
-    prodEnvLines.push(`PORT=${envConfig.PORT}`);
-    prodEnvLines.push(`CLIENT_ORIGIN=${envConfig.CLIENT_ORIGIN}\n`);
+    prodEnvLines.push(`PORT="${envConfig.PORT}"`);
+    prodEnvLines.push(`CLIENT_ORIGIN="${envConfig.CLIENT_ORIGIN}"\n`);
 
     if (auth === "better-auth") {
         envLines.push("# Better Auth");
-        envLines.push(`BETTER_AUTH_URL=${envConfig.BETTER_AUTH_URL}`);
-        envLines.push(`BETTER_AUTH_SECRET=${envConfig.BETTER_AUTH_SECRET}\n`);
+        envLines.push(`BETTER_AUTH_URL="${envConfig.BETTER_AUTH_URL}"`);
+        envLines.push(`BETTER_AUTH_SECRET="${envConfig.BETTER_AUTH_SECRET}"\n`);
 
         prodEnvLines.push("# Better Auth");
-        prodEnvLines.push(`BETTER_AUTH_URL=${envConfig.BETTER_AUTH_URL}`);
+        prodEnvLines.push(`BETTER_AUTH_URL="${envConfig.BETTER_AUTH_URL}"`);
         prodEnvLines.push(
-            `BETTER_AUTH_SECRET=${envConfig.BETTER_AUTH_SECRET}\n`,
+            `BETTER_AUTH_SECRET="${envConfig.BETTER_AUTH_SECRET}"\n`,
         );
     }
 
     if (auth === "clerk") {
         envLines.push("# Clerk");
         envLines.push(
-            `CLERK_PUBLISHABLE_KEY=${envConfig.CLERK_PUBLISHABLE_KEY}`,
+            `CLERK_PUBLISHABLE_KEY="${envConfig.CLERK_PUBLISHABLE_KEY}"`,
         );
-        envLines.push(`CLERK_SECRET_KEY=${envConfig.CLERK_SECRET_KEY}\n`);
+        envLines.push(`CLERK_SECRET_KEY="${envConfig.CLERK_SECRET_KEY}"\n`);
 
         prodEnvLines.push("# Clerk");
         prodEnvLines.push(
-            `CLERK_PUBLISHABLE_KEY=${envConfig.CLERK_PUBLISHABLE_KEY}`,
+            `CLERK_PUBLISHABLE_KEY="${envConfig.CLERK_PUBLISHABLE_KEY}"`,
         );
-        prodEnvLines.push(`CLERK_SECRET_KEY=${envConfig.CLERK_SECRET_KEY}\n`);
+        prodEnvLines.push(`CLERK_SECRET_KEY="${envConfig.CLERK_SECRET_KEY}"\n`);
     }
 
     return {
