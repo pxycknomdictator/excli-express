@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import type {
     ScriptConfig,
     INTERACTIVE_PROMPTS,
@@ -297,7 +298,7 @@ export const envConfig = {
     PORT: "3000",
     CLIENT_ORIGIN: "http://localhost:5173",
     BETTER_AUTH_URL: "http://localhost:3000",
-    BETTER_AUTH_SECRET: "D6XJhKQQAYOc4StRfLV0qibGhN3WMEiP",
+    BETTER_AUTH_SECRET: crypto.randomBytes(32).toString("base64"),
     CLERK_PUBLISHABLE_KEY: "<clerk-publishable-key>",
     CLERK_SECRET_KEY: "<clerk-secret-key>",
 };
